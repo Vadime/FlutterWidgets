@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class FutterSocialButtonWidget {
+class FooterSocialButtonWidget {
   final String text;
   final Function()? onPressed;
   final Widget icon;
 
-  const FutterSocialButtonWidget({
+  const FooterSocialButtonWidget({
     required this.text,
     required this.onPressed,
     required this.icon,
@@ -21,7 +21,7 @@ class FooterButtonWidget {
 
 class FooterWidget extends StatelessWidget {
   final List<FooterButtonWidget> buttons;
-  final List<FutterSocialButtonWidget> socials;
+  final List<FooterSocialButtonWidget> socials;
   final double padding;
   final String commercialText;
 
