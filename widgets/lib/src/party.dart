@@ -1,3 +1,5 @@
+library widgets;
+
 import 'dart:math';
 
 import 'package:confetti/confetti.dart';

@@ -1,3 +1,5 @@
+library widgets;
+
 import 'package:flutter/material.dart';
 
 class FooterSocialButtonWidget {
