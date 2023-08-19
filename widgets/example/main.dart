@@ -67,7 +67,6 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
-  TextEditingController c = TextEditingController();
   CheckboxController cc = CheckboxController(false);
 
   @override
@@ -78,17 +77,11 @@ class _AppState extends State<App> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           TextFieldWidget(
-            "Email",
-            controller: c,
-            errorRegex: RegExp(r"^.{6,}$"),
-            errorText: "mindestens 6 Zeichen",
+            TextFieldController.email(),
             margin: const EdgeInsets.all(20),
           ),
           TextFieldWidget(
-            "Password",
-            controller: c,
-            errorRegex: RegExp(r"^.{6,}$"),
-            errorText: "mindestens 6 Zeichen",
+            TextFieldController.password(),
             margin: const EdgeInsets.all(20),
           ),
           SegmentedButtonWidget(
@@ -101,7 +94,6 @@ class _AppState extends State<App> {
           ElevatedButtonWidget(
             "Elevated Button",
             onPressed: () {
-              c.textToEnd = "Elevated Button";
               setState(() {});
               cc.toggle();
             },

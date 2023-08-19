@@ -500,14 +500,96 @@ class ImageWidget extends StatelessWidget {
       );
 }
 
-class TextFieldWidget extends StatefulWidget {
-  final TextEditingController controller;
+class TextButtonWidget extends StatelessWidget {
+  final String text;
+  final Function()? onPressed;
+  final EdgeInsets margin;
+  final Color? backgroundColor;
+
+  const TextButtonWidget(
+    this.text, {
+    required this.onPressed,
+    this.margin = EdgeInsets.zero,
+    this.backgroundColor,
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) => Padding(
+        padding: margin,
+        child: TextButton(
+          style: TextButton.styleFrom(
+            backgroundColor: backgroundColor,
+          ),
+          onPressed: onPressed,
+          child: Text(text),
+        ),
+      );
+}
+
+class TextFieldController extends TextEditingController {
+  final String? labelText;
   final TextInputType? keyboardType;
+  final bool obscureText;
+  RegExp? errorRegex;
+  String? errorText;
+  late bool visible;
+  TextFieldController(
+    this.labelText, {
+    this.errorRegex,
+    this.errorText,
+    this.keyboardType,
+    this.obscureText = false,
+    super.text,
+  }) {
+    visible = !obscureText;
+  }
+
+  // email congiuration
+  factory TextFieldController.email({
+    String? labelText = "Email",
+    String? errorText = "Invalid email",
+    String? text,
+  }) =>
+      TextFieldController(
+        labelText,
+        errorRegex: RegExp(r'^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$'),
+        errorText: errorText,
+        keyboardType: TextInputType.emailAddress,
+        text: text,
+      );
+
+  // password congiuration
+  factory TextFieldController.password({
+    String? labelText = "Password",
+    String? errorText = "Invalid password",
+    String? text,
+  }) =>
+      TextFieldController(
+        labelText,
+        errorRegex: RegExp(r'[0-9a-zA-Z]{6}'),
+        errorText: errorText,
+        keyboardType: TextInputType.visiblePassword,
+        obscureText: true,
+        text: text,
+      );
+
+  String? get calcErrorText => isValid() ? null : errorText;
+
+  bool isValid() {
+    if (errorRegex != null && text.isNotEmpty) {
+      return errorRegex!.hasMatch(text);
+    }
+    return true;
+  }
+}
+
+class TextFieldWidget extends StatefulWidget {
+  final TextFieldController controller;
   final TextStyle? style;
   final TextAlign? textAlign;
   final TextAlignVertical? textAlignVertical;
   final bool? autofocus;
-  final bool? obscureText;
   final bool? autocorrect;
   final bool? enableSuggestions;
   final int? maxLines;
@@ -521,23 +603,15 @@ class TextFieldWidget extends StatefulWidget {
   final bool? enableInteractiveSelection;
   final GestureTapCallback? onTap;
   final Iterable<String>? autofillHints;
-  final RegExp? errorRegex;
-  final String? errorText;
-  final String? labelText;
   final EdgeInsets margin;
   final EdgeInsets padding;
 
   const TextFieldWidget(
-    this.labelText, {
-    required this.controller,
-    this.errorRegex,
-    this.errorText,
-    this.keyboardType,
+    this.controller, {
     this.style,
     this.textAlign,
     this.textAlignVertical,
     this.autofocus,
-    this.obscureText,
     this.autocorrect,
     this.enableSuggestions,
     this.maxLines,
@@ -561,26 +635,10 @@ class TextFieldWidget extends StatefulWidget {
 }
 
 class _TextFieldWidgetState extends State<TextFieldWidget> {
-  String? errorText;
-
   @override
   void initState() {
-    errorText = calcErrorText(widget.controller.text);
-
-    widget.controller.addListener(() {
-      setState(() {
-        errorText = calcErrorText(widget.controller.text);
-      });
-    });
-
+    widget.controller.addListener(() => setState(() {}));
     super.initState();
-  }
-
-  String? calcErrorText(String? input) {
-    if (widget.errorRegex != null && input != null && input.isNotEmpty) {
-      return !widget.errorRegex!.hasMatch(input) ? widget.errorText : null;
-    }
-    return null;
   }
 
   @override
@@ -597,18 +655,18 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
           controller: widget.controller,
           decoration: InputDecoration(
             border: InputBorder.none,
-            labelText: widget.labelText,
-            errorText: errorText,
+            labelText: widget.controller.labelText,
+            errorText: widget.controller.calcErrorText,
             enabled: widget.enabled ?? true,
             errorMaxLines: 1,
             isDense: true,
             contentPadding: EdgeInsets.zero,
           ),
-          keyboardType: widget.keyboardType,
+          keyboardType: widget.controller.keyboardType,
           style: widget.style,
           textAlignVertical: widget.textAlignVertical,
           autofocus: widget.autofocus ?? false,
-          obscureText: widget.obscureText ?? false,
+          obscureText: widget.controller.obscureText,
           autocorrect: widget.autocorrect ?? false,
           enableSuggestions: widget.enableSuggestions ?? false,
           maxLines: widget.maxLines,
