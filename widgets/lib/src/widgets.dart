@@ -14,6 +14,9 @@ extension WidgetBuildContextExtensions on BuildContext {
   /// get color scheme quickly
   ColorScheme get colorScheme => theme.colorScheme;
 
+  /// get safeArea quickly
+  EdgeInsets get safeArea => MediaQuery.of(this).padding;
+
   /// get bottom inset quickly
   double get bottomInset => MediaQuery.of(this).padding.bottom;
 
