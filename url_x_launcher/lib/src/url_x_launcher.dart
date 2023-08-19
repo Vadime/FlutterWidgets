@@ -8,8 +8,18 @@ import 'package:url_launcher/url_launcher.dart' as url_launcher;
 class UrlXLauncher {
   /// @returns true if the url was launched
   /// @param emailAdress is the email adress to be launched
-  static Future<bool> launchEmail(String emailAdress) async {
-    Uri uri = Uri.parse('mailto:$emailAdress');
+  static Future<bool> launchEmail(String emailAdress,
+      [String? subject, String? body]) async {
+    // normal email
+    String uriString = 'mailto:$emailAdress';
+
+    // add with subject
+    if (subject != null) uriString += '?subject=$subject';
+    // add with body
+    if (body != null) uriString += '?body=$body';
+
+    // parse the uri
+    Uri uri = Uri.parse(uriString);
     return await _launchUrl(uri);
   }
 
