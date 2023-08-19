@@ -1,0 +1,68 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "onboarding",
+            "cwd": "onboarding",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "onboarding (profile mode)",
+            "cwd": "onboarding",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "onboarding (release mode)",
+            "cwd": "onboarding",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "url_x_launcher",
+            "cwd": "url_x_launcher",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "url_x_launcher (profile mode)",
+            "cwd": "url_x_launcher",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "url_x_launcher (release mode)",
+            "cwd": "url_x_launcher",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "widgets",
+            "cwd": "widgets",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "widgets (profile mode)",
+            "cwd": "widgets",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "widgets (release mode)",
+            "cwd": "widgets",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ]
+}
