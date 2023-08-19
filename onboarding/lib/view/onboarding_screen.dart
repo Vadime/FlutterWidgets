@@ -12,10 +12,12 @@ extension on BuildContext {
 class OnboardingScreen extends StatefulWidget {
   final List<OnboardingPageData> data;
   final double padding;
+  final double radius;
   final Function()? onDone;
 
   const OnboardingScreen({
     this.padding = 20,
+    this.radius = 10,
     this.onDone,
     required this.data,
     super.key,
@@ -50,6 +52,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             itemBuilder: (context, index) => _OnboardingPage(
               data: widget.data[index],
               padding: widget.padding,
+              radius: widget.radius,
             ),
             controller: pageController,
             onPageChanged: onPageChanged,
@@ -118,7 +121,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 class _OnboardingPage extends StatelessWidget {
   final OnboardingPageData data;
   final double padding;
-  const _OnboardingPage({required this.data, required this.padding});
+  final double radius;
+  const _OnboardingPage({required this.data, required this.padding, required this.radius});
 
   @override
   Widget build(BuildContext context) {
@@ -127,10 +131,13 @@ class _OnboardingPage extends StatelessWidget {
       child: Column(
         children: [
           const Spacer(flex: 2),
-          Image.asset(
-            data.image,
-            width: context.shortestDim / 2,
-            height: context.shortestDim / 2,
+          ClipRRect(
+            borderRadius: BorderRadius.circular(radius)
+            child: Image.asset(
+              data.image,
+              width: context.shortestDim / 2,
+              height: context.shortestDim / 2,
+            ),
           ),
           const Spacer(),
           Text(
