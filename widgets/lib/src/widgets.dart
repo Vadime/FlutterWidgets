@@ -697,7 +697,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
           obscureText: widget.controller.obscureText,
           autocorrect: widget.autocorrect ?? false,
           enableSuggestions: widget.enableSuggestions ?? false,
-          maxLines: widget.maxLines,
+          maxLines: widget.maxLines ?? 1,
           minLines: widget.minLines,
           expands: widget.expands ?? false,
           maxLength: widget.maxLength,
