@@ -132,7 +132,7 @@ class _OnboardingPage extends StatelessWidget {
         children: [
           const Spacer(flex: 2),
           ClipRRect(
-            borderRadius: BorderRadius.circular(radius)
+            borderRadius: BorderRadius.circular(radius),
             child: Image.asset(
               data.image,
               width: context.shortestDim / 2,
