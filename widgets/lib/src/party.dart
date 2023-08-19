@@ -34,7 +34,9 @@ class PartyParticle {
   static double _degToRad(double deg) => deg * (pi / 180.0);
 }
 
-class PartyController extends ConfettiController {}
+class PartyController extends ConfettiController {
+  PartyController({super.duration = const Duration(seconds: 2)});
+}
 
 class PartyWidget extends StatelessWidget {
   final PartyController controller;
