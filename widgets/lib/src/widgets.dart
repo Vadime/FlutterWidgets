@@ -574,6 +574,34 @@ class TextFieldController extends TextEditingController {
         text: text,
       );
 
+  // name congiuration
+  factory TextFieldController.name({
+    String? labelText = "Name",
+    String? errorText = "Invalid name",
+    String? text,
+  }) =>
+      TextFieldController(
+        labelText,
+        errorRegex: RegExp(r'^[a-zA-Z]{2,}$'),
+        errorText: errorText,
+        keyboardType: TextInputType.name,
+        text: text,
+      );
+
+  // phone congiuration
+  factory TextFieldController.phone({
+    String? labelText = "Phone",
+    String? errorText = "Invalid phone",
+    String? text,
+  }) =>
+      TextFieldController(
+        labelText,
+        errorRegex: RegExp(r'^[0-9]{10}$'),
+        errorText: errorText,
+        keyboardType: TextInputType.phone,
+        text: text,
+      );
+
   String? get calcErrorText => isValid() ? null : errorText;
 
   bool isValid() {
