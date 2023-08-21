@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:widgets/widgets/widgets.dart';
 
 abstract class ThemeModeSaver {
   static const String key = 'theme';
@@ -14,16 +15,18 @@ abstract class ThemeModeSaver {
 class ThemeConfig {
   final Brightness brightness;
 
-  final MaterialColor primaryColor;
+  final Color primaryColor;
   final Color backgroundColor;
   final Color cardColor;
   final Color neutralColor;
   final Color textColor;
 
-  final double radius;
-  final double padding;
-  final double elevation;
-  final double opacity;
+  static const double kPaddingD = kPadding * 2;
+  static const double kPadding = 20;
+  static const double kPaddingH = kPadding / 2;
+
+  static const double kRadius = 10;
+  static const double kOpacity = 0.8;
 
   const ThemeConfig({
     required this.brightness,
@@ -32,37 +35,35 @@ class ThemeConfig {
     required this.cardColor,
     required this.neutralColor,
     required this.textColor,
-    required this.radius,
-    required this.padding,
-    required this.elevation,
-    required this.opacity,
   });
 
-  static const ThemeConfig light = ThemeConfig(
+  static ThemeConfig light = ThemeConfig(
     brightness: Brightness.light,
     primaryColor: Colors.blue,
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.grey.shade200,
     cardColor: Colors.white,
     neutralColor: Colors.grey,
     textColor: Colors.black,
-    radius: 10,
-    padding: 20,
-    elevation: 0,
-    opacity: 0.9,
   );
 
-  static const ThemeConfig dark = ThemeConfig(
+  static ThemeConfig dark = ThemeConfig(
     brightness: Brightness.dark,
     primaryColor: Colors.blue,
-    backgroundColor: Colors.black,
-    cardColor: Colors.black,
+    cardColor: Colors.grey.shade800,
+    backgroundColor: Colors.grey.shade900,
     neutralColor: Colors.grey,
     textColor: Colors.white,
-    radius: 10,
-    padding: 20,
-    elevation: 0,
-    opacity: 0.9,
   );
+
+  // factory fromTheme
+  factory ThemeConfig.fromTheme(ThemeData theme) => ThemeConfig(
+        brightness: theme.brightness,
+        primaryColor: theme.primaryColor,
+        backgroundColor: theme.scaffoldBackgroundColor,
+        cardColor: theme.cardColor,
+        neutralColor: theme.shadowColor,
+        textColor: theme.textTheme.bodyLarge?.color ?? Colors.black,
+      );
 
   // copyWith
   ThemeConfig copyWith({
@@ -72,10 +73,6 @@ class ThemeConfig {
     Color? cardColor,
     Color? neutralColor,
     Color? textColor,
-    double? radius,
-    double? padding,
-    double? elevation,
-    double? opacity,
   }) =>
       ThemeConfig(
         brightness: brightness ?? this.brightness,
@@ -84,11 +81,11 @@ class ThemeConfig {
         cardColor: cardColor ?? this.cardColor,
         neutralColor: neutralColor ?? this.neutralColor,
         textColor: textColor ?? this.textColor,
-        radius: radius ?? this.radius,
-        padding: padding ?? this.padding,
-        elevation: elevation ?? this.elevation,
-        opacity: opacity ?? this.opacity,
       );
+
+  // of context
+  static ThemeConfig of(BuildContext context) =>
+      ThemeConfig.fromTheme(context.theme);
 
   // gen ThemeData
   ThemeData genTheme() => ThemeData(
@@ -98,23 +95,18 @@ class ThemeConfig {
         primaryColor: primaryColor,
         cardColor: cardColor,
         scaffoldBackgroundColor: backgroundColor,
-        shadowColor: neutralColor.withOpacity(opacity),
-        colorScheme: ColorScheme.fromSwatch(
-          primarySwatch: primaryColor,
-          backgroundColor: backgroundColor,
-          cardColor: cardColor,
-          brightness: brightness,
-        ),
+        shadowColor: neutralColor.withOpacity(kOpacity),
         hintColor: neutralColor,
         canvasColor: backgroundColor,
         dividerColor: neutralColor,
+
         // text
         fontFamily: 'Varela Round',
         textTheme: TextTheme(
           labelSmall: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.w600,
-            color: textColor,
+            color: textColor.withOpacity(kOpacity),
           ),
           labelMedium: TextStyle(
             fontSize: 12,
@@ -129,7 +121,7 @@ class ThemeConfig {
           bodySmall: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w600,
-            color: textColor,
+            color: textColor.withOpacity(kOpacity),
           ),
           bodyMedium: TextStyle(
             fontSize: 14,
@@ -144,7 +136,7 @@ class ThemeConfig {
           titleSmall: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.w600,
-            color: textColor,
+            color: textColor.withOpacity(kOpacity),
           ),
           titleMedium: TextStyle(
             fontSize: 18,
@@ -159,7 +151,7 @@ class ThemeConfig {
           headlineSmall: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.w600,
-            color: textColor,
+            color: textColor.withOpacity(kOpacity),
           ),
           headlineMedium: TextStyle(
             fontSize: 20,
@@ -179,19 +171,56 @@ class ThemeConfig {
         // card
         cardTheme: CardTheme(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(radius),
+            borderRadius: BorderRadius.circular(kRadius),
           ),
-          elevation: elevation,
+          elevation: 0,
           margin: EdgeInsets.zero,
+        ),
+
+        tooltipTheme: TooltipThemeData(
+          decoration: BoxDecoration(
+            color: cardColor,
+            borderRadius: BorderRadius.circular(kRadius),
+          ),
+          textStyle: TextStyle(
+            color: textColor,
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+          ),
         ),
         // button
         buttonTheme: ButtonThemeData(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(radius),
+            borderRadius: BorderRadius.circular(kRadius),
           ),
           padding: EdgeInsets.zero,
           buttonColor: primaryColor,
           textTheme: ButtonTextTheme.primary,
+        ),
+        // elevatedButton
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(kRadius),
+            ),
+            padding: EdgeInsets.zero,
+            elevation: 0,
+            backgroundColor: primaryColor,
+            foregroundColor: Colors.white,
+          ),
+        ),
+        // textButton
+        textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(kRadius),
+            ),
+            padding: const EdgeInsets.fromLTRB(4, 2, 4, 2),
+            foregroundColor: textColor,
+            elevation: 0,
+            minimumSize: Size.zero,
+            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          ),
         ),
         // slider
         sliderTheme: SliderThemeData(
@@ -200,11 +229,11 @@ class ThemeConfig {
           thumbColor: primaryColor,
           overlayColor: primaryColor.withOpacity(0.1),
           trackHeight: 2,
-          thumbShape: RoundSliderThumbShape(
-            enabledThumbRadius: radius,
+          thumbShape: const RoundSliderThumbShape(
+            enabledThumbRadius: kRadius,
           ),
-          overlayShape: RoundSliderOverlayShape(
-            overlayRadius: radius,
+          overlayShape: const RoundSliderOverlayShape(
+            overlayRadius: kRadius,
           ),
         ),
         // progress
@@ -222,45 +251,46 @@ class ThemeConfig {
         // dialog
         dialogTheme: DialogTheme(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(radius),
+            borderRadius: BorderRadius.circular(kRadius),
           ),
         ),
         // bottomSheet
         bottomSheetTheme: BottomSheetThemeData(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(radius),
+            borderRadius: BorderRadius.circular(kRadius),
           ),
           backgroundColor: cardColor,
-          elevation: elevation,
+          elevation: 0,
           modalBackgroundColor: cardColor,
-          modalElevation: elevation,
+          modalElevation: 0,
         ),
         // popupMenu
         popupMenuTheme: PopupMenuThemeData(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(radius),
+            borderRadius: BorderRadius.circular(kRadius),
           ),
           color: cardColor,
-          elevation: elevation,
+          elevation: 0,
         ),
         // bottomNavigationBar
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
-          backgroundColor: cardColor,
-          elevation: elevation,
+          backgroundColor: cardColor.withOpacity(kOpacity),
+          elevation: 0,
           selectedItemColor: primaryColor,
           unselectedItemColor: neutralColor,
           showSelectedLabels: false,
           showUnselectedLabels: false,
+          type: BottomNavigationBarType.fixed,
         ),
         // bottomAppBar
-        bottomAppBarTheme: BottomAppBarTheme(
-          elevation: elevation,
+        bottomAppBarTheme: const BottomAppBarTheme(
+          elevation: 0,
         ),
         // appBar
         appBarTheme: AppBarTheme(
           centerTitle: true,
           elevation: 0,
-          backgroundColor: cardColor,
+          backgroundColor: cardColor.withOpacity(kOpacity),
           systemOverlayStyle: brightness != Brightness.light
               ? SystemUiOverlayStyle.light
               : SystemUiOverlayStyle.dark,
@@ -278,7 +308,7 @@ class ThemeConfig {
         ),
         // snackBar
         snackBarTheme: SnackBarThemeData(
-          elevation: elevation,
+          elevation: 0,
           backgroundColor: cardColor,
           showCloseIcon: true,
           closeIconColor: textColor,
@@ -289,15 +319,16 @@ class ThemeConfig {
         ),
         // listtile
         listTileTheme: ListTileThemeData(
-          contentPadding: EdgeInsets.fromLTRB(padding, 0, padding, 0),
+          contentPadding: const EdgeInsets.fromLTRB(kPadding, 0, kPadding, 0),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(radius),
+            borderRadius: BorderRadius.circular(kRadius),
           ),
           minLeadingWidth: 0,
           horizontalTitleGap: 0,
           minVerticalPadding: 0,
           tileColor: cardColor,
           iconColor: textColor,
+          visualDensity: VisualDensity.compact,
         ),
       );
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:widgets/widgets.dart';
 
 class MatApp extends StatelessWidget {
@@ -6,80 +7,18 @@ class MatApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        theme: ThemeData(
-            appBarTheme: AppBarTheme(
-              foregroundColor: Colors.black,
-              backgroundColor: Colors.white.withOpacity(0.9),
-            ),
-            scaffoldBackgroundColor: Colors.grey.shade200,
-            elevatedButtonTheme: ElevatedButtonThemeData(
-              style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                elevation: 0,
-              ),
-            ),
-            listTileTheme: ListTileThemeData(
-              minVerticalPadding: 0,
-              contentPadding: EdgeInsets.zero,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-            ),
-            cardTheme: CardTheme(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
-              elevation: 0,
-              color: Colors.white,
-            ),
-            segmentedButtonTheme: SegmentedButtonThemeData(
-                style: ElevatedButton.styleFrom(
-              padding: const EdgeInsets.all(10),
-              visualDensity: VisualDensity.compact,
-              side: BorderSide(
-                color: Colors.white.withOpacity(0.9),
-                width: 4,
-                strokeAlign: BorderSide.strokeAlignOutside,
-              ),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              elevation: 0,
-              shadowColor: Colors.transparent,
-              animationDuration: const Duration(milliseconds: 100),
-            )),
-            bottomNavigationBarTheme: BottomNavigationBarThemeData(
-              backgroundColor: Colors.white.withOpacity(0.9),
-              showUnselectedLabels: false,
-              showSelectedLabels: false,
-              selectedItemColor: Colors.blue,
-              unselectedItemColor: Colors.grey,
-              elevation: 0,
-              type: BottomNavigationBarType.shifting,
-            ),
-            bottomAppBarTheme: BottomAppBarTheme(
-              color: Colors.white.withOpacity(0.9),
-              elevation: 0,
-              shape: const CircularNotchedRectangle(),
-            ),
-            textButtonTheme: TextButtonThemeData(
-                style: ButtonStyle(
-                    padding: MaterialStateProperty.all(
-                      const EdgeInsets.fromLTRB(4, 8, 4, 8),
-                    ),
-                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    minimumSize: MaterialStateProperty.all(
-                      const Size(20, 20),
-                    ),
-                    shape: MaterialStateProperty.all(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    visualDensity: VisualDensity.compact))),
-        home: const App());
+    return BlocProvider(
+      create: (context) => ThemeController(),
+      child: BlocBuilder<ThemeController, ThemeMode>(
+        builder: (context, state) {
+          return MaterialApp(
+              themeMode: state,
+              theme: ThemeConfig.light.genTheme(),
+              darkTheme: ThemeConfig.dark.genTheme(),
+              home: const App());
+        },
+      ),
+    );
   }
 }
 
@@ -108,6 +47,8 @@ class _AppState extends State<App> {
             "Work", Center(child: Text("Work")), Icons.work, null, null),
         const BottomNavigationView(
             "School", Center(child: Text("School")), Icons.school, null, null),
+        const BottomNavigationView(
+            "School", Center(child: Text("School")), Icons.school, null, null),
       ],
     );
   }
@@ -119,29 +60,29 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          SlidingSegmentedButton(
-              margin: const EdgeInsets.all(20),
-              controller: SegmentedButtonController("Hello"),
-              segments: const [
-                SegmentedButtonData("Hello", "Hello"),
-                SegmentedButtonData("World", "World"),
-                SegmentedButtonData("Flutter", "Flutter"),
-              ]),
-          Center(
-              child: TextButtonWidget(
-            "Hello World",
-            onPressed: () {},
-            margin: const EdgeInsets.all(20),
-          )),
-          ElevatedButtonWidget(
-            "Hello World",
-            onPressed: () {},
-            margin: const EdgeInsets.all(20),
-          )
-        ],
+      child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            SegmentedThemeButton(ThemeController.of(context)),
+            const Spacer(),
+            Center(
+                child: TextButtonWidget(
+              "Hello World",
+              onPressed: () {},
+            )),
+            const ListTileWidget(
+              title: "Hello World",
+              //subtitle: "Hello World\n\nadsfdsf",
+            ),
+            const Spacer(),
+            ElevatedButtonWidget(
+              "Hello World",
+              onPressed: () {},
+            )
+          ],
+        ),
       ),
     );
   }

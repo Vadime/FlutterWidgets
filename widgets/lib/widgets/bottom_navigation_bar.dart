@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:widgets/controllers/theme_controller.dart';
 import 'package:widgets/widgets/widgets.dart';
 
 class BottomNavigationBarWidget extends StatelessWidget {
@@ -8,41 +9,36 @@ class BottomNavigationBarWidget extends StatelessWidget {
 
   final List<BottomNavigationBarItem> items;
 
-  final double radius;
-
-  final double horizontalPadding;
-
-  final double bottomPadding;
-
   const BottomNavigationBarWidget({
     required this.currentIndex,
     required this.items,
     this.onChange,
-    this.radius = 10,
-    this.horizontalPadding = 40,
-    this.bottomPadding = 10,
     super.key,
   });
 
   @override
-  Widget build(BuildContext context) => Padding(
-        padding: EdgeInsets.only(
-          left: horizontalPadding,
-          bottom: context.bottomInset + bottomPadding,
-          right: horizontalPadding,
-        ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(radius),
-          child: MediaQuery(
-            data: const MediaQueryData(
-              padding: EdgeInsets.zero,
-            ),
-            child: BottomNavigationBar(
-              currentIndex: currentIndex,
-              onTap: onChange,
-              items: items,
-            ),
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(
+        left: ThemeConfig.kPaddingD,
+        bottom: context.bottomInset + (ThemeConfig.kPaddingH),
+        right: ThemeConfig.kPaddingD,
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(ThemeConfig.kRadius),
+        child: MediaQuery(
+          data: const MediaQueryData(
+            padding: EdgeInsets.zero,
+          ),
+          child: BottomNavigationBar(
+            currentIndex: currentIndex,
+            onTap: onChange,
+            items: items,
+            selectedFontSize: 0,
+            unselectedFontSize: 0,
           ),
         ),
-      );
+      ),
+    );
+  }
 }

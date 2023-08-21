@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:widgets/controllers/theme_controller.dart';
 
 class LinearProgressWidget extends StatelessWidget {
   final double progress;
@@ -18,7 +19,7 @@ class LinearProgressWidget extends StatelessWidget {
 
   const LinearProgressWidget(
     this.progress, {
-    this.radius = 10,
+    this.radius = ThemeConfig.kRadius,
     this.duration = 200,
     this.margin = EdgeInsets.zero,
     this.thickness,

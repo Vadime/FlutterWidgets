@@ -11,11 +11,13 @@ class BottomNavigationView {
   const BottomNavigationView(
       this.title, this.view, this.icon, this.actionIcon, this.action);
 
-  BottomNavigationBarItem get bottomNavigationBarItem =>
+  BottomNavigationBarItem bottomNavigationBarItem(BuildContext context) =>
       BottomNavigationBarItem(
         icon: Icon(icon),
         label: title,
         tooltip: title,
+        backgroundColor:
+            context.theme.cardColor.withOpacity(ThemeConfig.kOpacity),
       );
 }
 
@@ -75,7 +77,9 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
       bottomNavigationBar: BottomNavigationBarWidget(
         currentIndex: currentIndex,
         onChange: animateTo,
-        items: widget.views.map((e) => e.bottomNavigationBarItem).toList(),
+        items: widget.views
+            .map((e) => e.bottomNavigationBarItem(context))
+            .toList(),
       ),
     );
   }

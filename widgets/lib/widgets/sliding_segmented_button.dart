@@ -4,6 +4,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:widgets/controllers/theme_controller.dart';
 import 'package:widgets/widgets/widgets.dart';
 
 class SegmentedButtonController<T> extends Cubit<T> {
@@ -47,7 +48,7 @@ class SlidingSegmentedButton<T> extends StatelessWidget {
     required this.controller,
     required this.segments,
     this.margin = EdgeInsets.zero,
-    this.radius = 10,
+    this.radius = ThemeConfig.kRadius,
     super.key,
   });
 
@@ -90,10 +91,11 @@ class SlidingSegmentedButton<T> extends StatelessWidget {
                   bottom: 0,
                   duration: const Duration(milliseconds: 100),
                   child: Container(
-                      width: constraints.maxWidth / segments.length,
+                      width: constraints.maxWidth / segments.length - 8,
+                      margin: const EdgeInsets.all(4),
                       decoration: BoxDecoration(
                         color: context.theme.primaryColor,
-                        borderRadius: BorderRadius.circular(max(radius - 2, 0)),
+                        borderRadius: BorderRadius.circular(max(radius, 0)),
                       ),
                       alignment: Alignment.center,
                       child: Text(

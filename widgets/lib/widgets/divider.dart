@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:widgets/controllers/theme_controller.dart';
 import 'package:widgets/widgets/widgets.dart';
 
 class DividerWidget extends StatelessWidget {
@@ -9,9 +10,9 @@ class DividerWidget extends StatelessWidget {
 
   const DividerWidget(
     this.data, {
-    this.verticalPadding = 10,
-    this.outerHorizontalPadding = 20,
-    this.innerHorizontalPadding = 10,
+    this.verticalPadding = ThemeConfig.kPaddingH,
+    this.outerHorizontalPadding = ThemeConfig.kPadding,
+    this.innerHorizontalPadding = ThemeConfig.kPaddingH,
     super.key,
   });
 

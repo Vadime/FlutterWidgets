@@ -1,6 +1,7 @@
 library widgets;
 
 import 'package:flutter/material.dart';
+import 'package:widgets/controllers/theme_controller.dart';
 import 'package:widgets/widgets/card.dart';
 import 'package:widgets/widgets/widgets.dart';
 
@@ -10,7 +11,7 @@ class TableRowWidget {
   final Color? rowColor;
   const TableRowWidget({
     required this.cells,
-    this.cellPadding = const EdgeInsets.all(10),
+    this.cellPadding = const EdgeInsets.all(ThemeConfig.kPaddingH),
     this.rowColor,
   });
 

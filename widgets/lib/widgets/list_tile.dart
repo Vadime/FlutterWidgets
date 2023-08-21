@@ -34,7 +34,6 @@ class ListTileWidget extends StatelessWidget {
           selected: selected,
           selectedTileColor: selectedTileColor,
           contentPadding: padding,
-          minVerticalPadding: (padding?.horizontal ?? 0) / 2,
           tileColor: tileColor,
           title: title == null ? null : Text(title!),
           subtitle: subtitle == null ? null : Text(subtitle!),

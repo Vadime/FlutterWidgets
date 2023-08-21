@@ -2,7 +2,7 @@ library widgets;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:widgets/widgets/card.dart';
+import 'package:widgets/widgets.dart';
 
 class TextFieldController extends TextEditingController {
   final String? labelText;
@@ -131,7 +131,8 @@ class TextFieldWidget extends StatefulWidget {
     this.onTap,
     this.autofillHints,
     this.margin = EdgeInsets.zero,
-    this.padding = const EdgeInsets.fromLTRB(20, 10, 20, 10),
+    this.padding = const EdgeInsets.fromLTRB(ThemeConfig.kPadding,
+        ThemeConfig.kPaddingH, ThemeConfig.kPadding, ThemeConfig.kPaddingH),
     super.key,
   });
 

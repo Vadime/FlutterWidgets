@@ -1,6 +1,7 @@
 library widgets;
 
 import 'package:flutter/material.dart';
+import 'package:widgets/controllers/theme_controller.dart';
 
 class FooterSocialButtonWidget {
   final String text;
@@ -24,7 +25,6 @@ class FooterButtonWidget {
 class FooterWidget extends StatelessWidget {
   final List<FooterButtonWidget> buttons;
   final List<FooterSocialButtonWidget> socials;
-  final double padding;
   final String commercialText;
 
   const FooterWidget({
@@ -32,13 +32,13 @@ class FooterWidget extends StatelessWidget {
     required this.buttons,
     required this.socials,
     required this.commercialText,
-    this.padding = 10,
   });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.fromLTRB(padding, 20, padding, 0),
+      padding: const EdgeInsets.fromLTRB(ThemeConfig.kPaddingH,
+          ThemeConfig.kPadding, ThemeConfig.kPaddingH, 0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,
@@ -60,15 +60,18 @@ class FooterWidget extends StatelessWidget {
                 )
                 .toList(),
           ),
-          SizedBox(height: padding),
+          const SizedBox(height: ThemeConfig.kPaddingH),
           Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              SizedBox(width: padding),
+              const SizedBox(
+                width: ThemeConfig.kPaddingH,
+              ),
               // social buttons
               ...socials.map(
                 (e) => Padding(
-                  padding: EdgeInsets.fromLTRB(0, padding, 0, padding),
+                  padding: const EdgeInsets.fromLTRB(
+                      0, ThemeConfig.kPaddingH, 0, ThemeConfig.kPaddingH),
                   child: IconButton(
                     icon: e.icon,
                     onPressed: e.onPressed,
@@ -78,11 +81,11 @@ class FooterWidget extends StatelessWidget {
 
               const Spacer(),
               Padding(
-                padding: EdgeInsets.fromLTRB(
-                  padding,
-                  padding,
-                  padding,
-                  2 * padding,
+                padding: const EdgeInsets.fromLTRB(
+                  ThemeConfig.kPaddingH,
+                  ThemeConfig.kPaddingH,
+                  ThemeConfig.kPaddingH,
+                  ThemeConfig.kPadding,
                 ),
                 child: Text(
                   commercialText,

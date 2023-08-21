@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:widgets/controllers/theme_controller.dart';
 
 class ImageWidget extends StatelessWidget {
   final String data;
@@ -14,7 +15,7 @@ class ImageWidget extends StatelessWidget {
     this.height = double.infinity,
     this.fit = BoxFit.cover,
     this.margin = EdgeInsets.zero,
-    this.radius = 10,
+    this.radius = ThemeConfig.kRadius,
     super.key,
   });
 
