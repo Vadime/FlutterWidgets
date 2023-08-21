@@ -1,5 +1,8 @@
 library widgets;
 
+/// export all components
+export 'components/segmented_theme_button.dart';
+
 /// export all controllers
 export 'controllers/theme_controller.dart';
 

@@ -1,5 +1,7 @@
 library widgets;
 
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:widgets/widgets/widgets.dart';
@@ -39,10 +41,13 @@ class SegmentedButtonWidget<T> extends StatelessWidget {
   final SegmentedButtonController<T> controller;
   final List<SegmentedButtonData<T>> segments;
   final EdgeInsets margin;
+  final double radius;
+
   const SegmentedButtonWidget({
     required this.controller,
     required this.segments,
     this.margin = EdgeInsets.zero,
+    this.radius = 10,
     super.key,
   });
 
@@ -52,7 +57,7 @@ class SegmentedButtonWidget<T> extends StatelessWidget {
       height: 40,
       decoration: BoxDecoration(
           color: context.theme.scaffoldBackgroundColor,
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(radius),
           border: Border.all(color: context.theme.cardColor, width: 4)),
       margin: margin,
       child: BlocBuilder<SegmentedButtonController<T>, T>(
@@ -88,7 +93,7 @@ class SegmentedButtonWidget<T> extends StatelessWidget {
                       width: constraints.maxWidth / segments.length,
                       decoration: BoxDecoration(
                         color: context.theme.primaryColor,
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(max(radius - 2, 0)),
                       ),
                       alignment: Alignment.center,
                       child: Text(
