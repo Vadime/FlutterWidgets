@@ -2,7 +2,7 @@ library widgets;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:widgets/src/widgets.dart';
+import 'package:widgets/widgets/card.dart';
 
 class TextFieldController extends TextEditingController {
   final String? labelText;

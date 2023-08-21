@@ -1,7 +1,8 @@
 library widgets;
 
 import 'package:flutter/material.dart';
-import 'package:widgets/src/widgets.dart';
+import 'package:widgets/widgets/card.dart';
+import 'package:widgets/widgets/widgets.dart';
 
 class TableRowWidget {
   final List<String> cells;

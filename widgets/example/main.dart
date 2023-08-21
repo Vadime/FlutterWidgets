@@ -8,49 +8,77 @@ class MatApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         theme: ThemeData(
-          elevatedButtonTheme: ElevatedButtonThemeData(
-            style: ElevatedButton.styleFrom(
+            appBarTheme: AppBarTheme(
+              foregroundColor: Colors.black,
+              backgroundColor: Colors.white.withOpacity(0.9),
+            ),
+            scaffoldBackgroundColor: Colors.grey.shade200,
+            elevatedButtonTheme: ElevatedButtonThemeData(
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                elevation: 0,
+              ),
+            ),
+            listTileTheme: ListTileThemeData(
+              minVerticalPadding: 0,
+              contentPadding: EdgeInsets.zero,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+            cardTheme: CardTheme(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)),
+              elevation: 0,
+              color: Colors.white,
+            ),
+            segmentedButtonTheme: SegmentedButtonThemeData(
+                style: ElevatedButton.styleFrom(
+              padding: const EdgeInsets.all(10),
+              visualDensity: VisualDensity.compact,
+              side: BorderSide(
+                color: Colors.white.withOpacity(0.9),
+                width: 4,
+                strokeAlign: BorderSide.strokeAlignOutside,
+              ),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
               elevation: 0,
+              shadowColor: Colors.transparent,
+              animationDuration: const Duration(milliseconds: 100),
+            )),
+            bottomNavigationBarTheme: BottomNavigationBarThemeData(
+              backgroundColor: Colors.white.withOpacity(0.9),
+              showUnselectedLabels: false,
+              showSelectedLabels: false,
+              selectedItemColor: Colors.blue,
+              unselectedItemColor: Colors.grey,
+              elevation: 0,
+              type: BottomNavigationBarType.shifting,
             ),
-          ),
-          listTileTheme: ListTileThemeData(
-            minVerticalPadding: 0,
-            contentPadding: EdgeInsets.zero,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
+            bottomAppBarTheme: BottomAppBarTheme(
+              color: Colors.white.withOpacity(0.9),
+              elevation: 0,
+              shape: const CircularNotchedRectangle(),
             ),
-          ),
-          cardTheme: CardTheme(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-            elevation: 0,
-            color: Colors.grey.shade200,
-          ),
-          segmentedButtonTheme: SegmentedButtonThemeData(
-              style: ElevatedButton.styleFrom(
-            padding: const EdgeInsets.all(10),
-            visualDensity: VisualDensity.compact,
-            side: BorderSide(
-              color: Colors.grey.shade200,
-              width: 4,
-              strokeAlign: BorderSide.strokeAlignOutside,
-            ),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            elevation: 0,
-            shadowColor: Colors.transparent,
-            animationDuration: const Duration(milliseconds: 100),
-          )),
-          bottomNavigationBarTheme: BottomNavigationBarThemeData(
-            backgroundColor: Colors.grey.shade200,
-            showUnselectedLabels: false,
-            showSelectedLabels: false,
-          ),
-        ),
+            textButtonTheme: TextButtonThemeData(
+                style: ButtonStyle(
+                    padding: MaterialStateProperty.all(
+                      const EdgeInsets.fromLTRB(4, 8, 4, 8),
+                    ),
+                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    minimumSize: MaterialStateProperty.all(
+                      const Size(20, 20),
+                    ),
+                    shape: MaterialStateProperty.all(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    visualDensity: VisualDensity.compact))),
         home: const App());
   }
 }
@@ -71,51 +99,44 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const AppBarWidget("Widgets"),
-      body: Column(
+    return BottomNavigationPage(
+      initialIndex: 0,
+      views: [
+        BottomNavigationView(
+            "Home", const HomeView(), Icons.home, Icons.add, () {}),
+        const BottomNavigationView(
+            "Work", Center(child: Text("Work")), Icons.work, null, null),
+        const BottomNavigationView(
+            "School", Center(child: Text("School")), Icons.school, null, null),
+      ],
+    );
+  }
+}
+
+class HomeView extends StatelessWidget {
+  const HomeView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          TextFieldWidget(
-            TextFieldController.email(),
-            margin: const EdgeInsets.all(20),
-          ),
-          TextFieldWidget(
-            TextFieldController.password(),
-            margin: const EdgeInsets.all(20),
-          ),
           SegmentedButtonWidget(
-              controller: SegmentedButtonController("Segment 1"),
               margin: const EdgeInsets.all(20),
-              segments: const ["Segment 1", "Segment 2"]),
-          CheckboxWidget(
-            controller: cc,
-          ),
-          ElevatedButtonWidget(
-            "Elevated Button",
-            onPressed: () {
-              setState(() {});
-              cc.toggle();
-            },
-            elevation: 2,
+              controller: SegmentedButtonController("Hello"),
+              segments: const ["Hello", "World", "Flutter"]),
+          Center(
+              child: TextButtonWidget(
+            "Hello World",
+            onPressed: () {},
             margin: const EdgeInsets.all(20),
-          ),
-        ],
-      ),
-      bottomNavigationBar: const BottomNavigationBarWidget(
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            label: 'Business',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.school),
-            label: 'School',
-          ),
+          )),
+          ElevatedButtonWidget(
+            "Hello World",
+            onPressed: () {},
+            margin: const EdgeInsets.all(20),
+          )
         ],
       ),
     );
