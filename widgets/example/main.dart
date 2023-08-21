@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:widgets/widgets.dart';
 
 class MatApp extends StatelessWidget {
@@ -7,18 +6,7 @@ class MatApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => ThemeController(),
-      child: BlocBuilder<ThemeController, ThemeMode>(
-        builder: (context, state) {
-          return MaterialApp(
-              themeMode: state,
-              theme: ThemeConfig.light.genTheme(),
-              darkTheme: ThemeConfig.dark.genTheme(),
-              home: const App());
-        },
-      ),
-    );
+    return const MaterialApp(home: App());
   }
 }
 
@@ -65,7 +53,12 @@ class HomeView extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            SegmentedThemeButton(ThemeController.of(context)),
+            // ThemeChangeComponent(
+            //   currentMode: ThemeController.of(context).state,
+            //   onChange: (mode) {
+            //     ThemeController.of(context).changeTheme(mode);
+            //   },
+            // ),
             const Spacer(),
             Center(
                 child: TextButtonWidget(

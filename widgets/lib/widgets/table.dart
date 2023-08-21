@@ -1,7 +1,7 @@
 library widgets;
 
 import 'package:flutter/material.dart';
-import 'package:widgets/controllers/theme_controller.dart';
+import 'package:widgets/config/theme_config.dart';
 import 'package:widgets/widgets/card.dart';
 import 'package:widgets/widgets/widgets.dart';
 

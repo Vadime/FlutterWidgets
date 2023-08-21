@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:widgets/config/theme_config.dart';
 import 'package:widgets/widgets.dart';
 
 class BottomNavigationView {
