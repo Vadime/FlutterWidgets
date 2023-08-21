@@ -43,13 +43,13 @@ class OnboardingPageData {
   }
 }
 
-class OnboardingScreen extends StatefulWidget {
+class OnboardingPage extends StatefulWidget {
   final List<OnboardingPageData> data;
   final double padding;
   final double radius;
   final Function()? onDone;
 
-  const OnboardingScreen({
+  const OnboardingPage({
     this.padding = 20,
     this.radius = 10,
     this.onDone,
@@ -58,10 +58,10 @@ class OnboardingScreen extends StatefulWidget {
   });
 
   @override
-  State<OnboardingScreen> createState() => _OnboardingScreenState();
+  State<OnboardingPage> createState() => _OnboardingPageState();
 }
 
-class _OnboardingScreenState extends State<OnboardingScreen> {
+class _OnboardingPageState extends State<OnboardingPage> {
   PageController pageController = PageController(initialPage: 0);
 
   int currentPage = 0;

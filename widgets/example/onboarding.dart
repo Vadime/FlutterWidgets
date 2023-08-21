@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:widgets/pages/onboarding_screen.dart';
+import 'package:widgets/pages/onboarding_page.dart';
 
 void main(List<String> args) {
   runApp(const MaterialApp(
-      home: OnboardingScreen(data: [
+      home: OnboardingPage(data: [
     OnboardingPageData(
         title: "Hello",
         description: "I love coffee",

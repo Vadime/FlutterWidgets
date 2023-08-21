@@ -163,6 +163,7 @@ class ThemeConfig {
             borderRadius: BorderRadius.circular(kRadius),
           ),
           elevation: 0,
+          color: cardColor,
           margin: EdgeInsets.zero,
         ),
 

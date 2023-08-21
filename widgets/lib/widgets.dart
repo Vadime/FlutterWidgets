@@ -8,6 +8,7 @@ export 'config/theme_config.dart';
 
 /// export all pages
 export 'pages/bottom_navigation_page.dart';
+export 'pages/onboarding_page.dart';
 
 /// export all widgets
 export 'widgets/app_bar.dart';
