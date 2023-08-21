@@ -59,7 +59,7 @@ class TextFieldController extends TextEditingController {
   }) =>
       TextFieldController(
         labelText,
-        errorRegex: RegExp(r'^[a-zA-Z]{2,}$'),
+        errorRegex: RegExp(r"^[a-zA-Z\s'-]+$"),
         errorText: errorText,
         keyboardType: TextInputType.name,
         text: text,
