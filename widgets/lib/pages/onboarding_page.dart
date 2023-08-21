@@ -10,12 +10,14 @@ class OnboardingPageData {
   final String title;
   final String description;
   final String image;
-  final Color color;
+  final Color backgroundColor;
+  final Color foregroundColor;
   const OnboardingPageData({
     required this.title,
     required this.description,
     required this.image,
-    this.color = Colors.transparent,
+    this.backgroundColor = Colors.transparent,
+    this.foregroundColor = Colors.white,
   });
 
   factory OnboardingPageData.fromJson(Map<String, dynamic> json) {
@@ -23,13 +25,20 @@ class OnboardingPageData {
       title: json['title'] as String,
       description: json['description'] as String,
       image: json['image'] as String,
-      color: Color(int.tryParse(json['color']) ?? 0x00000000),
+      backgroundColor:
+          Color(int.tryParse(json['backgroundColor']) ?? 0x00000000),
+      foregroundColor:
+          Color(int.tryParse(json['foregroundColor']) ?? 0x00000000),
     );
   }
 
   @override
   int get hashCode =>
-      title.hashCode ^ description.hashCode ^ image.hashCode ^ color.hashCode;
+      title.hashCode ^
+      description.hashCode ^
+      image.hashCode ^
+      backgroundColor.hashCode ^
+      foregroundColor.hashCode;
 
   @override
   bool operator ==(Object other) {
@@ -39,7 +48,8 @@ class OnboardingPageData {
             title == other.title &&
             description == other.description &&
             image == other.image &&
-            color == other.color;
+            backgroundColor == other.backgroundColor &&
+            foregroundColor == other.foregroundColor;
   }
 }
 
@@ -78,7 +88,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: widget.data[currentPage].color,
+      backgroundColor: widget.data[currentPage].backgroundColor,
       body: Stack(
         children: [
           PageView.builder(
@@ -97,7 +107,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
             child: SafeArea(
               child: TextButton(
                 onPressed: widget.onDone,
-                child: Text('Skip', style: context.textTheme.labelLarge),
+                child: Text('Skip',
+                    style: context.textTheme.labelLarge!.copyWith(
+                        color: widget.data[currentPage].foregroundColor)),
               ),
             ),
           ),
@@ -139,7 +151,8 @@ class _OnboardingPageState extends State<OnboardingPage> {
                     onPressed: lastPage ? widget.onDone : nextPage,
                     child: Text(
                       lastPage ? 'Get Started' : 'Next',
-                      style: context.textTheme.labelLarge,
+                      style: context.textTheme.labelLarge!.copyWith(
+                          color: widget.data[currentPage].foregroundColor),
                     ),
                   ),
                 ],
@@ -162,7 +175,7 @@ class _OnboardingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: data.color,
+      color: data.backgroundColor,
       child: Column(
         children: [
           const Spacer(flex: 2),
@@ -177,12 +190,14 @@ class _OnboardingPage extends StatelessWidget {
           const Spacer(),
           Text(
             data.title,
-            style: context.textTheme.titleLarge,
+            style: context.textTheme.titleLarge!
+                .copyWith(color: data.foregroundColor),
           ),
           SizedBox(height: padding),
           Text(
             data.description,
-            style: context.textTheme.labelSmall,
+            style: context.textTheme.labelSmall!
+                .copyWith(color: data.foregroundColor),
           ),
           const Spacer(),
         ],

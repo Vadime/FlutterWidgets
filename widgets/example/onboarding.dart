@@ -8,16 +8,19 @@ void main(List<String> args) {
         title: "Hello",
         description: "I love coffee",
         image: 'res/example.png',
-        color: Colors.red),
+        backgroundColor: Colors.red,
+        foregroundColor: Colors.white),
     OnboardingPageData(
         title: "Hello",
         description: "I love coffee",
         image: 'res/example.png',
-        color: Colors.blue),
+        backgroundColor: Colors.blue,
+        foregroundColor: Colors.white),
     OnboardingPageData(
         title: "Hello",
         description: "I love coffee",
         image: 'res/example.png',
-        color: Colors.green),
+        backgroundColor: Colors.green,
+        foregroundColor: Colors.white),
   ])));
 }

@@ -45,7 +45,7 @@ class Navigation {
     /// for dirthdays use DatePickerMode.year
     DatePickerMode initialCalendarMode = DatePickerMode.day,
   }) {
-    pushPopup(
+    return pushPopup(
       widget: Padding(
         padding: const EdgeInsets.all(ThemeConfig.kPadding),
         child: CalendarDatePicker(
