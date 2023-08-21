@@ -6,9 +6,18 @@ export 'components/theme_change_component.dart';
 /// export all config
 export 'config/theme_config.dart';
 
+/// export all controllers
+export 'controllers/authentication_controller.dart';
+export 'controllers/theme_controller.dart';
+
 /// export all pages
 export 'pages/bottom_navigation_page.dart';
 export 'pages/onboarding_page.dart';
+
+/// export all utils
+export 'utils/file_picking.dart';
+export 'utils/navigation.dart';
+export 'utils/url_launcher.dart';
 
 /// export all widgets
 export 'widgets/app_bar.dart';
