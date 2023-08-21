@@ -27,7 +27,7 @@ class _SegmentedThemeButtonState extends State<SegmentedThemeButton> {
 
   @override
   Widget build(BuildContext context) {
-    return SegmentedButtonWidget(
+    return SlidingSegmentedButton(
         margin: widget.margin,
         controller: buttonController,
         segments: const [

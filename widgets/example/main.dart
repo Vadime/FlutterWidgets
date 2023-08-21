@@ -122,7 +122,7 @@ class HomeView extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          SegmentedButtonWidget(
+          SlidingSegmentedButton(
               margin: const EdgeInsets.all(20),
               controller: SegmentedButtonController("Hello"),
               segments: const [

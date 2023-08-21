@@ -37,13 +37,13 @@ class SegmentedButtonData<T> {
   const SegmentedButtonData(this.text, this.value);
 }
 
-class SegmentedButtonWidget<T> extends StatelessWidget {
+class SlidingSegmentedButton<T> extends StatelessWidget {
   final SegmentedButtonController<T> controller;
   final List<SegmentedButtonData<T>> segments;
   final EdgeInsets margin;
   final double radius;
 
-  const SegmentedButtonWidget({
+  const SlidingSegmentedButton({
     required this.controller,
     required this.segments,
     this.margin = EdgeInsets.zero,

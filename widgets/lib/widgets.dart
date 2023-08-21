@@ -12,9 +12,9 @@ export 'pages/bottom_navigation_page.dart';
 /// export all widgets
 export 'widgets/app_bar.dart';
 export 'widgets/bottom_navigation_bar.dart';
-export 'widgets/button_elevated.dart';
-export 'widgets/button_segmented.dart';
-export 'widgets/button_text.dart';
+export 'widgets/elevated_button.dart';
+export 'widgets/sliding_segmented_button.dart';
+export 'widgets/text_button.dart';
 export 'widgets/card.dart';
 export 'widgets/checkbox.dart';
 export 'widgets/divider.dart';
