@@ -1,17 +1,7 @@
 library utils;
 
 import 'package:flutter/material.dart';
-
-extension on BuildContext {
-  // get theme quickly
-  ThemeData get theme => Theme.of(this);
-
-  // get textTheme quickly
-  TextTheme get textTheme => theme.textTheme;
-
-  // get bottom inset quickly
-  double get bottomInset => MediaQuery.of(this).padding.bottom;
-}
+import 'package:widgets/widgets.dart';
 
 class Navigation {
   static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -46,25 +36,43 @@ class Navigation {
     );
   }
 
+  static void pushDatePicker({
+    DateTime? initialDate,
+    required DateTime firstDate,
+    required DateTime lastDate,
+    Function(DateTime)? onChanged,
+
+    /// for dirthdays use DatePickerMode.year
+    DatePickerMode initialCalendarMode = DatePickerMode.day,
+  }) {
+    pushPopup(
+      widget: Padding(
+        padding: const EdgeInsets.all(ThemeConfig.kPadding),
+        child: CalendarDatePicker(
+            initialDate: initialDate ?? DateTime.now(),
+            firstDate: firstDate,
+            lastDate: lastDate,
+            initialCalendarMode: initialCalendarMode,
+            onDateChanged: (date) {
+              onChanged?.call(date);
+              Navigation.pop();
+            }),
+      ),
+    );
+  }
+
   static void pushMessage({String? message}) {
     if (message == null) return;
     pushPopup(
       widget: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisSize: MainAxisSize.min,
+        padding: const EdgeInsets.all(ThemeConfig.kPadding),
+        child: Row(
           children: [
-            Text(
-              'Message',
-              style: navigatorKey.currentContext!.textTheme.titleMedium,
-            ),
-            const SizedBox(height: 10),
-            Text(message),
-            const SizedBox(height: 20),
-            ElevatedButton(
+            Expanded(child: Text(message)),
+            const SizedBox(height: ThemeConfig.kPadding),
+            ElevatedButtonWidget(
+              'OK',
               onPressed: () => Navigation.pop(),
-              child: const Text('OK'),
             ),
           ],
         ),

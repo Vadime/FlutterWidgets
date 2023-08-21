@@ -3,7 +3,7 @@ library utils;
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
-import 'package:utils/src/navigation.dart';
+import 'package:widgets/utils/navigation.dart';
 
 class FilePicking {
   static Future<File?> pickImage() async {
