@@ -14,9 +14,16 @@ class ThemeController extends Cubit<ThemeMode> {
   final ThemeSaver? saver;
   ThemeController({this.saver}) : super(ThemeMode.system);
 
+  // changeTheme
   FutureOr<void> changeTheme(ThemeMode mode) async {
     await saver?.saveTheme(ThemeSaver.key, mode);
     emit(mode);
+  }
+
+  // changeThemeFromString
+  FutureOr<void> changeThemeFromString(String? value) async {
+    await saver?.saveTheme(ThemeSaver.key, themeModeFromString(value));
+    emit(themeModeFromString(value));
   }
 
   FutureOr<void> loadTheme() async {
@@ -54,6 +61,34 @@ class ThemeController extends Cubit<ThemeMode> {
         return Icons.settings_system_daydream;
       default:
         return Icons.error;
+    }
+  }
+
+  // stateNames
+  static const List<String> stateNames = [
+    'System',
+    'Light',
+    'Dark',
+  ];
+
+  // stateIcons
+  static const List<IconData> stateIcons = [
+    Icons.settings_system_daydream,
+    Icons.light_mode,
+    Icons.dark_mode,
+  ];
+
+  // themeModeFromString
+  static ThemeMode themeModeFromString(String? value) {
+    switch (value) {
+      case 'System':
+        return ThemeMode.system;
+      case 'Light':
+        return ThemeMode.light;
+      case 'Dark':
+        return ThemeMode.dark;
+      default:
+        return ThemeMode.system;
     }
   }
 }

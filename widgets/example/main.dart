@@ -125,7 +125,11 @@ class HomeView extends StatelessWidget {
           SegmentedButtonWidget(
               margin: const EdgeInsets.all(20),
               controller: SegmentedButtonController("Hello"),
-              segments: const ["Hello", "World", "Flutter"]),
+              segments: const [
+                SegmentedButtonData("Hello", "Hello"),
+                SegmentedButtonData("World", "World"),
+                SegmentedButtonData("Flutter", "Flutter"),
+              ]),
           Center(
               child: TextButtonWidget(
             "Hello World",

@@ -4,15 +4,40 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:widgets/widgets/widgets.dart';
 
-class SegmentedButtonController extends Cubit<String> {
+class SegmentedButtonController<T> extends Cubit<T> {
+  Function(T)? _changeCallback;
   SegmentedButtonController(super.initialState);
 
-  void set(String value) => super.emit(value);
+  void animateTo(T value) => super.emit(value);
+
+  static SegmentedButtonController of(BuildContext context) =>
+      BlocProvider.of<SegmentedButtonController>(context);
+
+  void addListener(Function(T state) callback) {
+    _changeCallback = callback;
+  }
+
+  @override
+  void onChange(Change<T> change) {
+    super.onChange(change);
+    _changeCallback?.call(change.nextState);
+  }
+
+  void dispose() {
+    _changeCallback = null;
+    super.close();
+  }
 }
 
-class SegmentedButtonWidget extends StatelessWidget {
-  final SegmentedButtonController controller;
-  final List<String> segments;
+class SegmentedButtonData<T> {
+  final String text;
+  final T value;
+  const SegmentedButtonData(this.text, this.value);
+}
+
+class SegmentedButtonWidget<T> extends StatelessWidget {
+  final SegmentedButtonController<T> controller;
+  final List<SegmentedButtonData<T>> segments;
   final EdgeInsets margin;
   const SegmentedButtonWidget({
     required this.controller,
@@ -30,7 +55,7 @@ class SegmentedButtonWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
           border: Border.all(color: context.theme.cardColor, width: 4)),
       margin: margin,
-      child: BlocBuilder<SegmentedButtonController, String>(
+      child: BlocBuilder<SegmentedButtonController<T>, T>(
         bloc: controller,
         builder: (context, state) {
           return LayoutBuilder(builder: (context, constraints) {
@@ -43,11 +68,11 @@ class SegmentedButtonWidget extends StatelessWidget {
                       children: segments
                           .map((e) => GestureDetector(
                                 behavior: HitTestBehavior.translucent,
-                                onTap: () => controller.set(e),
+                                onTap: () => controller.animateTo(e.value),
                                 child: SizedBox(
                                   width: constraints.maxWidth / segments.length,
                                   child: Center(
-                                    child: Text(e),
+                                    child: Text(e.text),
                                   ),
                                 ),
                               ))
@@ -55,7 +80,7 @@ class SegmentedButtonWidget extends StatelessWidget {
                 ),
                 AnimatedPositioned(
                   left: (constraints.maxWidth / segments.length) *
-                      segments.indexOf(state),
+                      segments.indexWhere((e) => e.value == state),
                   top: 0,
                   bottom: 0,
                   duration: const Duration(milliseconds: 100),
@@ -67,7 +92,7 @@ class SegmentedButtonWidget extends StatelessWidget {
                       ),
                       alignment: Alignment.center,
                       child: Text(
-                        state,
+                        segments.firstWhere((e) => e.value == state).text,
                         style: context.textTheme.bodyMedium!.copyWith(
                           fontWeight: FontWeight.w600,
                           color: Colors.white,

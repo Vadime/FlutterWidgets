@@ -10,6 +10,13 @@ class BottomNavigationView {
 
   const BottomNavigationView(
       this.title, this.view, this.icon, this.actionIcon, this.action);
+
+  BottomNavigationBarItem get bottomNavigationBarItem =>
+      BottomNavigationBarItem(
+        icon: Icon(icon),
+        label: title,
+        tooltip: title,
+      );
 }
 
 class BottomNavigationPage extends StatefulWidget {
@@ -68,16 +75,7 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
       bottomNavigationBar: BottomNavigationBarWidget(
         currentIndex: currentIndex,
         onChange: animateTo,
-        items: widget.views
-            .map(
-              (e) => BottomNavigationBarItem(
-                icon: Icon(e.icon),
-                label: e.title,
-                tooltip: e.title,
-                backgroundColor: Colors.white.withOpacity(0.9),
-              ),
-            )
-            .toList(),
+        items: widget.views.map((e) => e.bottomNavigationBarItem).toList(),
       ),
     );
   }
