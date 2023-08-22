@@ -1,6 +1,8 @@
 library widgets;
 
 /// export all components
+export 'components/bar_chart.dart';
+export 'components/brigthness_switch.dart';
 export 'components/login_header.dart';
 export 'components/theme_change_component.dart';
 export 'components/third_party_login_button.dart';
