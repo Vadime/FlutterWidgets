@@ -3,28 +3,23 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:widgets/widgets.dart';
 
 /// gibt liste von ausgewählten elementen zurück
-class MultiSelectionController<T> extends Cubit<List<T>> {
-  MultiSelectionController(super.initialState);
+class SingleSelectionController<T> extends Cubit<T?> {
+  SingleSelectionController(super.initialState);
 
   void toggle(T value) {
-    var state = List<T>.from(this.state);
-    if (contains(value)) {
-      super.emit(state..remove(value));
+    if (state == value) {
+      super.emit(null);
     } else {
-      super.emit(state..add(value));
+      super.emit(value);
     }
-  }
-
-  bool contains(T value) {
-    return state.contains(value);
   }
 }
 
-class MultiSelectionButton<T> extends StatelessWidget {
-  final MultiSelectionController<T> controller;
+class SingleSelectionButton<T> extends StatelessWidget {
+  final SingleSelectionController<T> controller;
   final List<ButtonData<T>> buttons;
   final EdgeInsets margin;
-  const MultiSelectionButton({
+  const SingleSelectionButton({
     required this.buttons,
     required this.controller,
     this.margin = EdgeInsets.zero,
@@ -36,7 +31,7 @@ class MultiSelectionButton<T> extends StatelessWidget {
     return CardWidget.single(
       margin: margin,
       padding: const EdgeInsets.all(ThemeConfig.kPaddingH),
-      child: BlocBuilder<MultiSelectionController<T>, List<T>>(
+      child: BlocBuilder<SingleSelectionController<T>, T?>(
           bloc: controller,
           builder: (context, state) => Wrap(
                 spacing: 10,
@@ -51,7 +46,7 @@ class MultiSelectionButton<T> extends StatelessWidget {
                         child: AnimatedContainer(
                           duration: const Duration(milliseconds: 100),
                           decoration: BoxDecoration(
-                              color: state.contains(e.value)
+                              color: state == e.value
                                   ? context.theme.primaryColor
                                   : context.theme.scaffoldBackgroundColor,
                               borderRadius:
@@ -59,7 +54,7 @@ class MultiSelectionButton<T> extends StatelessWidget {
                           padding: const EdgeInsets.fromLTRB(10, 4, 10, 4),
                           child: Text(
                             e.text,
-                            style: state.contains(e.value)
+                            style: state == e.value
                                 ? context.textTheme.bodyMedium!.copyWith(
                                     color: Colors.white,
                                     fontWeight: FontWeight.w600,
