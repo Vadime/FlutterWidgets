@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:widgets/widgets.dart';
 
 class LogoWidget extends StatelessWidget {
   final String data;
@@ -11,11 +12,14 @@ class LogoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Center(
-        child: Image.asset(
-          data,
-          width: size,
-          height: size,
-          fit: BoxFit.cover,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(ThemeConfig.kRadius),
+          child: Image.asset(
+            data,
+            width: size,
+            height: size,
+            fit: BoxFit.cover,
+          ),
         ),
       );
 }

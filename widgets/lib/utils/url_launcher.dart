@@ -1,5 +1,3 @@
-library url_x_launcher;
-
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';

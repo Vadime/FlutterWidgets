@@ -38,6 +38,7 @@ class ListTileWidget extends StatelessWidget {
           title: title == null ? null : Text(title!),
           subtitle: subtitle == null ? null : Text(subtitle!),
           leading: leading,
+          minLeadingWidth: 40,
           trailing: trailing,
         ),
       );

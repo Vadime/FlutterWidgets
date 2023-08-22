@@ -1,7 +1,9 @@
 library widgets;
 
 /// export all components
+export 'components/login_header.dart';
 export 'components/theme_change_component.dart';
+export 'components/third_party_login_button.dart';
 
 /// export all config
 export 'config/theme_config.dart';
@@ -12,6 +14,7 @@ export 'controllers/theme_controller.dart';
 
 /// export all pages
 export 'pages/bottom_navigation_page.dart';
+export 'pages/login_page.dart';
 export 'pages/onboarding_page.dart';
 
 /// export all utils

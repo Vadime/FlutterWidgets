@@ -50,7 +50,7 @@ class ThemeConfig {
         primaryColor: theme.primaryColor,
         backgroundColor: theme.scaffoldBackgroundColor,
         cardColor: theme.cardColor,
-        neutralColor: theme.shadowColor,
+        neutralColor: theme.dividerColor,
         textColor: theme.textTheme.bodyLarge?.color ?? Colors.black,
       );
 
@@ -84,7 +84,7 @@ class ThemeConfig {
         primaryColor: primaryColor,
         cardColor: cardColor,
         scaffoldBackgroundColor: backgroundColor,
-        shadowColor: neutralColor.withOpacity(kOpacity),
+        shadowColor: Colors.transparent,
         hintColor: neutralColor,
         canvasColor: backgroundColor,
         dividerColor: neutralColor,
@@ -94,7 +94,7 @@ class ThemeConfig {
         textTheme: TextTheme(
           labelSmall: TextStyle(
             fontSize: 12,
-            fontWeight: FontWeight.w600,
+            fontWeight: FontWeight.w400,
             color: textColor.withOpacity(kOpacity),
           ),
           labelMedium: TextStyle(
@@ -128,27 +128,27 @@ class ThemeConfig {
             color: textColor.withOpacity(kOpacity),
           ),
           titleMedium: TextStyle(
-            fontSize: 18,
+            fontSize: 20,
             fontWeight: FontWeight.w600,
             color: textColor,
           ),
           titleLarge: TextStyle(
-            fontSize: 18,
+            fontSize: 22,
             fontWeight: FontWeight.w600,
             color: textColor,
           ),
           headlineSmall: TextStyle(
-            fontSize: 20,
+            fontSize: 24,
             fontWeight: FontWeight.w600,
             color: textColor.withOpacity(kOpacity),
           ),
           headlineMedium: TextStyle(
-            fontSize: 20,
+            fontSize: 26,
             fontWeight: FontWeight.w600,
             color: textColor,
           ),
           headlineLarge: TextStyle(
-            fontSize: 20,
+            fontSize: 28,
             fontWeight: FontWeight.w600,
             color: textColor,
           ),
@@ -195,8 +195,20 @@ class ThemeConfig {
             ),
             padding: EdgeInsets.zero,
             elevation: 0,
+            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
             backgroundColor: primaryColor,
             foregroundColor: Colors.white,
+          ),
+        ),
+        // outlinedButton
+        outlinedButtonTheme: OutlinedButtonThemeData(
+          style: OutlinedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(kRadius),
+            ),
+            padding: const EdgeInsets.all(10),
+            elevation: 0,
+            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
           ),
         ),
         // textButton
@@ -206,7 +218,7 @@ class ThemeConfig {
               borderRadius: BorderRadius.circular(kRadius),
             ),
             padding: const EdgeInsets.fromLTRB(4, 2, 4, 2),
-            foregroundColor: textColor,
+            foregroundColor: primaryColor,
             elevation: 0,
             minimumSize: Size.zero,
             tapTargetSize: MaterialTapTargetSize.shrinkWrap,

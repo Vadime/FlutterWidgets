@@ -2,7 +2,6 @@ library widgets;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:widgets/config/theme_config.dart';
 import 'package:widgets/widgets.dart';
 
 class TextFieldController extends TextEditingController {
@@ -80,10 +79,38 @@ class TextFieldController extends TextEditingController {
         text: text,
       );
 
-  String? get calcErrorText => isValid() ? null : errorText;
+  // one number congiuration
+  factory TextFieldController.number({
+    String? labelText,
+    String? errorText,
+    String? text,
+  }) =>
+      TextFieldController(
+        labelText,
+        errorRegex: RegExp(r'^[0-9]$'),
+        errorText: errorText,
+        keyboardType: TextInputType.number,
+        text: text,
+      );
+  // code congiuration
+  factory TextFieldController.code({
+    String? labelText = "Code",
+    String? errorText = "Invalid code",
+    String? text,
+  }) =>
+      TextFieldController(
+        labelText,
+        errorRegex: RegExp(r'^[0-9]*$'),
+        errorText: errorText,
+        keyboardType: TextInputType.number,
+        text: text,
+      );
 
-  bool isValid() {
-    if (errorRegex != null && text.isNotEmpty) {
+  String? get calcErrorText => isValid(emptyAllowed: true) ? null : errorText;
+
+  bool isValid({bool emptyAllowed = false}) {
+    final condition = emptyAllowed ? text.isNotEmpty : text.isEmpty;
+    if (errorRegex != null && condition) {
       return errorRegex!.hasMatch(text);
     }
     return true;
@@ -161,19 +188,29 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
         child: TextField(
           controller: widget.controller,
           decoration: InputDecoration(
-            border: InputBorder.none,
-            labelText: widget.controller.labelText,
-            errorText: widget.controller.calcErrorText,
-            enabled: widget.enabled ?? true,
-            errorMaxLines: 1,
-            isDense: true,
-            contentPadding: EdgeInsets.zero,
-          ),
+              border: InputBorder.none,
+              labelText: widget.controller.labelText,
+              errorText: widget.controller.calcErrorText,
+              enabled: widget.enabled ?? true,
+              errorMaxLines: 1,
+              isDense: true,
+              contentPadding: EdgeInsets.zero,
+              suffixIcon: (widget.controller.obscureText)
+                  ? IconButton(
+                      onPressed: () => setState(() {
+                        widget.controller.visible = !widget.controller.visible;
+                      }),
+                      icon: Icon(widget.controller.visible
+                          ? Icons.visibility_off_rounded
+                          : Icons.visibility_rounded),
+                    )
+                  : null),
           keyboardType: widget.controller.keyboardType,
           style: widget.style,
           textAlignVertical: widget.textAlignVertical,
           autofocus: widget.autofocus ?? false,
-          obscureText: widget.controller.obscureText,
+          obscureText:
+              widget.controller.obscureText && widget.controller.visible,
           autocorrect: widget.autocorrect ?? false,
           enableSuggestions: widget.enableSuggestions ?? false,
           maxLines: widget.maxLines ?? 1,

@@ -1,5 +1,3 @@
-library utils;
-
 import 'package:flutter/material.dart';
 import 'package:widgets/widgets.dart';
 
@@ -68,9 +66,14 @@ class Navigation {
         padding: const EdgeInsets.all(ThemeConfig.kPadding),
         child: Row(
           children: [
-            Expanded(child: Text(message)),
+            Expanded(
+                child: Text(message,
+                    style: navigatorKey.currentContext!.textTheme.labelLarge!
+                        .copyWith(
+                            color: navigatorKey
+                                .currentContext!.theme.colorScheme.error))),
             const SizedBox(height: ThemeConfig.kPadding),
-            ElevatedButtonWidget(
+            TextButtonWidget(
               'OK',
               onPressed: () => Navigation.pop(),
             ),

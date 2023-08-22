@@ -20,6 +20,9 @@ extension WidgetBuildContextExtensions on BuildContext {
 
   /// get top inset quickly
   double get topInset => MediaQuery.of(this).padding.top;
+
+  /// get mediaQuery quickly
+  MediaQueryData get mediaQuery => MediaQuery.of(this);
 }
 
 extension WidgetTextEditingControllerExtensions on TextEditingController {
@@ -32,4 +35,12 @@ extension WidgetTextEditingControllerExtensions on TextEditingController {
   /// set selecion to the end of the text
   void selectionToEnd() => selection = TextSelection.fromPosition(
       TextPosition(offset: text.length, affinity: TextAffinity.upstream));
+}
+
+extension PageControllerExtension on PageController {
+  void go(int page) => animateToPage(
+        page,
+        curve: Curves.easeInOut,
+        duration: const Duration(milliseconds: 200),
+      );
 }

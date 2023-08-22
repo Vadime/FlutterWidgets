@@ -6,12 +6,14 @@ class TextButtonWidget extends StatelessWidget {
   final EdgeInsets margin;
   final EdgeInsets? padding;
   final Color? backgroundColor;
+  final Color? foregroundColor;
 
   const TextButtonWidget(
     this.text, {
     required this.onPressed,
     this.margin = EdgeInsets.zero,
     this.backgroundColor,
+    this.foregroundColor,
     this.padding,
     super.key,
   });
@@ -22,6 +24,7 @@ class TextButtonWidget extends StatelessWidget {
         child: TextButton(
           style: TextButton.styleFrom(
             backgroundColor: backgroundColor,
+            foregroundColor: foregroundColor,
             padding: padding,
           ),
           onPressed: onPressed,
