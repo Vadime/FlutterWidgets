@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:widgets/components/brigthness_switch.dart';
 import 'package:widgets/widgets.dart';
 
 class LoginPage extends StatefulWidget {
@@ -8,6 +9,7 @@ class LoginPage extends StatefulWidget {
   final Function(String email) onEmailSendPassword;
   final Function(String phone) onPhoneSendCode;
   final Function(String phone) onPhoneVerifyCode;
+  final Function() onAppleLogin;
 
   const LoginPage({
     this.initialPage = 1,
@@ -16,6 +18,7 @@ class LoginPage extends StatefulWidget {
     required this.onEmailSendPassword,
     required this.onPhoneSendCode,
     required this.onPhoneVerifyCode,
+    required this.onAppleLogin,
     super.key,
   });
 
@@ -35,7 +38,6 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       body: Stack(
         children: [
           Column(
@@ -49,6 +51,12 @@ class _LoginPageState extends State<LoginPage> {
                       SignUpView(
                         toSignIn: () => pageController.go(1),
                         signUp: (email, password, agree) {
+                          if (!agree.state) {
+                            Navigation.pushMessage(
+                                message:
+                                    "Please agree to the Terms of Service.");
+                            return;
+                          }
                           if (!email.isValid() || !password.isValid()) {
                             Navigation.pushMessage(
                                 message:
@@ -121,27 +129,20 @@ class _LoginPageState extends State<LoginPage> {
                         )),
                       ),
                     ),
+                    Expanded(
+                      child: ThirdPartyLoginButton("Apple", Icons.apple_rounded,
+                          onPressed: widget.onAppleLogin),
+                    ),
                   ],
                 ),
               ),
               const SafeArea(top: false, child: SizedBox())
             ],
           ),
-          Positioned(
+          const Positioned(
             top: 20,
             right: 20,
-            child: SafeArea(
-              child: IconButton(
-                  onPressed: () => Navigation.pushPopup(
-                          widget: Padding(
-                        padding: const EdgeInsets.all(20),
-                        child: ThemeChangeComponent(
-                            onChange: (mode) =>
-                                ThemeController.of(context).change(mode),
-                            currentMode: ThemeController.of(context).state),
-                      )),
-                  icon: const Icon(Icons.settings, color: Colors.white)),
-            ),
+            child: SafeArea(child: BrigthnessSwitch()),
           ),
         ],
       ),
@@ -263,6 +264,7 @@ class _SendPasswordViewState extends State<SendPasswordView> {
             foregroundColor: Colors.white,
           ),
         ),
+        const Spacer(),
         TextFieldWidget(
           TextFieldController.email(),
           margin: const EdgeInsets.all(20),
@@ -312,6 +314,7 @@ class _SignInViewState extends State<SignInView> {
             foregroundColor: Colors.white,
           ),
         ),
+        const Spacer(),
         CardWidget(
           margin: const EdgeInsets.fromLTRB(20, 20, 20, 10),
           children: [TextFieldWidget(email), TextFieldWidget(password)],
@@ -370,6 +373,8 @@ class _SignUpViewState extends State<SignUpView> {
             foregroundColor: Colors.white,
           ),
         ),
+        const Spacer(),
+
         CardWidget(
           margin: const EdgeInsets.fromLTRB(20, 20, 20, 10),
           children: [

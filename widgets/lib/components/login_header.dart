@@ -11,14 +11,18 @@ class LoginHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: context.theme.primaryColor,
-      height: (context.mediaQuery.size.height) * 0.3,
+      decoration: BoxDecoration(
+        color: context.theme.primaryColor,
+        borderRadius: const BorderRadius.vertical(
+            bottom: Radius.circular(ThemeConfig.kRadius)),
+      ),
       alignment: Alignment.bottomLeft,
       padding: const EdgeInsets.all(ThemeConfig.kPadding),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
+          const SafeArea(bottom: false, child: SizedBox()),
           Container(
             padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
             decoration: BoxDecoration(

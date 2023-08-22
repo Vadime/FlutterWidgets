@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:widgets/pages/login_page.dart';
 import 'package:widgets/widgets.dart';
 
 void main() {
@@ -50,6 +49,9 @@ class App extends StatelessWidget {
       },
       onPhoneVerifyCode: (code) {
         print(code);
+      },
+      onAppleLogin: () {
+        Navigation.pushMessage(message: "Not implemented yet");
       },
     );
   }

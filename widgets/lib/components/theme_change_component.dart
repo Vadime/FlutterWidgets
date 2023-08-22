@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:widgets/widgets.dart';
 
 class ThemeChangeComponent extends StatefulWidget {
-  final ThemeMode currentMode;
-  final Function(ThemeMode mode)? onChange;
+  final ThemeController controller;
   final EdgeInsets margin;
   const ThemeChangeComponent({
-    required this.currentMode,
-    this.onChange,
+    required this.controller,
     this.margin = EdgeInsets.zero,
     super.key,
   });
@@ -22,10 +20,9 @@ class _ThemeChangeComponentState extends State<ThemeChangeComponent> {
   @override
   void initState() {
     super.initState();
-    buttonController = SegmentedButtonController(widget.currentMode);
-    if (widget.onChange != null) {
-      buttonController.addListener(widget.onChange!);
-    }
+    buttonController = SegmentedButtonController(widget.controller.state);
+    buttonController
+        .addListener((mode) => ThemeController.of(context).change(mode));
   }
 
   @override

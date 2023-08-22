@@ -88,6 +88,18 @@ class ThemeConfig {
         hintColor: neutralColor,
         canvasColor: backgroundColor,
         dividerColor: neutralColor,
+        indicatorColor: primaryColor,
+        applyElevationOverlayColor: false,
+        // focusColor: ,
+        // hoverColor: ,
+        // splashColor: ,
+        // highlightColor: ,
+        primaryColorDark: primaryColor,
+        primaryColorLight: primaryColor,
+        disabledColor: neutralColor,
+        secondaryHeaderColor: primaryColor,
+        dialogBackgroundColor: backgroundColor,
+        unselectedWidgetColor: neutralColor,
 
         // text
         fontFamily: 'Varela Round',
@@ -206,6 +218,7 @@ class ThemeConfig {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(kRadius),
             ),
+            foregroundColor: primaryColor,
             padding: const EdgeInsets.all(10),
             elevation: 0,
             tapTargetSize: MaterialTapTargetSize.shrinkWrap,

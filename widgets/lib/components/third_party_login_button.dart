@@ -20,7 +20,7 @@ class ThirdPartyLoginButton extends StatelessWidget {
               Icon(icon),
               const SizedBox(width: 10),
               Text(text, style: context.textTheme.bodyMedium!),
-              const SizedBox(width: 10),
+              const SizedBox(width: 8),
             ],
           )),
     );

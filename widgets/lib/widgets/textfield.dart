@@ -198,8 +198,10 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
                   enabled: widget.enabled ?? true,
                   errorMaxLines: 1,
                   isDense: true,
+                  labelStyle: context.textTheme.bodyLarge,
                   contentPadding: EdgeInsets.zero,
                 ),
+                cursorColor: context.theme.primaryColor,
                 keyboardType: widget.controller.keyboardType,
                 style: widget.style,
                 textAlignVertical: widget.textAlignVertical,
@@ -225,6 +227,12 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
             const SizedBox(width: ThemeConfig.kPaddingH),
             if (widget.controller.obscureText)
               IconButton(
+                padding: const EdgeInsets.all(8),
+                iconSize: 20,
+                style: const ButtonStyle(
+                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  minimumSize: MaterialStatePropertyAll(Size.zero),
+                ),
                 onPressed: () => setState(() {
                   widget.controller.visible = !widget.controller.visible;
                 }),
