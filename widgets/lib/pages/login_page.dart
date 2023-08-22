@@ -28,121 +28,120 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   late PageController pageController;
 
+  get page => pageController.hasClients
+      ? pageController.page!.round()
+      : widget.initialPage;
+
   @override
   void initState() {
     super.initState();
     pageController = PageController(initialPage: widget.initialPage);
+    pageController.addListener(() => setState(() {}));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
+      appBar: AppBarWidget(
+        [
+          'Sign Up',
+          'Sign In',
+          'Send Password',
+        ][page],
+        action: const BrigthnessSwitch(),
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Expanded(
-                child: PageView(
-                    physics: const NeverScrollableScrollPhysics(),
-                    controller: pageController,
-                    children: [
-                      SignUpView(
-                        toSignIn: () => pageController.go(1),
-                        signUp: (email, password, agree) {
-                          if (!agree.state) {
-                            Navigation.pushMessage(
-                                message:
-                                    "Please agree to the Terms of Service.");
-                            return;
-                          }
-                          if (!email.isValid() || !password.isValid()) {
-                            Navigation.pushMessage(
-                                message:
-                                    "${email.errorText!} or ${password.errorText!}");
-
-                            return;
-                          }
-                          widget.onEmailSignUp(email.text, password.text);
-                        },
-                        agreementText: Text(
-                          "I agree to the Terms of Service.",
-                          style: context.textTheme.labelSmall,
-                        ),
-                      ),
-                      SignInView(
-                        toSignUp: () => pageController.go(0),
-                        toSendPassword: () => pageController.go(2),
-                        signIn: (email, password) {
-                          if (!email.isValid() || !password.isValid()) {
-                            Navigation.pushMessage(
-                                message:
-                                    "${email.errorText!} or ${password.errorText!}");
-                            return;
-                          }
-                          widget.onEmailSignIn(email.text, password.text);
-                        },
-                      ),
-                      SendPasswordView(
-                        toSignIn: () => pageController.go(1),
-                        sendPassword: (email) {
-                          if (!email.isValid()) {
-                            Navigation.pushMessage(message: email.errorText);
-                            return;
-                          }
-                          widget.onEmailSendPassword(email.text);
-                        },
-                      ),
-                    ]),
-              ),
-              const DividerWidget("Or Login with"),
-              Padding(
-                padding: const EdgeInsets.all(10),
-                child: Row(
-                  children: [
-                    // other authentication providers possible
-                    Expanded(
-                      child: ThirdPartyLoginButton(
-                        "Phone",
-                        Icons.phone_rounded,
-                        onPressed: () =>
-                            Navigation.pushPopup(widget: SendPhoneCodeView(
-                          onSendPhoneCode: (phone) async {
-                            if (!phone.isValid()) {
-                              Navigation.pushMessage(message: phone.errorText);
+          Expanded(
+            child: PageView(
+                physics: const NeverScrollableScrollPhysics(),
+                controller: pageController,
+                children: [
+                  SignUpView(
+                    toSignIn: () => pageController.go(1),
+                    signUp: (email, password, agree) {
+                      if (!agree.state) {
+                        Navigation.pushMessage(
+                            message: 'Please agree to the Terms of Service.');
+                        return;
+                      }
+                      if (!email.isValid() || !password.isValid()) {
+                        email.emptyAllowed = false;
+                        password.emptyAllowed = false;
+                        return;
+                      }
+                      widget.onEmailSignUp(email.text, password.text);
+                    },
+                    agreementText: Text(
+                      'I agree to the Terms of Service.',
+                      style: context.textTheme.labelSmall,
+                    ),
+                  ),
+                  SignInView(
+                    toSignUp: () => pageController.go(0),
+                    toSendPassword: () => pageController.go(2),
+                    signIn: (email, password) {
+                      if (!email.isValid() || !password.isValid()) {
+                        email.emptyAllowed = false;
+                        password.emptyAllowed = false;
+                        return;
+                      }
+                      widget.onEmailSignIn(email.text, password.text);
+                    },
+                  ),
+                  SendPasswordView(
+                    toSignIn: () => pageController.go(1),
+                    sendPassword: (email) {
+                      if (!email.isValid()) {
+                        email.emptyAllowed = false;
+                        return;
+                      }
+                      widget.onEmailSendPassword(email.text);
+                    },
+                  ),
+                ]),
+          ),
+          const DividerWidget('Or Login with'),
+          Padding(
+            padding: const EdgeInsets.all(ThemeConfig.kPaddingH),
+            child: Row(
+              children: [
+                // other authentication providers possible
+                Expanded(
+                  child: ThirdPartyLoginButton(
+                    'Phone',
+                    Icons.phone_rounded,
+                    onPressed: () =>
+                        Navigation.pushPopup(widget: SendPhoneCodeView(
+                      onSendPhoneCode: (phone) async {
+                        if (!phone.isValid()) {
+                          phone.emptyAllowed = false;
+                          return;
+                        }
+                        await widget.onPhoneSendCode(phone.text);
+                        Navigation.pop();
+                        Navigation.pushPopup(widget: VerifyPhoneCodeView(
+                          verifyPhoneCode: (code) async {
+                            if (!code.isValid()) {
+                              phone.emptyAllowed = false;
                               return;
                             }
-                            await widget.onPhoneSendCode(phone.text);
-                            Navigation.pop();
-                            Navigation.pushPopup(widget: VerifyPhoneCodeView(
-                              verifyPhoneCode: (code) async {
-                                if (!code.isValid()) {
-                                  Navigation.pushMessage(
-                                      message: code.errorText);
-                                  return;
-                                }
-                                await widget.onPhoneVerifyCode(code.text);
-                              },
-                            ));
+                            await widget.onPhoneVerifyCode(code.text);
                           },
-                        )),
-                      ),
-                    ),
-                    Expanded(
-                      child: ThirdPartyLoginButton("Apple", Icons.apple_rounded,
-                          onPressed: widget.onAppleLogin),
-                    ),
-                  ],
+                        ));
+                      },
+                    )),
+                  ),
                 ),
-              ),
-              const SafeArea(top: false, child: SizedBox())
-            ],
+                Expanded(
+                  child: ThirdPartyLoginButton('Apple', Icons.apple_rounded,
+                      onPressed: widget.onAppleLogin),
+                ),
+              ],
+            ),
           ),
-          const Positioned(
-            top: 20,
-            right: 20,
-            child: SafeArea(child: BrigthnessSwitch()),
-          ),
+          const SafeArea(top: false, child: SizedBox())
         ],
       ),
     );
@@ -166,26 +165,17 @@ class _SendPhoneCodeViewState extends State<SendPhoneCodeView> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(ThemeConfig.kPadding),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
-              "Send Code",
-              style: context.textTheme.titleLarge,
-            ),
-            const SizedBox(height: 10),
-            Text(
-              "sent to Phone",
-              style: context.textTheme.labelMedium,
-            ),
-            const SizedBox(height: 20),
             TextFieldWidget(
               phone,
+              autofocus: true,
             ),
-            const SizedBox(height: 20),
-            ElevatedButtonWidget("Send Code",
+            const SizedBox(height: ThemeConfig.kPadding),
+            ElevatedButtonWidget('Send Code',
                 onPressed: () => widget.onSendPhoneCode(phone))
           ],
         ));
@@ -202,31 +192,21 @@ class VerifyPhoneCodeView extends StatefulWidget {
 }
 
 class _VerifyPhoneCodeViewState extends State<VerifyPhoneCodeView> {
-  TextFieldController code = TextFieldController.code();
+  TextFieldController code = TextFieldController.code(labelText: 'Verify Code');
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(ThemeConfig.kPadding),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
-              "Login",
-              style: context.textTheme.titleLarge,
-            ),
-            const SizedBox(height: 10),
-            Text(
-              "with the Code",
-              style: context.textTheme.labelMedium,
-            ),
-            const SizedBox(height: 20),
             TextFieldWidget(
               code,
             ),
-            const SizedBox(height: 20),
-            ElevatedButtonWidget("Login",
+            const SizedBox(height: ThemeConfig.kPadding),
+            ElevatedButtonWidget('Login',
                 onPressed: () => widget.verifyPhoneCode(code)),
           ],
         ));
@@ -254,25 +234,28 @@ class _SendPasswordViewState extends State<SendPasswordView> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
+        const Spacer(),
         LoginHeader(
-          "Send Password",
+          'Send Password',
           'You have your Password again? ',
           TextButtonWidget(
             'Sign In',
             onPressed: widget.toSignIn,
-            foregroundColor: Colors.white,
           ),
         ),
-        const Spacer(),
         TextFieldWidget(
           TextFieldController.email(),
-          margin: const EdgeInsets.all(20),
+          margin: const EdgeInsets.fromLTRB(
+              ThemeConfig.kPadding,
+              ThemeConfig.kPaddingH,
+              ThemeConfig.kPadding,
+              ThemeConfig.kPaddingH),
         ),
         const Spacer(),
         ElevatedButtonWidget(
-          "Send Password",
+          'Send Password',
           onPressed: () => widget.sendPassword(email),
-          margin: const EdgeInsets.all(20),
+          margin: const EdgeInsets.all(ThemeConfig.kPadding),
         ),
       ],
     );
@@ -304,18 +287,21 @@ class _SignInViewState extends State<SignInView> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
+        const Spacer(),
         LoginHeader(
-          "Sign In",
+          'Sign In',
           "Don't have an Account? ",
           TextButtonWidget(
             'Sign Up',
             onPressed: widget.toSignUp,
-            foregroundColor: Colors.white,
           ),
         ),
-        const Spacer(),
         CardWidget(
-          margin: const EdgeInsets.fromLTRB(20, 20, 20, 10),
+          margin: const EdgeInsets.fromLTRB(
+              ThemeConfig.kPadding,
+              ThemeConfig.kPaddingH,
+              ThemeConfig.kPadding,
+              ThemeConfig.kPaddingH),
           children: [TextFieldWidget(email), TextFieldWidget(password)],
         ),
         Align(
@@ -323,14 +309,18 @@ class _SignInViewState extends State<SignInView> {
           child: TextButtonWidget(
             'Forgot password?',
             onPressed: widget.toSendPassword,
-            margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+            margin: const EdgeInsets.fromLTRB(
+                ThemeConfig.kPadding,
+                ThemeConfig.kPaddingH,
+                ThemeConfig.kPadding,
+                ThemeConfig.kPaddingH),
           ),
         ),
         const Spacer(),
         ElevatedButtonWidget(
-          "Sign In",
+          'Sign In',
           onPressed: () => widget.signIn(email, password),
-          margin: const EdgeInsets.all(20),
+          margin: const EdgeInsets.all(ThemeConfig.kPadding),
         ),
       ],
     );
@@ -363,19 +353,23 @@ class _SignUpViewState extends State<SignUpView> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
+        const Spacer(),
+
         LoginHeader(
-          "Sign Up",
-          "Already have an account? ",
+          'Sign Up',
+          'Already have an account? ',
           TextButtonWidget(
             'Sign In',
             onPressed: widget.toSignIn,
-            foregroundColor: Colors.white,
           ),
         ),
-        const Spacer(),
 
         CardWidget(
-          margin: const EdgeInsets.fromLTRB(20, 20, 20, 10),
+          margin: const EdgeInsets.fromLTRB(
+              ThemeConfig.kPadding,
+              ThemeConfig.kPaddingH,
+              ThemeConfig.kPadding,
+              ThemeConfig.kPaddingH),
           children: [
             TextFieldWidget(email),
             TextFieldWidget(password),
@@ -383,20 +377,21 @@ class _SignUpViewState extends State<SignUpView> {
         ),
         // checkbox and terms of service
         Padding(
-          padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+          padding: const EdgeInsets.fromLTRB(
+              ThemeConfig.kPadding, 0, ThemeConfig.kPadding, 0),
           child: Row(
             children: [
               CheckboxWidget(controller: agree),
-              const SizedBox(width: 10),
+              const SizedBox(width: ThemeConfig.kPaddingH),
               Expanded(child: widget.agreementText),
             ],
           ),
         ),
         const Spacer(),
         ElevatedButtonWidget(
-          "Sign Up",
+          'Sign Up',
           onPressed: () => widget.signUp(email, password, agree),
-          margin: const EdgeInsets.all(20),
+          margin: const EdgeInsets.all(ThemeConfig.kPadding),
         ),
       ],
     );

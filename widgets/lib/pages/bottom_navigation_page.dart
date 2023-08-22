@@ -54,8 +54,11 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
   int get currentIndex =>
       controller.hasClients ? controller.page!.round() : widget.initialIndex;
 
-  void animateTo(int index) async => await controller.animateToPage(index,
-      duration: const Duration(milliseconds: 200), curve: Curves.ease);
+  void animateTo(int index) async => await controller.animateToPage(
+        index,
+        duration: const Duration(milliseconds: 200),
+        curve: Curves.easeInOut,
+      );
 
   @override
   Widget build(BuildContext context) {

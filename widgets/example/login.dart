@@ -20,7 +20,7 @@ class MatApp extends StatelessWidget {
               themeMode: state,
               theme: ThemeConfig.light.genTheme(),
               darkTheme: ThemeConfig.dark.genTheme(),
-              home: const App2());
+              home: const App());
         },
       ),
     );
@@ -35,7 +35,7 @@ class App2 extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.all(ThemeConfig.kPadding),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -43,35 +43,35 @@ class App2 extends StatelessWidget {
               MultiSelectionButton(
                   controller: MultiSelectionController<int>([]),
                   buttons: const [
-                    ButtonData("Hals", 0),
-                    ButtonData("Rücken", 1),
-                    ButtonData("Arme", 2),
-                    ButtonData("Brust", 3),
-                    ButtonData("Beine", 4),
-                    ButtonData("Hüfte", 5),
-                    ButtonData("Langes Wort", 6),
+                    ButtonData('Hals', 0),
+                    ButtonData('Rücken', 1),
+                    ButtonData('Arme', 2),
+                    ButtonData('Brust', 3),
+                    ButtonData('Beine', 4),
+                    ButtonData('Hüfte', 5),
+                    ButtonData('Langes Wort', 6),
                   ]),
               const Spacer(),
               SlidingSegmentedButton(
                   controller: SegmentedButtonController(0),
                   segments: const [
-                    ButtonData("Hello", 0),
-                    ButtonData("Hello", 1),
-                    ButtonData("Hello", 2),
+                    ButtonData('Hello', 0),
+                    ButtonData('Hello', 1),
+                    ButtonData('Hello', 2),
                   ]),
               Center(
                   child: TextButtonWidget(
-                "Hello World",
+                'Hello World',
                 onPressed: () {},
               )),
               const Spacer(),
               const ListTileWidget(
-                title: "Hello World",
+                title: 'Hello World',
                 //subtitle: "Hello World\n\nadsfdsf",
               ),
               const Spacer(),
               ElevatedButtonWidget(
-                "Hello World",
+                'Hello World',
                 onPressed: () {},
               ),
               const Spacer(),
@@ -107,7 +107,7 @@ class App extends StatelessWidget {
         print(code);
       },
       onAppleLogin: () {
-        Navigation.pushMessage(message: "Not implemented yet");
+        Navigation.pushMessage(message: 'Not implemented yet');
       },
     );
   }

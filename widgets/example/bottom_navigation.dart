@@ -7,10 +7,10 @@ void main(List<String> args) {
     initialIndex: 0,
     views: [
       BottomNavigationView(
-          "Work", Center(child: Text("Work")), Icons.work, Icons.add, null),
+          'Work', Center(child: Text('Work')), Icons.work, Icons.add, null),
       BottomNavigationView(
-          "School", Center(child: Text("School")), Icons.school, null, null),
-      BottomNavigationView("Business", Center(child: Text("Business")),
+          'School', Center(child: Text('School')), Icons.school, null, null),
+      BottomNavigationView('Business', Center(child: Text('Business')),
           Icons.business, null, null),
     ],
   )));

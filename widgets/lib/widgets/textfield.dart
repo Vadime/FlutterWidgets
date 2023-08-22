@@ -11,12 +11,16 @@ class TextFieldController extends TextEditingController {
   RegExp? errorRegex;
   String? errorText;
   late bool visible;
+  final List<TextInputFormatter>? inputFormatters;
+  bool _emptyAllowed = true;
+
   TextFieldController(
     this.labelText, {
     this.errorRegex,
     this.errorText,
     this.keyboardType,
     this.obscureText = false,
+    this.inputFormatters,
     super.text,
   }) {
     visible = obscureText;
@@ -24,8 +28,8 @@ class TextFieldController extends TextEditingController {
 
   // email congiuration
   factory TextFieldController.email({
-    String? labelText = "Email",
-    String? errorText = "Invalid email",
+    String? labelText = 'Email',
+    String? errorText = 'Invalid email',
     String? text,
   }) =>
       TextFieldController(
@@ -38,8 +42,8 @@ class TextFieldController extends TextEditingController {
 
   // password congiuration
   factory TextFieldController.password({
-    String? labelText = "Password",
-    String? errorText = "Invalid password",
+    String? labelText = 'Password',
+    String? errorText = 'Invalid password',
     String? text,
   }) =>
       TextFieldController(
@@ -53,8 +57,8 @@ class TextFieldController extends TextEditingController {
 
   // name congiuration
   factory TextFieldController.name({
-    String? labelText = "Name",
-    String? errorText = "Invalid name",
+    String? labelText = 'Name',
+    String? errorText = 'Invalid name',
     String? text,
   }) =>
       TextFieldController(
@@ -67,16 +71,19 @@ class TextFieldController extends TextEditingController {
 
   // phone congiuration
   factory TextFieldController.phone({
-    String? labelText = "Phone",
-    String? errorText = "Invalid phone",
+    String? labelText = 'Phone',
+    String? errorText = 'Invalid phone',
     String? text,
   }) =>
       TextFieldController(
         labelText,
-        errorRegex: RegExp(r'^[0-9]{10}$'),
+        errorRegex: RegExp(r'^[0-9\s\-\(\)+-]+$'),
         errorText: errorText,
         keyboardType: TextInputType.phone,
         text: text,
+        inputFormatters: [
+          LengthLimitingTextInputFormatter(12),
+        ],
       );
 
   // one number congiuration
@@ -94,8 +101,8 @@ class TextFieldController extends TextEditingController {
       );
   // code congiuration
   factory TextFieldController.code({
-    String? labelText = "Code",
-    String? errorText = "Invalid code",
+    String? labelText = 'Code',
+    String? errorText = 'Invalid code',
     String? text,
   }) =>
       TextFieldController(
@@ -106,7 +113,8 @@ class TextFieldController extends TextEditingController {
         text: text,
       );
 
-  String? get calcErrorText => isValid(emptyAllowed: true) ? null : errorText;
+  String? get calcErrorText =>
+      isValid(emptyAllowed: _emptyAllowed) ? null : errorText;
 
   bool isValid({bool emptyAllowed = false}) {
     final condition = emptyAllowed ? text.isNotEmpty : text.isEmpty;
@@ -114,6 +122,13 @@ class TextFieldController extends TextEditingController {
       return errorRegex!.hasMatch(text);
     }
     return true;
+  }
+
+  /// this makes the errorText to show
+  /// instead of pushing a popup like we used to do
+  set emptyAllowed(bool value) {
+    _emptyAllowed = value;
+    notifyListeners();
   }
 }
 
@@ -131,7 +146,6 @@ class TextFieldWidget extends StatefulWidget {
   final int? maxLength;
   final VoidCallback? onEditingComplete;
   final ValueChanged<String>? onSubmitted;
-  final List<TextInputFormatter>? inputFormatters;
   final bool? enabled;
   final bool? enableInteractiveSelection;
   final GestureTapCallback? onTap;
@@ -153,7 +167,6 @@ class TextFieldWidget extends StatefulWidget {
     this.maxLength,
     this.onEditingComplete,
     this.onSubmitted,
-    this.inputFormatters,
     this.enabled,
     this.enableInteractiveSelection,
     this.onTap,
@@ -216,7 +229,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
                 maxLength: widget.maxLength,
                 onEditingComplete: widget.onEditingComplete,
                 onSubmitted: widget.onSubmitted,
-                inputFormatters: widget.inputFormatters,
+                inputFormatters: widget.controller.inputFormatters,
                 enabled: widget.enabled,
                 enableInteractiveSelection:
                     widget.enableInteractiveSelection ?? true,

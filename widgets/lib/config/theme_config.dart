@@ -215,7 +215,7 @@ class ThemeConfig {
               borderRadius: BorderRadius.circular(kRadius),
             ),
             foregroundColor: primaryColor,
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.all(kPaddingH),
             elevation: 0,
             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
           ),

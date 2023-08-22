@@ -19,15 +19,15 @@ class Navigation {
       builder: (context) => Container(
         decoration: BoxDecoration(
           color: context.theme.scaffoldBackgroundColor,
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(ThemeConfig.kRadius),
         ),
         margin: EdgeInsets.fromLTRB(
-          10,
+          ThemeConfig.kPaddingH,
           0,
-          10,
+          ThemeConfig.kPaddingH,
           context.bottomInset +
               MediaQuery.of(navigatorKey.currentContext!).viewInsets.bottom +
-              10,
+              ThemeConfig.kPaddingH,
         ),
         child: widget,
       ),

@@ -27,13 +27,10 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
           data: const MediaQueryData(
             padding: EdgeInsets.zero,
           ),
-          child: Hero(
-            tag: 'title',
-            child: AppBar(
-                leading: leading,
-                title: FittedBox(child: Text(title)),
-                actions: (action != null) ? [action!] : null),
-          ),
+          child: AppBar(
+              leading: leading,
+              title: FittedBox(child: Text(title)),
+              actions: (action != null) ? [action!] : null),
         ),
       ),
     );

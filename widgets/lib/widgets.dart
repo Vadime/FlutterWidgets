@@ -44,6 +44,7 @@ export 'widgets/loading.dart';
 export 'widgets/logo.dart';
 export 'widgets/multi_selection_button.dart';
 export 'widgets/party.dart';
+export 'widgets/single_selection_button.dart';
 export 'widgets/sliding_segmented_button.dart';
 export 'widgets/table.dart';
 export 'widgets/text.dart';

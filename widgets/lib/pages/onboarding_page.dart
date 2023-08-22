@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
-
-extension on BuildContext {
-  TextTheme get textTheme => Theme.of(this).textTheme;
-
-  double get shortestDim => MediaQuery.of(this).size.shortestSide;
-}
+import 'package:widgets/widgets.dart';
 
 class OnboardingPageData {
   final String title;
@@ -60,8 +55,8 @@ class OnboardingPage extends StatefulWidget {
   final Function()? onDone;
 
   const OnboardingPage({
-    this.padding = 20,
-    this.radius = 10,
+    this.padding = ThemeConfig.kPadding,
+    this.radius = ThemeConfig.kRadius,
     this.onDone,
     required this.data,
     super.key,
@@ -179,13 +174,10 @@ class _OnboardingPage extends StatelessWidget {
       child: Column(
         children: [
           const Spacer(flex: 2),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(radius),
-            child: Image.asset(
-              data.image,
-              width: context.shortestDim / 2,
-              height: context.shortestDim / 2,
-            ),
+          ImageWidget.asset(
+            data.image,
+            width: context.mediaQuery.size.shortestSide / 2,
+            height: context.mediaQuery.size.shortestSide / 2,
           ),
           const Spacer(),
           Text(

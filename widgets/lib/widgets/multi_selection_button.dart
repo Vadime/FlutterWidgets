@@ -39,8 +39,8 @@ class MultiSelectionButton<T> extends StatelessWidget {
       child: BlocBuilder<MultiSelectionController<T>, List<T>>(
           bloc: controller,
           builder: (context, state) => Wrap(
-                spacing: 10,
-                runSpacing: 10,
+                spacing: ThemeConfig.kPaddingH,
+                runSpacing: ThemeConfig.kPaddingH,
                 alignment: WrapAlignment.start,
                 runAlignment: WrapAlignment.start,
                 crossAxisAlignment: WrapCrossAlignment.center,
@@ -56,7 +56,11 @@ class MultiSelectionButton<T> extends StatelessWidget {
                                   : context.theme.scaffoldBackgroundColor,
                               borderRadius:
                                   BorderRadius.circular(ThemeConfig.kRadius)),
-                          padding: const EdgeInsets.fromLTRB(10, 4, 10, 4),
+                          padding: const EdgeInsets.fromLTRB(
+                              ThemeConfig.kPaddingH,
+                              4,
+                              ThemeConfig.kPaddingH,
+                              4),
                           child: Text(
                             e.text,
                             style: state.contains(e.value)

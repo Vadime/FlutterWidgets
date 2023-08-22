@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:widgets/widgets/widgets.dart';
+import 'package:widgets/widgets.dart';
 
 class ThirdPartyLoginButton extends StatelessWidget {
   final Function()? onPressed;
@@ -11,14 +11,14 @@ class ThirdPartyLoginButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(ThemeConfig.kPaddingH),
       child: OutlinedButton(
           onPressed: onPressed,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(icon),
-              const SizedBox(width: 10),
+              const SizedBox(width: ThemeConfig.kPaddingH),
               Text(text, style: context.textTheme.bodyMedium!),
               const SizedBox(width: 8),
             ],

@@ -11,16 +11,20 @@ class BrigthnessSwitch extends StatelessWidget {
           ? ThemeController.of(context).change(ThemeMode.dark)
           : ThemeController.of(context).change(ThemeMode.light),
       child: Container(
-        padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+        padding: const EdgeInsets.fromLTRB(
+            ThemeConfig.kPaddingH,
+            ThemeConfig.kPaddingH,
+            ThemeConfig.kPaddingH,
+            ThemeConfig.kPaddingH),
         decoration: BoxDecoration(
           color: context.theme.cardColor.withOpacity(0.2),
           borderRadius: BorderRadius.circular(ThemeConfig.kRadius),
         ),
         child: Icon(
-            context.theme.brightness == Brightness.light
-                ? Icons.light_mode_rounded
-                : Icons.dark_mode_rounded,
-            color: Colors.white),
+          context.theme.brightness == Brightness.light
+              ? Icons.light_mode_rounded
+              : Icons.dark_mode_rounded,
+        ),
       ),
     );
   }
