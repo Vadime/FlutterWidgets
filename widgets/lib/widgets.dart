@@ -14,6 +14,9 @@ export 'config/theme_config.dart';
 export 'controllers/authentication_controller.dart';
 export 'controllers/theme_controller.dart';
 
+/// export all data
+export 'data/button_data.dart';
+
 /// export all pages
 export 'pages/bottom_navigation_page.dart';
 export 'pages/login_page.dart';
@@ -39,6 +42,7 @@ export 'widgets/linear_progress.dart';
 export 'widgets/list_tile.dart';
 export 'widgets/loading.dart';
 export 'widgets/logo.dart';
+export 'widgets/multi_selection_button.dart';
 export 'widgets/party.dart';
 export 'widgets/sliding_segmented_button.dart';
 export 'widgets/table.dart';

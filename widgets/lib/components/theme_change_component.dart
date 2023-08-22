@@ -31,15 +31,15 @@ class _ThemeChangeComponentState extends State<ThemeChangeComponent> {
         margin: widget.margin,
         controller: buttonController,
         segments: const [
-          SegmentedButtonData(
+          ButtonData(
             'System',
             ThemeMode.system,
           ),
-          SegmentedButtonData(
+          ButtonData(
             'Light',
             ThemeMode.light,
           ),
-          SegmentedButtonData(
+          ButtonData(
             'Dark',
             ThemeMode.dark,
           ),

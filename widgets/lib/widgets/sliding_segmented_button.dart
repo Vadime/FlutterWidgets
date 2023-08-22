@@ -5,6 +5,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:widgets/config/theme_config.dart';
+import 'package:widgets/data/button_data.dart';
 import 'package:widgets/widgets/widgets.dart';
 
 class SegmentedButtonController<T> extends Cubit<T> {
@@ -32,15 +33,9 @@ class SegmentedButtonController<T> extends Cubit<T> {
   }
 }
 
-class SegmentedButtonData<T> {
-  final String text;
-  final T value;
-  const SegmentedButtonData(this.text, this.value);
-}
-
 class SlidingSegmentedButton<T> extends StatelessWidget {
   final SegmentedButtonController<T> controller;
-  final List<SegmentedButtonData<T>> segments;
+  final List<ButtonData<T>> segments;
   final EdgeInsets margin;
   final double radius;
 

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:widgets/components/brigthness_switch.dart';
 import 'package:widgets/widgets.dart';
 
 class LoginPage extends StatefulWidget {
