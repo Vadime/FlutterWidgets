@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:widgets/config/theme_config.dart';
+import 'package:widgets/widgets.dart';
 
 class ImageWidget {
   static Widget asset(
@@ -19,6 +20,13 @@ class ImageWidget {
           asset,
           width: width,
           height: height,
+          errorBuilder: (context, error, stackTrace) => Container(
+            color: Colors.grey.shade300,
+            width: width,
+            height: height,
+          ),
+          frameBuilder: (context, child, frame, wasSynchronouslyLoaded) =>
+              child,
           fit: fit,
         ),
       );
@@ -38,12 +46,27 @@ class ImageWidget {
           network,
           width: width,
           height: height,
+          errorBuilder: (context, error, stackTrace) => Container(
+            color: Colors.grey.shade300,
+            width: width,
+            height: height,
+          ),
+          frameBuilder: (context, child, frame, wasSynchronouslyLoaded) =>
+              child,
+          loadingBuilder: (context, child, loadingProgress) =>
+              loadingProgress == null
+                  ? child
+                  : Container(
+                      color: Colors.grey.shade300,
+                      width: width,
+                      height: height,
+                    ),
           fit: fit,
         ),
       );
 
   static Widget file(
-    File file, {
+    File? file, {
     double width = double.infinity,
     double height = double.infinity,
     BoxFit fit = BoxFit.cover,
@@ -53,12 +76,22 @@ class ImageWidget {
       _shell(
         radius: radius,
         margin: margin,
-        child: Image.file(
-          file,
-          width: width,
-          height: height,
-          fit: fit,
-        ),
+        child: file == null
+            ? Container(
+                color: Colors.grey.shade300, width: width, height: height)
+            : Image.file(
+                file,
+                width: width,
+                height: height,
+                errorBuilder: (context, error, stackTrace) => Container(
+                  color: Colors.grey.shade300,
+                  width: width,
+                  height: height,
+                ),
+                frameBuilder: (context, child, frame, wasSynchronouslyLoaded) =>
+                    child,
+                fit: fit,
+              ),
       );
 
   static Widget _shell({
