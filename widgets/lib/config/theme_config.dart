@@ -90,17 +90,13 @@ class ThemeConfig {
         dividerColor: neutralColor,
         indicatorColor: primaryColor,
         applyElevationOverlayColor: false,
-        // focusColor: ,
-        // hoverColor: ,
-        // splashColor: ,
-        // highlightColor: ,
         primaryColorDark: primaryColor,
         primaryColorLight: primaryColor,
         disabledColor: neutralColor,
         secondaryHeaderColor: primaryColor,
         dialogBackgroundColor: backgroundColor,
         unselectedWidgetColor: neutralColor,
-
+        colorScheme: ColorScheme.fromSeed(seedColor: primaryColor),
         // text
         fontFamily: 'Varela Round',
         textTheme: TextTheme(
