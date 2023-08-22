@@ -19,7 +19,7 @@ class TextFieldController extends TextEditingController {
     this.obscureText = false,
     super.text,
   }) {
-    visible = !obscureText;
+    visible = obscureText;
   }
 
   // email congiuration
