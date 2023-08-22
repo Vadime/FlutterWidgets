@@ -185,45 +185,54 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
   Widget build(BuildContext context) => CardWidget.single(
         margin: widget.margin,
         padding: widget.padding,
-        child: TextField(
-          controller: widget.controller,
-          decoration: InputDecoration(
-              border: InputBorder.none,
-              labelText: widget.controller.labelText,
-              errorText: widget.controller.calcErrorText,
-              enabled: widget.enabled ?? true,
-              errorMaxLines: 1,
-              isDense: true,
-              contentPadding: EdgeInsets.zero,
-              suffixIcon: (widget.controller.obscureText)
-                  ? IconButton(
-                      onPressed: () => setState(() {
-                        widget.controller.visible = !widget.controller.visible;
-                      }),
-                      icon: Icon(widget.controller.visible
-                          ? Icons.visibility_off_rounded
-                          : Icons.visibility_rounded),
-                    )
-                  : null),
-          keyboardType: widget.controller.keyboardType,
-          style: widget.style,
-          textAlignVertical: widget.textAlignVertical,
-          autofocus: widget.autofocus ?? false,
-          obscureText:
-              widget.controller.obscureText && widget.controller.visible,
-          autocorrect: widget.autocorrect ?? false,
-          enableSuggestions: widget.enableSuggestions ?? false,
-          maxLines: widget.maxLines ?? 1,
-          minLines: widget.minLines,
-          expands: widget.expands ?? false,
-          maxLength: widget.maxLength,
-          onEditingComplete: widget.onEditingComplete,
-          onSubmitted: widget.onSubmitted,
-          inputFormatters: widget.inputFormatters,
-          enabled: widget.enabled,
-          enableInteractiveSelection: widget.enableInteractiveSelection ?? true,
-          onTap: widget.onTap,
-          autofillHints: widget.autofillHints,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Expanded(
+              child: TextField(
+                controller: widget.controller,
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  labelText: widget.controller.labelText,
+                  errorText: widget.controller.calcErrorText,
+                  enabled: widget.enabled ?? true,
+                  errorMaxLines: 1,
+                  isDense: true,
+                  contentPadding: EdgeInsets.zero,
+                ),
+                keyboardType: widget.controller.keyboardType,
+                style: widget.style,
+                textAlignVertical: widget.textAlignVertical,
+                autofocus: widget.autofocus ?? false,
+                obscureText:
+                    widget.controller.obscureText && widget.controller.visible,
+                autocorrect: widget.autocorrect ?? false,
+                enableSuggestions: widget.enableSuggestions ?? false,
+                maxLines: widget.maxLines ?? 1,
+                minLines: widget.minLines,
+                expands: widget.expands ?? false,
+                maxLength: widget.maxLength,
+                onEditingComplete: widget.onEditingComplete,
+                onSubmitted: widget.onSubmitted,
+                inputFormatters: widget.inputFormatters,
+                enabled: widget.enabled,
+                enableInteractiveSelection:
+                    widget.enableInteractiveSelection ?? true,
+                onTap: widget.onTap,
+                autofillHints: widget.autofillHints,
+              ),
+            ),
+            const SizedBox(width: ThemeConfig.kPaddingH),
+            if (widget.controller.obscureText)
+              IconButton(
+                onPressed: () => setState(() {
+                  widget.controller.visible = !widget.controller.visible;
+                }),
+                icon: Icon(widget.controller.visible
+                    ? Icons.visibility_off_rounded
+                    : Icons.visibility_rounded),
+              )
+          ],
         ),
       );
 }

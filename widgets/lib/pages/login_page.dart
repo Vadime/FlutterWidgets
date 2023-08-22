@@ -173,7 +173,7 @@ class _SendPhoneCodeViewState extends State<SendPhoneCodeView> {
           children: [
             Text(
               "Send Code",
-              style: context.textTheme.headlineLarge,
+              style: context.textTheme.titleLarge,
             ),
             const SizedBox(height: 10),
             Text(
@@ -214,7 +214,7 @@ class _VerifyPhoneCodeViewState extends State<VerifyPhoneCodeView> {
           children: [
             Text(
               "Login",
-              style: context.textTheme.headlineLarge,
+              style: context.textTheme.titleLarge,
             ),
             const SizedBox(height: 10),
             Text(
