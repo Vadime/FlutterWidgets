@@ -1,35 +1,73 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:widgets/config/theme_config.dart';
 
-class ImageWidget extends StatelessWidget {
-  final String data;
-  final double width;
-  final double height;
-  final BoxFit fit;
-  final EdgeInsets margin;
-  final double radius;
-
-  const ImageWidget(
-    this.data, {
-    this.width = double.infinity,
-    this.height = double.infinity,
-    this.fit = BoxFit.cover,
-    this.margin = EdgeInsets.zero,
-    this.radius = ThemeConfig.kRadius,
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) => Padding(
-        padding: margin,
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(radius),
-          child: Image.asset(
-            data,
-            width: width,
-            height: height,
-            fit: fit,
-          ),
+class ImageWidget {
+  static Widget asset(
+    String asset, {
+    double width = double.infinity,
+    double height = double.infinity,
+    BoxFit fit = BoxFit.cover,
+    EdgeInsets margin = EdgeInsets.zero,
+    double radius = ThemeConfig.kRadius,
+  }) =>
+      _shell(
+        radius: radius,
+        margin: margin,
+        child: Image.asset(
+          asset,
+          width: width,
+          height: height,
+          fit: fit,
         ),
       );
+
+  static Widget network(
+    String network, {
+    double width = double.infinity,
+    double height = double.infinity,
+    BoxFit fit = BoxFit.cover,
+    EdgeInsets margin = EdgeInsets.zero,
+    double radius = ThemeConfig.kRadius,
+  }) =>
+      _shell(
+        radius: radius,
+        margin: margin,
+        child: Image.network(
+          network,
+          width: width,
+          height: height,
+          fit: fit,
+        ),
+      );
+
+  static Widget file(
+    File file, {
+    double width = double.infinity,
+    double height = double.infinity,
+    BoxFit fit = BoxFit.cover,
+    EdgeInsets margin = EdgeInsets.zero,
+    double radius = ThemeConfig.kRadius,
+  }) =>
+      _shell(
+        radius: radius,
+        margin: margin,
+        child: Image.file(
+          file,
+          width: width,
+          height: height,
+          fit: fit,
+        ),
+      );
+
+  static Widget _shell({
+    required double radius,
+    required EdgeInsets margin,
+    required Widget child,
+  }) =>
+      Padding(
+          padding: margin,
+          child: ClipRRect(
+              borderRadius: BorderRadius.circular(radius), child: child));
 }

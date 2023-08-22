@@ -23,35 +23,17 @@ class LoginHeader extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           const SafeArea(bottom: false, child: SizedBox()),
-          Container(
-            padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-            decoration: BoxDecoration(
-              color: context.theme.cardColor.withOpacity(0.2),
-              borderRadius: const BorderRadius.vertical(
-                  top: Radius.circular(ThemeConfig.kRadius)),
-            ),
-            child: Text(title,
-                style: context.textTheme.headlineLarge!.copyWith(
-                  color: Colors.white,
-                )),
-          ),
-          Container(
-            padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-            decoration: BoxDecoration(
-              color: context.theme.cardColor.withOpacity(0.2),
-              borderRadius: const BorderRadius.only(
-                bottomLeft: Radius.circular(ThemeConfig.kRadius),
-                bottomRight: Radius.circular(ThemeConfig.kRadius),
-                topRight: Radius.circular(ThemeConfig.kRadius),
-              ),
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(subtitle, style: context.textTheme.labelSmall),
-                button
-              ],
-            ),
+          Text(title,
+              style: context.textTheme.headlineLarge!.copyWith(
+                color: Colors.white,
+              )),
+          const SizedBox(height: ThemeConfig.kPaddingH),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(subtitle, style: context.textTheme.labelSmall),
+              button
+            ],
           ),
         ],
       ),
