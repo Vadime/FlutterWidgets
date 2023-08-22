@@ -79,7 +79,6 @@ class ThemeConfig {
   // gen ThemeData
   ThemeData genTheme() => ThemeData(
         useMaterial3: true,
-        brightness: brightness,
         // colors
         primaryColor: primaryColor,
         cardColor: cardColor,
@@ -96,7 +95,8 @@ class ThemeConfig {
         secondaryHeaderColor: primaryColor,
         dialogBackgroundColor: backgroundColor,
         unselectedWidgetColor: neutralColor,
-        colorScheme: ColorScheme.fromSeed(seedColor: primaryColor),
+        colorScheme: ColorScheme.fromSeed(
+            seedColor: primaryColor, brightness: brightness),
         // text
         fontFamily: 'Varela Round',
         textTheme: TextTheme(
