@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class TextWidget extends StatelessWidget {
   final String data;
   final TextStyle? style;
-  final TextAlign? textAlign;
+  final TextAlign? align;
   final TextOverflow? overflow;
   final int? maxLines;
 
@@ -17,7 +17,7 @@ class TextWidget extends StatelessWidget {
   const TextWidget(
     this.data, {
     this.style,
-    this.textAlign,
+    this.align,
     this.overflow,
     this.maxLines,
     this.margin = EdgeInsets.zero,
@@ -40,7 +40,7 @@ class TextWidget extends StatelessWidget {
               fontSize: size,
               fontWeight: weight,
             ),
-            textAlign: textAlign,
+            textAlign: align,
             overflow: overflow,
             maxLines: maxLines,
           ),
