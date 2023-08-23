@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:widgets/utils/logging.dart';
 
 abstract class ThemeModeSaver {
   static const String key = 'theme';
@@ -13,6 +14,12 @@ abstract class ThemeModeSaver {
 class ThemeController extends Cubit<ThemeMode> {
   final ThemeModeSaver? saver;
   ThemeController({this.saver}) : super(ThemeMode.system);
+
+  @override
+  void onChange(Change<ThemeMode> change) {
+    super.onChange(change);
+    Logging.logDetails('AuthenticationController', change);
+  }
 
   FutureOr<void> change(ThemeMode mode) async {
     await saver?.save(ThemeModeSaver.key, mode);

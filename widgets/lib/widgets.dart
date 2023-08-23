@@ -24,6 +24,7 @@ export 'pages/onboarding_page.dart';
 
 /// export all utils
 export 'utils/file_picking.dart';
+export 'utils/logging.dart';
 export 'utils/navigation.dart';
 export 'utils/url_launcher.dart';
 
