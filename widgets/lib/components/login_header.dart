@@ -10,8 +10,11 @@ class LoginHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(
-          ThemeConfig.kPadding, ThemeConfig.kPaddingH, ThemeConfig.kPadding, ThemeConfig.kPaddingH),
+      padding: EdgeInsets.fromLTRB(
+          context.config.padding,
+          context.config.paddingH,
+          context.config.padding,
+          context.config.paddingH),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [Text(subtitle, style: context.textTheme.labelSmall), button],

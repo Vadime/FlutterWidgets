@@ -151,7 +151,7 @@ class TextFieldWidget extends StatefulWidget {
   final GestureTapCallback? onTap;
   final Iterable<String>? autofillHints;
   final EdgeInsets margin;
-  final EdgeInsets padding;
+  final EdgeInsets? padding;
 
   const TextFieldWidget(
     this.controller, {
@@ -172,8 +172,7 @@ class TextFieldWidget extends StatefulWidget {
     this.onTap,
     this.autofillHints,
     this.margin = EdgeInsets.zero,
-    this.padding = const EdgeInsets.fromLTRB(ThemeConfig.kPadding,
-        ThemeConfig.kPaddingH, ThemeConfig.kPadding, ThemeConfig.kPaddingH),
+    this.padding,
     super.key,
   });
 
@@ -197,7 +196,9 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
   @override
   Widget build(BuildContext context) => CardWidget.single(
         margin: widget.margin,
-        padding: widget.padding,
+        padding: widget.padding ??
+            EdgeInsets.fromLTRB(context.config.padding, context.config.paddingH,
+                context.config.padding, context.config.paddingH),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -237,7 +238,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
                 autofillHints: widget.autofillHints,
               ),
             ),
-            const SizedBox(width: ThemeConfig.kPaddingH),
+            SizedBox(width: context.config.paddingH),
             if (widget.controller.obscureText)
               IconButton(
                 padding: const EdgeInsets.all(8),

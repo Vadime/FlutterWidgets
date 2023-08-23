@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:developer' as developer;
 
 class Logging {
@@ -11,7 +10,7 @@ class Logging {
         message,
         time: DateTime.now(),
         level: 0,
-        error: jsonEncode(error),
+        error: error,
         stackTrace: stackTrace,
       );
 }

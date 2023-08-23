@@ -12,14 +12,14 @@ class MatApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ThemeController(),
+      create: (context) => ThemeController(config: ThemeConfig.standard()),
       child: BlocBuilder<ThemeController, ThemeMode>(
         builder: (context, state) {
           return MaterialApp(
               navigatorKey: Navigation.navigatorKey,
               themeMode: state,
-              theme: ThemeConfig.light.genTheme(),
-              darkTheme: ThemeConfig.dark.genTheme(),
+              theme: ThemeController.of(context).lightTheme,
+              darkTheme: ThemeController.of(context).lightTheme,
               home: const App());
         },
       ),
@@ -35,7 +35,7 @@ class App2 extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(ThemeConfig.kPadding),
+          padding: EdgeInsets.all(context.config.padding),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [

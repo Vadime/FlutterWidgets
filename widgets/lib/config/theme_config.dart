@@ -2,99 +2,128 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class ThemeConfig {
-  final Brightness brightness;
-
+  final String title;
+  final String logoLocation;
   final Color primaryColor;
-  final Color backgroundColor;
-  final Color cardColor;
-  final Color neutralColor;
-  final Color textColor;
 
-  static const double kPaddingD = kPadding * 2;
-  static const double kPadding = 20;
-  static const double kPaddingH = kPadding / 2;
+  final Color darkBackgroundColor;
+  final Color darkCardColor;
+  final Color darkNeutralColor;
+  final Color darkTextColor;
+  final Color lightBackgroundColor;
+  final Color lightCardColor;
+  final Color lightNeutralColor;
+  final Color lightTextColor;
 
-  static const double kRadius = 10;
-  static const double kOpacity = 0.8;
+  final double padding;
+
+  final double radius;
+  final double opacity;
 
   const ThemeConfig({
-    required this.brightness,
+    required this.title,
+    required this.logoLocation,
     required this.primaryColor,
-    required this.backgroundColor,
-    required this.cardColor,
-    required this.neutralColor,
-    required this.textColor,
+    required this.darkBackgroundColor,
+    required this.darkCardColor,
+    required this.darkNeutralColor,
+    required this.darkTextColor,
+    required this.lightBackgroundColor,
+    required this.lightCardColor,
+    required this.lightNeutralColor,
+    required this.lightTextColor,
+    required this.opacity,
+    required this.radius,
+    required this.padding,
   });
 
-  static ThemeConfig light = ThemeConfig(
-    brightness: Brightness.light,
-    primaryColor: Colors.blue,
-    backgroundColor: Colors.grey.shade200,
-    cardColor: Colors.white,
-    neutralColor: Colors.grey,
-    textColor: Colors.black,
-  );
+  ThemeConfig.standard({
+    this.title = 'Standard App',
+    this.logoLocation = 'res/images/logo.png',
+    this.primaryColor = Colors.blue,
+    this.darkBackgroundColor = Colors.black,
+    this.darkCardColor = Colors.black,
+    this.darkNeutralColor = Colors.grey,
+    this.darkTextColor = Colors.white,
+    this.lightBackgroundColor = Colors.white,
+    this.lightCardColor = Colors.white,
+    this.lightNeutralColor = Colors.grey,
+    this.lightTextColor = Colors.black,
+    this.opacity = 0.8,
+    this.radius = 10,
+    this.padding = 20,
+  });
 
-  static ThemeConfig dark = ThemeConfig(
-    brightness: Brightness.dark,
-    primaryColor: Colors.blue,
-    cardColor: Colors.grey.shade800,
-    backgroundColor: Colors.grey.shade900,
-    neutralColor: Colors.grey,
-    textColor: Colors.white,
-  );
+  double get paddingD => padding * 2;
+  double get paddingH => padding / 2;
 
-  // factory fromTheme
-  factory ThemeConfig.fromTheme(ThemeData theme) => ThemeConfig(
-        brightness: theme.brightness,
-        primaryColor: theme.primaryColor,
-        backgroundColor: theme.scaffoldBackgroundColor,
-        cardColor: theme.cardColor,
-        neutralColor: theme.dividerColor,
-        textColor: theme.textTheme.bodyLarge?.color ?? Colors.black,
-      );
+  Color backgroundColor(Brightness brightness) => brightness == Brightness.light
+      ? lightBackgroundColor
+      : darkBackgroundColor;
+
+  Color cardColor(Brightness brightness) =>
+      brightness == Brightness.light ? lightCardColor : darkCardColor;
+
+  Color neutralColor(Brightness brightness) =>
+      brightness == Brightness.light ? lightNeutralColor : darkNeutralColor;
+
+  Color textColor(Brightness brightness) =>
+      brightness == Brightness.light ? lightTextColor : darkTextColor;
 
   // copyWith
   ThemeConfig copyWith({
+    String? title,
+    String? logoLocation,
     Brightness? brightness,
     Color? primaryColor,
-    Color? backgroundColor,
-    Color? cardColor,
-    Color? neutralColor,
-    Color? textColor,
+    Color? darkBackgroundColor,
+    Color? darkCardColor,
+    Color? darkNeutralColor,
+    Color? darkTextColor,
+    Color? lightBackgroundColor,
+    Color? lightCardColor,
+    Color? lightNeutralColor,
+    Color? lightTextColor,
+    double? padding,
+    double? radius,
+    double? opacity,
   }) =>
       ThemeConfig(
-        brightness: brightness ?? this.brightness,
+        title: title ?? this.title,
+        logoLocation: logoLocation ?? this.logoLocation,
         primaryColor: primaryColor ?? this.primaryColor,
-        backgroundColor: backgroundColor ?? this.backgroundColor,
-        cardColor: cardColor ?? this.cardColor,
-        neutralColor: neutralColor ?? this.neutralColor,
-        textColor: textColor ?? this.textColor,
+        darkBackgroundColor: darkBackgroundColor ?? this.darkBackgroundColor,
+        darkCardColor: darkCardColor ?? this.darkCardColor,
+        darkNeutralColor: darkNeutralColor ?? this.darkNeutralColor,
+        darkTextColor: darkTextColor ?? this.darkTextColor,
+        lightBackgroundColor: lightBackgroundColor ?? this.lightBackgroundColor,
+        lightCardColor: lightCardColor ?? this.lightCardColor,
+        lightNeutralColor: lightNeutralColor ?? this.lightNeutralColor,
+        lightTextColor: lightTextColor ?? this.lightTextColor,
+        padding: padding ?? this.padding,
+        radius: radius ?? this.radius,
+        opacity: opacity ?? this.opacity,
       );
 
-  // of context
-  static ThemeConfig of(BuildContext context) =>
-      ThemeConfig.fromTheme(Theme.of(context));
-
   // gen ThemeData
-  ThemeData genTheme() => ThemeData(
+  ThemeData genTheme(Brightness brightness) => ThemeData(
         useMaterial3: true,
         // colors
         primaryColor: primaryColor,
-        cardColor: cardColor,
-        scaffoldBackgroundColor: backgroundColor,
+        cardColor: cardColor(brightness),
+        scaffoldBackgroundColor: backgroundColor(brightness),
         shadowColor: Colors.transparent,
-        hintColor: neutralColor,
-        canvasColor: backgroundColor,
-        dividerColor: neutralColor,
+        hintColor: neutralColor(brightness),
+        canvasColor: backgroundColor(brightness),
+        dividerColor: neutralColor(brightness),
         indicatorColor: primaryColor,
         applyElevationOverlayColor: false,
         primaryColorDark: primaryColor,
         primaryColorLight: primaryColor,
-        disabledColor: neutralColor,
+        disabledColor: neutralColor(brightness),
         secondaryHeaderColor: primaryColor,
-        dialogBackgroundColor: backgroundColor,
-        unselectedWidgetColor: neutralColor,
+        dialogBackgroundColor: backgroundColor(brightness),
+        unselectedWidgetColor: neutralColor(brightness),
         colorScheme: ColorScheme.fromSeed(
             seedColor: primaryColor, brightness: brightness),
         // text
@@ -103,62 +132,62 @@ class ThemeConfig {
           labelSmall: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.w400,
-            color: textColor.withOpacity(kOpacity),
+            color: textColor(brightness).withOpacity(opacity),
           ),
           labelMedium: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.w600,
-            color: textColor,
+            color: textColor(brightness),
           ),
           labelLarge: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.w600,
-            color: textColor,
+            color: textColor(brightness),
           ),
           bodySmall: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w600,
-            color: textColor.withOpacity(kOpacity),
+            color: textColor(brightness).withOpacity(opacity),
           ),
           bodyMedium: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w600,
-            color: textColor,
+            color: textColor(brightness),
           ),
           bodyLarge: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w600,
-            color: textColor,
+            color: textColor(brightness),
           ),
           titleSmall: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.w600,
-            color: textColor.withOpacity(kOpacity),
+            color: textColor(brightness).withOpacity(opacity),
           ),
           titleMedium: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.w600,
-            color: textColor,
+            color: textColor(brightness),
           ),
           titleLarge: TextStyle(
             fontSize: 22,
             fontWeight: FontWeight.w600,
-            color: textColor,
+            color: textColor(brightness),
           ),
           headlineSmall: TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.w600,
-            color: textColor.withOpacity(kOpacity),
+            color: textColor(brightness).withOpacity(opacity),
           ),
           headlineMedium: TextStyle(
             fontSize: 26,
             fontWeight: FontWeight.w600,
-            color: textColor,
+            color: textColor(brightness),
           ),
           headlineLarge: TextStyle(
             fontSize: 28,
             fontWeight: FontWeight.w600,
-            color: textColor,
+            color: textColor(brightness),
           ),
         ),
         // input
@@ -168,20 +197,20 @@ class ThemeConfig {
         // card
         cardTheme: CardTheme(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(kRadius),
+            borderRadius: BorderRadius.circular(radius),
           ),
           elevation: 0,
-          color: cardColor,
+          color: cardColor(brightness),
           margin: EdgeInsets.zero,
         ),
 
         tooltipTheme: TooltipThemeData(
           decoration: BoxDecoration(
-            color: cardColor,
-            borderRadius: BorderRadius.circular(kRadius),
+            color: cardColor(brightness),
+            borderRadius: BorderRadius.circular(radius),
           ),
           textStyle: TextStyle(
-            color: textColor,
+            color: textColor(brightness),
             fontSize: 14,
             fontWeight: FontWeight.w600,
           ),
@@ -189,7 +218,7 @@ class ThemeConfig {
         // button
         buttonTheme: ButtonThemeData(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(kRadius),
+            borderRadius: BorderRadius.circular(radius),
           ),
           padding: EdgeInsets.zero,
           buttonColor: primaryColor,
@@ -199,7 +228,7 @@ class ThemeConfig {
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(kRadius),
+              borderRadius: BorderRadius.circular(radius),
             ),
             padding: EdgeInsets.zero,
             elevation: 0,
@@ -212,10 +241,10 @@ class ThemeConfig {
         outlinedButtonTheme: OutlinedButtonThemeData(
           style: OutlinedButton.styleFrom(
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(kRadius),
+              borderRadius: BorderRadius.circular(radius),
             ),
             foregroundColor: primaryColor,
-            padding: const EdgeInsets.all(kPaddingH),
+            padding: EdgeInsets.all(paddingH),
             elevation: 0,
             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
           ),
@@ -224,7 +253,7 @@ class ThemeConfig {
         textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(kRadius),
+              borderRadius: BorderRadius.circular(radius),
             ),
             padding: const EdgeInsets.fromLTRB(4, 2, 4, 2),
             foregroundColor: primaryColor,
@@ -236,59 +265,59 @@ class ThemeConfig {
         // slider
         sliderTheme: SliderThemeData(
           activeTrackColor: primaryColor,
-          inactiveTrackColor: neutralColor,
+          inactiveTrackColor: neutralColor(brightness),
           thumbColor: primaryColor,
           overlayColor: primaryColor.withOpacity(0.1),
           trackHeight: 2,
-          thumbShape: const RoundSliderThumbShape(
-            enabledThumbRadius: kRadius,
+          thumbShape: RoundSliderThumbShape(
+            enabledThumbRadius: radius,
           ),
-          overlayShape: const RoundSliderOverlayShape(
-            overlayRadius: kRadius,
+          overlayShape: RoundSliderOverlayShape(
+            overlayRadius: radius,
           ),
         ),
         // progress
         progressIndicatorTheme: ProgressIndicatorThemeData(
           color: primaryColor,
-          circularTrackColor: neutralColor,
-          linearTrackColor: neutralColor,
+          circularTrackColor: neutralColor(brightness),
+          linearTrackColor: neutralColor(brightness),
         ),
         // divider
         dividerTheme: DividerThemeData(
-          color: neutralColor,
+          color: neutralColor(brightness),
           thickness: 1,
           space: 0,
         ),
         // dialog
         dialogTheme: DialogTheme(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(kRadius),
+            borderRadius: BorderRadius.circular(radius),
           ),
         ),
         // bottomSheet
         bottomSheetTheme: BottomSheetThemeData(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(kRadius),
+            borderRadius: BorderRadius.circular(radius),
           ),
-          backgroundColor: cardColor,
+          backgroundColor: cardColor(brightness),
           elevation: 0,
-          modalBackgroundColor: cardColor,
+          modalBackgroundColor: cardColor(brightness),
           modalElevation: 0,
         ),
         // popupMenu
         popupMenuTheme: PopupMenuThemeData(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(kRadius),
+            borderRadius: BorderRadius.circular(radius),
           ),
-          color: cardColor,
+          color: cardColor(brightness),
           elevation: 0,
         ),
         // bottomNavigationBar
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
-          backgroundColor: cardColor.withOpacity(kOpacity),
+          backgroundColor: cardColor(brightness).withOpacity(opacity),
           elevation: 0,
           selectedItemColor: primaryColor,
-          unselectedItemColor: neutralColor,
+          unselectedItemColor: neutralColor(brightness),
           showSelectedLabels: false,
           showUnselectedLabels: false,
           type: BottomNavigationBarType.fixed,
@@ -301,18 +330,18 @@ class ThemeConfig {
         appBarTheme: AppBarTheme(
           centerTitle: true,
           elevation: 0,
-          backgroundColor: cardColor.withOpacity(kOpacity),
+          backgroundColor: cardColor(brightness).withOpacity(opacity),
           systemOverlayStyle: brightness != Brightness.light
               ? SystemUiOverlayStyle.light
               : SystemUiOverlayStyle.dark,
           iconTheme: IconThemeData(
-            color: textColor,
+            color: textColor(brightness),
           ),
           actionsIconTheme: IconThemeData(
-            color: textColor,
+            color: textColor(brightness),
           ),
           titleTextStyle: TextStyle(
-            color: textColor,
+            color: textColor(brightness),
             fontSize: 20,
             fontWeight: FontWeight.w600,
           ),
@@ -320,25 +349,25 @@ class ThemeConfig {
         // snackBar
         snackBarTheme: SnackBarThemeData(
           elevation: 0,
-          backgroundColor: cardColor,
+          backgroundColor: cardColor(brightness),
           showCloseIcon: true,
-          closeIconColor: textColor,
+          closeIconColor: textColor(brightness),
           contentTextStyle: TextStyle(
-            color: textColor,
+            color: textColor(brightness),
             fontSize: 14,
           ),
         ),
         // listtile
         listTileTheme: ListTileThemeData(
-          contentPadding: const EdgeInsets.fromLTRB(kPadding, 0, kPadding, 0),
+          contentPadding: EdgeInsets.fromLTRB(padding, 0, padding, 0),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(kRadius),
+            borderRadius: BorderRadius.circular(radius),
           ),
           minLeadingWidth: 0,
           horizontalTitleGap: 0,
           minVerticalPadding: 0,
-          tileColor: cardColor,
-          iconColor: textColor,
+          tileColor: cardColor(brightness),
+          iconColor: textColor(brightness),
           visualDensity: VisualDensity.compact,
         ),
       );

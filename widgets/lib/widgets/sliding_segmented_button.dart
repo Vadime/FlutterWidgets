@@ -4,7 +4,6 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:widgets/config/theme_config.dart';
 import 'package:widgets/data/button_data.dart';
 import 'package:widgets/widgets/widgets.dart';
 
@@ -37,13 +36,13 @@ class SlidingSegmentedButton<T> extends StatelessWidget {
   final SegmentedButtonController<T> controller;
   final List<ButtonData<T>> segments;
   final EdgeInsets margin;
-  final double radius;
+  final double? radius;
 
   const SlidingSegmentedButton({
     required this.controller,
     required this.segments,
     this.margin = EdgeInsets.zero,
-    this.radius = ThemeConfig.kRadius,
+    this.radius,
     super.key,
   });
 
@@ -53,7 +52,7 @@ class SlidingSegmentedButton<T> extends StatelessWidget {
       height: 40,
       decoration: BoxDecoration(
           color: context.theme.scaffoldBackgroundColor,
-          borderRadius: BorderRadius.circular(radius),
+          borderRadius: BorderRadius.circular(radius ?? context.config.radius),
           border: Border.all(color: context.theme.cardColor, width: 4)),
       margin: margin,
       child: BlocBuilder<SegmentedButtonController<T>, T>(
@@ -90,7 +89,8 @@ class SlidingSegmentedButton<T> extends StatelessWidget {
                       margin: const EdgeInsets.all(4),
                       decoration: BoxDecoration(
                         color: context.theme.primaryColor,
-                        borderRadius: BorderRadius.circular(max(radius, 0)),
+                        borderRadius: BorderRadius.circular(
+                            max(radius ?? context.config.radius, 0)),
                       ),
                       alignment: Alignment.center,
                       child: Text(

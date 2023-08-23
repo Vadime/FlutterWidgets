@@ -1,7 +1,7 @@
 library widgets;
 
 import 'package:flutter/material.dart';
-import 'package:widgets/config/theme_config.dart';
+import 'package:widgets/widgets/widgets.dart';
 
 class FooterSocialButtonWidget {
   final String text;
@@ -37,8 +37,8 @@ class FooterWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(ThemeConfig.kPaddingH,
-          ThemeConfig.kPadding, ThemeConfig.kPaddingH, 0),
+      padding: EdgeInsets.fromLTRB(context.config.paddingH,
+          context.config.padding, context.config.paddingH, 0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,
@@ -60,18 +60,18 @@ class FooterWidget extends StatelessWidget {
                 )
                 .toList(),
           ),
-          const SizedBox(height: ThemeConfig.kPaddingH),
+          SizedBox(height: context.config.paddingH),
           Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              const SizedBox(
-                width: ThemeConfig.kPaddingH,
+              SizedBox(
+                width: context.config.paddingH,
               ),
               // social buttons
               ...socials.map(
                 (e) => Padding(
-                  padding: const EdgeInsets.fromLTRB(
-                      0, ThemeConfig.kPaddingH, 0, ThemeConfig.kPaddingH),
+                  padding: EdgeInsets.fromLTRB(
+                      0, context.config.paddingH, 0, context.config.paddingH),
                   child: IconButton(
                     icon: e.icon,
                     onPressed: e.onPressed,
@@ -81,11 +81,11 @@ class FooterWidget extends StatelessWidget {
 
               const Spacer(),
               Padding(
-                padding: const EdgeInsets.fromLTRB(
-                  ThemeConfig.kPaddingH,
-                  ThemeConfig.kPaddingH,
-                  ThemeConfig.kPaddingH,
-                  ThemeConfig.kPadding,
+                padding: EdgeInsets.fromLTRB(
+                  context.config.paddingH,
+                  context.config.paddingH,
+                  context.config.paddingH,
+                  context.config.padding,
                 ),
                 child: Text(
                   commercialText,

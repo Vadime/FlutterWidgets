@@ -1,51 +1,32 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:widgets/config/theme_config.dart';
 import 'package:widgets/widgets.dart';
 
-class ImageWidget {
-  static Widget asset(
-    String asset, {
-    double width = double.infinity,
-    double height = double.infinity,
-    BoxFit fit = BoxFit.cover,
-    EdgeInsets margin = EdgeInsets.zero,
-    double radius = ThemeConfig.kRadius,
-  }) =>
-      _shell(
-        radius: radius,
-        margin: margin,
-        child: Image.asset(
-          asset,
-          width: width,
-          height: height,
-          errorBuilder: (context, error, stackTrace) => Container(
-            color: Colors.grey.shade300,
-            width: width,
-            height: height,
-          ),
-          frameBuilder: (context, child, frame, wasSynchronouslyLoaded) =>
-              child,
-          fit: fit,
-        ),
-      );
+class ImageWidget extends StatelessWidget {
+  final ImageProvider image;
+  final double? width;
+  final double? height;
+  final BoxFit fit;
+  final EdgeInsets margin;
+  final double? radius;
 
-  static Widget network(
-    String network, {
-    double width = double.infinity,
-    double height = double.infinity,
-    BoxFit fit = BoxFit.cover,
-    EdgeInsets margin = EdgeInsets.zero,
-    double radius = ThemeConfig.kRadius,
-  }) =>
-      _shell(
-        radius: radius,
-        margin: margin,
-        child: Image.network(
-          network,
-          width: width,
-          height: height,
+  const ImageWidget(
+    this.image, {
+    this.fit = BoxFit.cover,
+    this.margin = EdgeInsets.zero,
+    this.radius,
+    this.height,
+    this.width,
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: margin,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(radius ?? context.config.radius),
+        child: Image(
+          image: image,
           errorBuilder: (context, error, stackTrace) => Container(
             color: Colors.grey.shade300,
             width: width,
@@ -61,46 +42,8 @@ class ImageWidget {
                       width: width,
                       height: height,
                     ),
-          fit: fit,
         ),
-      );
-
-  static Widget file(
-    File? file, {
-    double width = double.infinity,
-    double height = double.infinity,
-    BoxFit fit = BoxFit.cover,
-    EdgeInsets margin = EdgeInsets.zero,
-    double radius = ThemeConfig.kRadius,
-  }) =>
-      _shell(
-        radius: radius,
-        margin: margin,
-        child: file == null
-            ? Container(
-                color: Colors.grey.shade300, width: width, height: height)
-            : Image.file(
-                file,
-                width: width,
-                height: height,
-                errorBuilder: (context, error, stackTrace) => Container(
-                  color: Colors.grey.shade300,
-                  width: width,
-                  height: height,
-                ),
-                frameBuilder: (context, child, frame, wasSynchronouslyLoaded) =>
-                    child,
-                fit: fit,
-              ),
-      );
-
-  static Widget _shell({
-    required double radius,
-    required EdgeInsets margin,
-    required Widget child,
-  }) =>
-      Padding(
-          padding: margin,
-          child: ClipRRect(
-              borderRadius: BorderRadius.circular(radius), child: child));
+      ),
+    );
+  }
 }

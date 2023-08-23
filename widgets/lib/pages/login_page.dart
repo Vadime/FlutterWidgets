@@ -3,11 +3,13 @@ import 'package:widgets/widgets.dart';
 
 class LoginPage extends StatefulWidget {
   final int initialPage;
-  final Function(String email, String password) onEmailSignUp;
-  final Function(String email, String password) onEmailSignIn;
-  final Function(String email) onEmailSendPassword;
-  final Function(String phone) onPhoneSendCode;
-  final Function(String phone) onPhoneVerifyCode;
+  final Function(TextFieldController email, TextFieldController password)
+      onEmailSignUp;
+  final Function(TextFieldController email, TextFieldController password)
+      onEmailSignIn;
+  final Function(TextFieldController email) onEmailSendPassword;
+  final Function(TextFieldController phone) onPhoneSendCode;
+  final Function(TextFieldController phone) onPhoneVerifyCode;
   final Function() onAppleLogin;
 
   const LoginPage({
@@ -71,7 +73,7 @@ class _LoginPageState extends State<LoginPage> {
                         password.emptyAllowed = false;
                         return;
                       }
-                      widget.onEmailSignUp(email.text, password.text);
+                      widget.onEmailSignUp(email, password);
                     },
                     agreementText: Text(
                       'I agree to the Terms of Service.',
@@ -87,7 +89,7 @@ class _LoginPageState extends State<LoginPage> {
                         password.emptyAllowed = false;
                         return;
                       }
-                      widget.onEmailSignIn(email.text, password.text);
+                      widget.onEmailSignIn(email, password);
                     },
                   ),
                   SendPasswordView(
@@ -97,14 +99,14 @@ class _LoginPageState extends State<LoginPage> {
                         email.emptyAllowed = false;
                         return;
                       }
-                      widget.onEmailSendPassword(email.text);
+                      widget.onEmailSendPassword(email);
                     },
                   ),
                 ]),
           ),
           const DividerWidget('Or Login with'),
           Padding(
-            padding: const EdgeInsets.all(ThemeConfig.kPaddingH),
+            padding: EdgeInsets.all(context.config.paddingH),
             child: Row(
               children: [
                 // other authentication providers possible
@@ -119,7 +121,7 @@ class _LoginPageState extends State<LoginPage> {
                           phone.emptyAllowed = false;
                           return;
                         }
-                        await widget.onPhoneSendCode(phone.text);
+                        await widget.onPhoneSendCode(phone);
                         Navigation.pop();
                         Navigation.pushPopup(widget: VerifyPhoneCodeView(
                           verifyPhoneCode: (code) async {
@@ -127,7 +129,7 @@ class _LoginPageState extends State<LoginPage> {
                               phone.emptyAllowed = false;
                               return;
                             }
-                            await widget.onPhoneVerifyCode(code.text);
+                            await widget.onPhoneVerifyCode(code);
                           },
                         ));
                       },
@@ -164,21 +166,19 @@ class _SendPhoneCodeViewState extends State<SendPhoneCodeView> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-        padding: const EdgeInsets.all(ThemeConfig.kPadding),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            TextFieldWidget(
-              phone,
-              autofocus: true,
-            ),
-            const SizedBox(height: ThemeConfig.kPadding),
-            ElevatedButtonWidget('Send Code',
-                onPressed: () => widget.onSendPhoneCode(phone))
-          ],
-        ));
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        TextFieldWidget(
+          phone,
+          autofocus: true,
+        ),
+        SizedBox(height: context.config.padding),
+        ElevatedButtonWidget('Send Code',
+            onPressed: () => widget.onSendPhoneCode(phone))
+      ],
+    );
   }
 }
 
@@ -196,20 +196,18 @@ class _VerifyPhoneCodeViewState extends State<VerifyPhoneCodeView> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-        padding: const EdgeInsets.all(ThemeConfig.kPadding),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            TextFieldWidget(
-              code,
-            ),
-            const SizedBox(height: ThemeConfig.kPadding),
-            ElevatedButtonWidget('Login',
-                onPressed: () => widget.verifyPhoneCode(code)),
-          ],
-        ));
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        TextFieldWidget(
+          code,
+        ),
+        SizedBox(height: context.config.padding),
+        ElevatedButtonWidget('Login',
+            onPressed: () => widget.verifyPhoneCode(code)),
+      ],
+    );
   }
 }
 
@@ -244,18 +242,18 @@ class _SendPasswordViewState extends State<SendPasswordView> {
           ),
         ),
         TextFieldWidget(
-          TextFieldController.email(),
-          margin: const EdgeInsets.fromLTRB(
-              ThemeConfig.kPadding,
-              ThemeConfig.kPaddingH,
-              ThemeConfig.kPadding,
-              ThemeConfig.kPaddingH),
+          email,
+          margin: EdgeInsets.fromLTRB(
+              context.config.padding,
+              context.config.paddingH,
+              context.config.padding,
+              context.config.paddingH),
         ),
         const Spacer(),
         ElevatedButtonWidget(
           'Send Password',
           onPressed: () => widget.sendPassword(email),
-          margin: const EdgeInsets.all(ThemeConfig.kPadding),
+          margin: EdgeInsets.all(context.config.padding),
         ),
       ],
     );
@@ -297,11 +295,11 @@ class _SignInViewState extends State<SignInView> {
           ),
         ),
         CardWidget(
-          margin: const EdgeInsets.fromLTRB(
-              ThemeConfig.kPadding,
-              ThemeConfig.kPaddingH,
-              ThemeConfig.kPadding,
-              ThemeConfig.kPaddingH),
+          margin: EdgeInsets.fromLTRB(
+              context.config.padding,
+              context.config.paddingH,
+              context.config.padding,
+              context.config.paddingH),
           children: [TextFieldWidget(email), TextFieldWidget(password)],
         ),
         Align(
@@ -309,18 +307,18 @@ class _SignInViewState extends State<SignInView> {
           child: TextButtonWidget(
             'Forgot password?',
             onPressed: widget.toSendPassword,
-            margin: const EdgeInsets.fromLTRB(
-                ThemeConfig.kPadding,
-                ThemeConfig.kPaddingH,
-                ThemeConfig.kPadding,
-                ThemeConfig.kPaddingH),
+            margin: EdgeInsets.fromLTRB(
+                context.config.padding,
+                context.config.paddingH,
+                context.config.padding,
+                context.config.paddingH),
           ),
         ),
         const Spacer(),
         ElevatedButtonWidget(
           'Sign In',
           onPressed: () => widget.signIn(email, password),
-          margin: const EdgeInsets.all(ThemeConfig.kPadding),
+          margin: EdgeInsets.all(context.config.padding),
         ),
       ],
     );
@@ -365,11 +363,11 @@ class _SignUpViewState extends State<SignUpView> {
         ),
 
         CardWidget(
-          margin: const EdgeInsets.fromLTRB(
-              ThemeConfig.kPadding,
-              ThemeConfig.kPaddingH,
-              ThemeConfig.kPadding,
-              ThemeConfig.kPaddingH),
+          margin: EdgeInsets.fromLTRB(
+              context.config.padding,
+              context.config.paddingH,
+              context.config.padding,
+              context.config.paddingH),
           children: [
             TextFieldWidget(email),
             TextFieldWidget(password),
@@ -377,12 +375,12 @@ class _SignUpViewState extends State<SignUpView> {
         ),
         // checkbox and terms of service
         Padding(
-          padding: const EdgeInsets.fromLTRB(
-              ThemeConfig.kPadding, 0, ThemeConfig.kPadding, 0),
+          padding: EdgeInsets.fromLTRB(
+              context.config.padding, 0, context.config.padding, 0),
           child: Row(
             children: [
               CheckboxWidget(controller: agree),
-              const SizedBox(width: ThemeConfig.kPaddingH),
+              SizedBox(width: context.config.paddingH),
               Expanded(child: widget.agreementText),
             ],
           ),
@@ -391,7 +389,7 @@ class _SignUpViewState extends State<SignUpView> {
         ElevatedButtonWidget(
           'Sign Up',
           onPressed: () => widget.signUp(email, password, agree),
-          margin: const EdgeInsets.all(ThemeConfig.kPadding),
+          margin: EdgeInsets.all(context.config.padding),
         ),
       ],
     );

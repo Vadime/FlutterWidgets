@@ -50,13 +50,13 @@ class OnboardingPageData {
 
 class OnboardingPage extends StatefulWidget {
   final List<OnboardingPageData> data;
-  final double padding;
-  final double radius;
+  final double? padding;
+  final double? radius;
   final Function()? onDone;
 
   const OnboardingPage({
-    this.padding = ThemeConfig.kPadding,
-    this.radius = ThemeConfig.kRadius,
+    this.padding,
+    this.radius,
     this.onDone,
     required this.data,
     super.key,
@@ -90,15 +90,15 @@ class _OnboardingPageState extends State<OnboardingPage> {
             itemCount: widget.data.length,
             itemBuilder: (context, index) => _OnboardingPage(
               data: widget.data[index],
-              padding: widget.padding,
-              radius: widget.radius,
+              padding: widget.padding ?? context.config.padding,
+              radius: widget.radius ?? context.config.radius,
             ),
             controller: pageController,
             onPageChanged: onPageChanged,
           ),
           Positioned(
-            top: widget.padding,
-            right: widget.padding,
+            top: widget.padding ?? context.config.padding,
+            right: widget.padding ?? context.config.padding,
             child: SafeArea(
               child: TextButton(
                 onPressed: widget.onDone,
@@ -109,9 +109,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
             ),
           ),
           Positioned(
-            bottom: widget.padding,
-            left: widget.padding,
-            right: widget.padding,
+            bottom: widget.padding ?? context.config.padding,
+            left: widget.padding ?? context.config.padding,
+            right: widget.padding ?? context.config.padding,
             child: SafeArea(
               child: Row(
                 children: [
@@ -175,7 +175,7 @@ class _OnboardingPage extends StatelessWidget {
       child: Column(
         children: [
           const Spacer(flex: 2),
-          ImageWidget.asset(data.image,
+          ImageWidget(AssetImage(data.image),
               width: context.mediaQuery.size.shortestSide / 2,
               height: context.mediaQuery.size.shortestSide / 2,
               radius: radius),

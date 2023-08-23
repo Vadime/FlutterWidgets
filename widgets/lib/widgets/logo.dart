@@ -13,7 +13,7 @@ class LogoWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Center(
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(ThemeConfig.kRadius),
+          borderRadius: BorderRadius.circular(context.config.radius),
           child: Image.asset(
             data,
             width: size,

@@ -19,15 +19,16 @@ class Navigation {
       builder: (context) => Container(
         decoration: BoxDecoration(
           color: context.theme.scaffoldBackgroundColor,
-          borderRadius: BorderRadius.circular(ThemeConfig.kRadius),
+          borderRadius: BorderRadius.circular(context.config.radius),
         ),
+        padding: EdgeInsets.all(context.config.padding),
         margin: EdgeInsets.fromLTRB(
-          ThemeConfig.kPaddingH,
+          context.config.paddingH,
           0,
-          ThemeConfig.kPaddingH,
+          context.config.paddingH,
           context.bottomInset +
               MediaQuery.of(navigatorKey.currentContext!).viewInsets.bottom +
-              ThemeConfig.kPaddingH,
+              context.config.paddingH,
         ),
         child: widget,
       ),
@@ -44,41 +45,35 @@ class Navigation {
     DatePickerMode initialCalendarMode = DatePickerMode.day,
   }) {
     return pushPopup(
-      widget: Padding(
-        padding: const EdgeInsets.all(ThemeConfig.kPadding),
-        child: CalendarDatePicker(
-            initialDate: initialDate ?? DateTime.now(),
-            firstDate: firstDate,
-            lastDate: lastDate,
-            initialCalendarMode: initialCalendarMode,
-            onDateChanged: (date) {
-              onChanged?.call(date);
-              Navigation.pop();
-            }),
-      ),
+      widget: CalendarDatePicker(
+          initialDate: initialDate ?? DateTime.now(),
+          firstDate: firstDate,
+          lastDate: lastDate,
+          initialCalendarMode: initialCalendarMode,
+          onDateChanged: (date) {
+            onChanged?.call(date);
+            Navigation.pop();
+          }),
     );
   }
 
   static void pushMessage({String? message}) {
     if (message == null) return;
     pushPopup(
-      widget: Padding(
-        padding: const EdgeInsets.all(ThemeConfig.kPadding),
-        child: Row(
-          children: [
-            Expanded(
-                child: Text(message,
-                    style: navigatorKey.currentContext!.textTheme.labelLarge!
-                        .copyWith(
-                            color: navigatorKey
-                                .currentContext!.theme.colorScheme.error))),
-            const SizedBox(height: ThemeConfig.kPadding),
-            TextButtonWidget(
-              'OK',
-              onPressed: () => Navigation.pop(),
-            ),
-          ],
-        ),
+      widget: Row(
+        children: [
+          Expanded(
+              child: Text(message,
+                  style: navigatorKey.currentContext!.textTheme.labelLarge!
+                      .copyWith(
+                          color: navigatorKey
+                              .currentContext!.theme.colorScheme.error))),
+          SizedBox(height: navigatorKey.currentContext!.config.padding),
+          TextButtonWidget(
+            'OK',
+            onPressed: () => Navigation.pop(),
+          ),
+        ],
       ),
     );
   }

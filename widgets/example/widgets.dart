@@ -6,7 +6,7 @@ void main(List<String> args) {
       home: Scaffold(
           body: SafeArea(
     child: Padding(
-      padding: const EdgeInsets.all(ThemeConfig.kPadding),
+      padding: const EdgeInsets.all(20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [

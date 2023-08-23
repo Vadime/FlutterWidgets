@@ -27,12 +27,12 @@ class BarChartWidget extends StatelessWidget {
           enabled: true,
           touchTooltipData: BarTouchTooltipData(
             tooltipBgColor: context.theme.primaryColor,
-            tooltipMargin: ThemeConfig.kPaddingH,
+            tooltipMargin: context.config.paddingH,
             fitInsideHorizontally: true,
             fitInsideVertically: true,
-            tooltipRoundedRadius: ThemeConfig.kRadius,
-            tooltipPadding: const EdgeInsets.fromLTRB(
-                ThemeConfig.kPaddingH, 6, ThemeConfig.kPaddingH, 0),
+            tooltipRoundedRadius: context.config.radius,
+            tooltipPadding: EdgeInsets.fromLTRB(
+                context.config.paddingH, 6, context.config.paddingH, 0),
             getTooltipItem: (group, groupIndex, rod, rodIndex) {
               return BarTooltipItem(
                 '${rod.toY.round()}',
@@ -86,7 +86,8 @@ class BarChartWidget extends StatelessWidget {
                   fromY: 0.1,
                   toY: bars.values.toList()[i].toDouble(),
                   color: context.theme.primaryColor,
-                  borderRadius: BorderRadius.circular(ThemeConfig.kRadius),
+                  borderRadius:
+                      BorderRadius.circular(context.config.radius),
                 ),
               ],
             ),

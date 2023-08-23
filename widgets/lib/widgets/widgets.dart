@@ -1,6 +1,9 @@
 library widgets;
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
+import 'package:widgets/widgets.dart';
 
 extension WidgetBuildContextExtensions on BuildContext {
   /// get theme quickly
@@ -23,6 +26,9 @@ extension WidgetBuildContextExtensions on BuildContext {
 
   /// get mediaQuery quickly
   MediaQueryData get mediaQuery => MediaQuery.of(this);
+
+  /// get theme config quickly
+  ThemeConfig get config => read<ThemeController>().config;
 }
 
 extension WidgetTextEditingControllerExtensions on TextEditingController {

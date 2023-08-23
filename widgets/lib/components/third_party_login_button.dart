@@ -11,14 +11,14 @@ class ThirdPartyLoginButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(ThemeConfig.kPaddingH),
+      padding: EdgeInsets.all(context.config.paddingH),
       child: OutlinedButton(
           onPressed: onPressed,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(icon),
-              const SizedBox(width: ThemeConfig.kPaddingH),
+              SizedBox(width: context.config.paddingH),
               Text(text, style: context.textTheme.bodyMedium!),
               const SizedBox(width: 8),
             ],

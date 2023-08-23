@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:widgets/config/theme_config.dart';
 import 'package:widgets/utils/logging.dart';
 
 abstract class ThemeModeSaver {
@@ -13,7 +14,17 @@ abstract class ThemeModeSaver {
 
 class ThemeController extends Cubit<ThemeMode> {
   final ThemeModeSaver? saver;
-  ThemeController({this.saver}) : super(ThemeMode.system);
+  final ThemeConfig config;
+  ThemeController({
+    required this.config,
+    this.saver,
+  }) : super(ThemeMode.system);
+
+  ThemeConfig get currentThemeConfig => config;
+
+  ThemeData get darkTheme => config.genTheme(Brightness.dark);
+
+  ThemeData get lightTheme => config.genTheme(Brightness.light);
 
   @override
   void onChange(Change<ThemeMode> change) {
@@ -36,7 +47,6 @@ class ThemeController extends Cubit<ThemeMode> {
   static ThemeController of(BuildContext context) =>
       BlocProvider.of<ThemeController>(context);
 
-  // get currentStateName
   String get currentStateName {
     switch (state) {
       case ThemeMode.dark:

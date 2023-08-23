@@ -17,12 +17,12 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
-        left: ThemeConfig.kPaddingD,
-        top: context.topInset + (ThemeConfig.kPaddingH),
-        right: ThemeConfig.kPaddingD,
+        left: context.config.paddingD,
+        top: context.topInset + (context.config.paddingH),
+        right: context.config.paddingD,
       ),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(ThemeConfig.kRadius),
+        borderRadius: BorderRadius.circular(context.config.radius),
         child: MediaQuery(
           data: const MediaQueryData(
             padding: EdgeInsets.zero,

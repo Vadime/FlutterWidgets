@@ -17,7 +17,7 @@ class BottomNavigationView {
         label: title,
         tooltip: title,
         backgroundColor:
-            context.theme.cardColor.withOpacity(ThemeConfig.kOpacity),
+            context.theme.cardColor.withOpacity(context.config.opacity),
       );
 }
 

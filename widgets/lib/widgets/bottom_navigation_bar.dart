@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:widgets/config/theme_config.dart';
 import 'package:widgets/widgets/widgets.dart';
 
 class BottomNavigationBarWidget extends StatelessWidget {
@@ -20,12 +19,12 @@ class BottomNavigationBarWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
-        left: ThemeConfig.kPaddingD,
-        bottom: context.bottomInset + (ThemeConfig.kPaddingH),
-        right: ThemeConfig.kPaddingD,
+        left: context.config.paddingD,
+        bottom: context.bottomInset + (context.config.paddingH),
+        right: context.config.paddingD,
       ),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(ThemeConfig.kRadius),
+        borderRadius: BorderRadius.circular(context.config.radius),
         child: MediaQuery(
           data: const MediaQueryData(
             padding: EdgeInsets.zero,

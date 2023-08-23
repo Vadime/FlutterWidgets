@@ -11,14 +11,14 @@ class BrigthnessSwitch extends StatelessWidget {
           ? ThemeController.of(context).change(ThemeMode.dark)
           : ThemeController.of(context).change(ThemeMode.light),
       child: Container(
-        padding: const EdgeInsets.fromLTRB(
-            ThemeConfig.kPaddingH,
-            ThemeConfig.kPaddingH,
-            ThemeConfig.kPaddingH,
-            ThemeConfig.kPaddingH),
+        padding: EdgeInsets.fromLTRB(
+            context.config.paddingH,
+            context.config.paddingH,
+            context.config.paddingH,
+            context.config.paddingH),
         decoration: BoxDecoration(
           color: context.theme.cardColor.withOpacity(0.2),
-          borderRadius: BorderRadius.circular(ThemeConfig.kRadius),
+          borderRadius: BorderRadius.circular(context.config.radius),
         ),
         child: Icon(
           context.theme.brightness == Brightness.light

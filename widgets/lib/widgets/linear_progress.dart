@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:widgets/config/theme_config.dart';
+import 'package:widgets/widgets.dart';
 
 class LinearProgressWidget extends StatelessWidget {
   final double progress;
 
   /// The border radius of the progress indicator.
-  final double radius;
+  final double? radius;
 
   /// The duration of the animation in milliseconds.
   final int duration;
@@ -19,7 +19,7 @@ class LinearProgressWidget extends StatelessWidget {
 
   const LinearProgressWidget(
     this.progress, {
-    this.radius = ThemeConfig.kRadius,
+    this.radius,
     this.duration = 200,
     this.margin = EdgeInsets.zero,
     this.thickness,
@@ -31,7 +31,7 @@ class LinearProgressWidget extends StatelessWidget {
   Widget build(BuildContext context) => Padding(
         padding: margin,
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(radius),
+          borderRadius: BorderRadius.circular(radius ?? context.config.radius),
           child: TweenAnimationBuilder<double>(
             duration: Duration(milliseconds: duration),
             curve: Curves.easeInOut,

@@ -30,12 +30,12 @@ class SingleSelectionButton<T> extends StatelessWidget {
   Widget build(BuildContext context) {
     return CardWidget.single(
       margin: margin,
-      padding: const EdgeInsets.all(ThemeConfig.kPaddingH),
+      padding: EdgeInsets.all(context.config.paddingH),
       child: BlocBuilder<SingleSelectionController<T>, T?>(
           bloc: controller,
           builder: (context, state) => Wrap(
-                spacing: ThemeConfig.kPaddingH,
-                runSpacing: ThemeConfig.kPaddingH,
+                spacing: context.config.paddingH,
+                runSpacing: context.config.paddingH,
                 alignment: WrapAlignment.start,
                 runAlignment: WrapAlignment.start,
                 crossAxisAlignment: WrapCrossAlignment.center,
@@ -50,12 +50,9 @@ class SingleSelectionButton<T> extends StatelessWidget {
                                   ? context.theme.primaryColor
                                   : context.theme.scaffoldBackgroundColor,
                               borderRadius:
-                                  BorderRadius.circular(ThemeConfig.kRadius)),
-                          padding: const EdgeInsets.fromLTRB(
-                              ThemeConfig.kPaddingH,
-                              4,
-                              ThemeConfig.kPaddingH,
-                              4),
+                                  BorderRadius.circular(context.config.radius)),
+                          padding: EdgeInsets.fromLTRB(context.config.paddingH,
+                              4, context.config.paddingH, 4),
                           child: Text(
                             e.text,
                             style: state == e.value

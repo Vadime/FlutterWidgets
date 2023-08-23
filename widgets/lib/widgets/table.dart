@@ -1,21 +1,20 @@
 library widgets;
 
 import 'package:flutter/material.dart';
-import 'package:widgets/config/theme_config.dart';
 import 'package:widgets/widgets/card.dart';
 import 'package:widgets/widgets/widgets.dart';
 
 class TableRowWidget {
   final List<String> cells;
-  final EdgeInsets cellPadding;
+  final EdgeInsets? cellPadding;
   final Color? rowColor;
   const TableRowWidget({
     required this.cells,
-    this.cellPadding = const EdgeInsets.all(ThemeConfig.kPaddingH),
+    this.cellPadding,
     this.rowColor,
   });
 
-  TableRow toTableRow({Color? rowColor}) {
+  TableRow toTableRow(BuildContext context, {Color? rowColor}) {
     return TableRow(
       decoration: BoxDecoration(
         color: rowColor ?? this.rowColor,
@@ -23,7 +22,7 @@ class TableRowWidget {
       children: cells
           .map(
             (e) => Padding(
-              padding: cellPadding,
+              padding: cellPadding ?? EdgeInsets.all(context.config.paddingH),
               child: Text(e),
             ),
           )
@@ -52,9 +51,10 @@ class TableWidget extends StatelessWidget {
         children: [
           for (int i = 0; i < rows.length; i++)
             if (i % 2 == 0)
-              rows[i].toTableRow()
+              rows[i].toTableRow(context)
             else
               rows[i].toTableRow(
+                context,
                 rowColor:
                     context.theme.scaffoldBackgroundColor.withOpacity(0.5),
               )
