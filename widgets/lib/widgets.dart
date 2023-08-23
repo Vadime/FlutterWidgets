@@ -33,6 +33,7 @@ export 'widgets/app_bar.dart';
 export 'widgets/bottom_navigation_bar.dart';
 export 'widgets/card.dart';
 export 'widgets/checkbox.dart';
+export 'widgets/description.dart';
 export 'widgets/divider.dart';
 export 'widgets/elevated_button.dart';
 export 'widgets/fail.dart';
