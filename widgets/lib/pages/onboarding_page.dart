@@ -175,11 +175,10 @@ class _OnboardingPage extends StatelessWidget {
       child: Column(
         children: [
           const Spacer(flex: 2),
-          ImageWidget.asset(
-            data.image,
-            width: context.mediaQuery.size.shortestSide / 2,
-            height: context.mediaQuery.size.shortestSide / 2,
-          ),
+          ImageWidget.asset(data.image,
+              width: context.mediaQuery.size.shortestSide / 2,
+              height: context.mediaQuery.size.shortestSide / 2,
+              radius: radius),
           const Spacer(),
           Text(
             data.title,
