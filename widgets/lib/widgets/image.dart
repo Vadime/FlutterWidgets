@@ -28,7 +28,7 @@ class ImageWidget extends StatelessWidget {
         child: Image(
           image: image,
           errorBuilder: (context, error, stackTrace) => Container(
-            color: Colors.grey.shade300,
+            color: context.colorScheme.error.withOpacity(0.6),
             width: width,
             height: height,
           ),
@@ -38,7 +38,7 @@ class ImageWidget extends StatelessWidget {
               loadingProgress == null
                   ? child
                   : Container(
-                      color: Colors.grey.shade300,
+                      color: context.config.neutralColor(context.brightness).withOpacity(0.6),
                       width: width,
                       height: height,
                     ),

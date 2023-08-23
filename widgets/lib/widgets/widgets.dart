@@ -29,6 +29,9 @@ extension WidgetBuildContextExtensions on BuildContext {
 
   /// get theme config quickly
   ThemeConfig get config => read<ThemeController>().config;
+
+  /// get brightness quickly
+  Brightness get brightness => theme.brightness;
 }
 
 extension WidgetTextEditingControllerExtensions on TextEditingController {
