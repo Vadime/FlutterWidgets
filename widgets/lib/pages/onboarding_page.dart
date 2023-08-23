@@ -171,6 +171,7 @@ class _OnboardingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: data.backgroundColor,
+      padding: EdgeInsets.symmetric(horizontal: padding),
       child: Column(
         children: [
           const Spacer(flex: 2),

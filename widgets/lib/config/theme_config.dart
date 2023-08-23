@@ -57,7 +57,7 @@ class ThemeConfig {
   // copyWith
   ThemeConfig copyWith({
     Brightness? brightness,
-    MaterialColor? primaryColor,
+    Color? primaryColor,
     Color? backgroundColor,
     Color? cardColor,
     Color? neutralColor,
