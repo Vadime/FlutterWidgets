@@ -38,6 +38,7 @@ export 'widgets/elevated_button.dart';
 export 'widgets/fail.dart';
 export 'widgets/footer.dart';
 export 'widgets/icon.dart';
+export 'widgets/icon_button.dart';
 export 'widgets/image.dart';
 export 'widgets/linear_progress.dart';
 export 'widgets/list_tile.dart';
