@@ -57,7 +57,15 @@ class Navigation {
     );
   }
 
-  static void pushMessage({String? message}) {
+  static void pushErrorMessage({String? message}) => _pushMessage(
+      message: message,
+      color: navigatorKey.currentContext!.theme.colorScheme.error);
+
+  static void pushMessage({String? message}) => _pushMessage(
+      message: message,
+      color: navigatorKey.currentContext!.theme.colorScheme.primary);
+
+  static void _pushMessage({String? message, Color? color}) {
     if (message == null) return;
     pushPopup(
       widget: Row(
@@ -65,9 +73,7 @@ class Navigation {
           Expanded(
               child: Text(message,
                   style: navigatorKey.currentContext!.textTheme.labelLarge!
-                      .copyWith(
-                          color: navigatorKey
-                              .currentContext!.theme.colorScheme.error))),
+                      .copyWith(color: color))),
           SizedBox(height: navigatorKey.currentContext!.config.padding),
           TextButtonWidget(
             'OK',
