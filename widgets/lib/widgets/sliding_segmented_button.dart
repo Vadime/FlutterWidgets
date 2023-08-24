@@ -11,6 +11,8 @@ class SlidingSegmentedButton<T> extends StatelessWidget {
   final List<ButtonData<T>> segments;
   final EdgeInsets margin;
   final double? radius;
+  final double borderWidth = 4;
+  double get borderWIdthD => borderWidth * 2;
 
   const SlidingSegmentedButton({
     required this.controller,
@@ -23,11 +25,12 @@ class SlidingSegmentedButton<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 40,
+      height: kTextTabBarHeight,
       decoration: BoxDecoration(
           color: context.theme.scaffoldBackgroundColor,
           borderRadius: BorderRadius.circular(radius ?? context.config.radius),
-          border: Border.all(color: context.theme.cardColor, width: 4)),
+          border:
+              Border.all(color: context.theme.cardColor, width: borderWidth)),
       margin: margin,
       child: BlocBuilder<SegmentedButtonController<T>, T>(
         bloc: controller,
@@ -59,12 +62,14 @@ class SlidingSegmentedButton<T> extends StatelessWidget {
                   bottom: 0,
                   duration: const Duration(milliseconds: 100),
                   child: Container(
-                      width: constraints.maxWidth / segments.length - 8,
-                      margin: const EdgeInsets.all(4),
+                      width:
+                          constraints.maxWidth / segments.length - borderWIdthD,
+                      margin: EdgeInsets.all(borderWidth),
                       decoration: BoxDecoration(
                         color: context.theme.primaryColor,
-                        borderRadius: BorderRadius.circular(
-                            max(radius ?? context.config.radius, 0)),
+                        borderRadius: BorderRadius.circular(max(
+                            (radius ?? context.config.radius - borderWidth),
+                            0)),
                       ),
                       alignment: Alignment.center,
                       child: Text(

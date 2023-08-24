@@ -65,7 +65,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
               child: Row(
                 children: [
                   // indicator dots
-                  PageIndicatorWidget(controller: pageController),
+                  PageIndicatorWidget(
+                      controller: pageController,
+                      pageCount: widget.views.length),
                   const Spacer(),
 
                   // nextbutton

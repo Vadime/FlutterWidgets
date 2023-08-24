@@ -3,13 +3,15 @@ import 'package:widgets/widgets/widgets.dart';
 
 class PageIndicatorWidget extends StatelessWidget {
   final PageController controller;
-  const PageIndicatorWidget({required this.controller, super.key});
+  final int pageCount;
+  const PageIndicatorWidget(
+      {required this.controller, required this.pageCount, super.key});
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        for (int i = 0; i < controller.positions.length; i++)
+        for (int i = 0; i < pageCount; i++)
           if (i == controller.currentPage)
             AnimatedContainer(
               duration: const Duration(milliseconds: 200),

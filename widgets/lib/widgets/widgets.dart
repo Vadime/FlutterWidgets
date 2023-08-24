@@ -54,31 +54,5 @@ extension PageControllerExtension on PageController {
       );
 
   // get current page
-  int get currentPage => hasClients ? page!.round() : 0;
-}
-
-extension ScaffoldExtension on Scaffold {
-  scroll({
-    List<Widget> children = const [],
-    ScrollController? controller,
-    Widget? floatingActionButton,
-    PreferredSizeWidget? appBar,
-    Widget? bottomNavigationBar,
-    Key? key,
-  }) =>
-      Scaffold(
-        key: key,
-        floatingActionButton: floatingActionButton,
-        bottomNavigationBar: bottomNavigationBar,
-        appBar: appBar,
-        body: SingleChildScrollView(
-          controller: controller,
-          child: SafeArea(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: children,
-            ),
-          ),
-        ),
-      );
+  int get currentPage => hasClients ? (page?.round() ?? 0) : 0;
 }
