@@ -58,11 +58,11 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
     super.initState();
   }
 
-  @override
-  void dispose() {
-    widget.controller.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   widget.controller.dispose();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) => CardWidget.single(

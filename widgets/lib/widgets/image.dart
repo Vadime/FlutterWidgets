@@ -27,6 +27,9 @@ class ImageWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(radius ?? context.config.radius),
         child: Image(
           image: image,
+          fit: fit,
+          width: width,
+          height: height,
           errorBuilder: (context, error, stackTrace) => Container(
             color: context.colorScheme.error.withOpacity(0.6),
             width: width,
@@ -38,7 +41,9 @@ class ImageWidget extends StatelessWidget {
               loadingProgress == null
                   ? child
                   : Container(
-                      color: context.config.neutralColor(context.brightness).withOpacity(0.6),
+                      color: context.config
+                          .neutralColor(context.brightness)
+                          .withOpacity(0.6),
                       width: width,
                       height: height,
                     ),
