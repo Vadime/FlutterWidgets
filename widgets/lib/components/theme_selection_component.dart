@@ -1,28 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:widgets/widgets.dart';
 
-class ThemeChangeComponent extends StatefulWidget {
+class ThemeSelectionComponent extends StatefulWidget {
   final ThemeController controller;
   final EdgeInsets margin;
-  const ThemeChangeComponent({
+  const ThemeSelectionComponent({
     required this.controller,
     this.margin = EdgeInsets.zero,
     super.key,
   });
 
   @override
-  State<ThemeChangeComponent> createState() => _ThemeChangeComponentState();
+  State<ThemeSelectionComponent> createState() =>
+      _ThemeSelectionComponentState();
 }
 
-class _ThemeChangeComponentState extends State<ThemeChangeComponent> {
+class _ThemeSelectionComponentState extends State<ThemeSelectionComponent> {
   late SegmentedButtonController<ThemeMode> buttonController;
 
   @override
   void initState() {
     super.initState();
     buttonController = SegmentedButtonController(widget.controller.state);
-    buttonController
-        .addListener((mode) => ThemeController.of(context).change(mode));
+    buttonController.addListener((mode) => widget.controller.change(mode));
   }
 
   @override
@@ -31,18 +31,9 @@ class _ThemeChangeComponentState extends State<ThemeChangeComponent> {
         margin: widget.margin,
         controller: buttonController,
         segments: const [
-          ButtonData(
-            'System',
-            ThemeMode.system,
-          ),
-          ButtonData(
-            'Light',
-            ThemeMode.light,
-          ),
-          ButtonData(
-            'Dark',
-            ThemeMode.dark,
-          ),
+          ButtonData('System', ThemeMode.system),
+          ButtonData('Light', ThemeMode.light),
+          ButtonData('Dark', ThemeMode.dark),
         ]);
   }
 }

@@ -71,12 +71,8 @@ class BarChartWidget extends StatelessWidget {
           ),
           rightTitles: const AxisTitles(axisNameWidget: Text('')),
         ),
-        borderData: FlBorderData(
-          show: false,
-        ),
-        gridData: const FlGridData(
-          show: false,
-        ),
+        borderData: FlBorderData(show: false),
+        gridData: const FlGridData(show: false),
         barGroups: [
           for (int i = 0; i < bars.length; i++)
             BarChartGroupData(
@@ -86,8 +82,7 @@ class BarChartWidget extends StatelessWidget {
                   fromY: 0.1,
                   toY: bars.values.toList()[i].toDouble(),
                   color: context.theme.primaryColor,
-                  borderRadius:
-                      BorderRadius.circular(context.config.radius),
+                  borderRadius: BorderRadius.circular(context.config.radius),
                 ),
               ],
             ),

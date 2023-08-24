@@ -52,4 +52,33 @@ extension PageControllerExtension on PageController {
         curve: Curves.easeInOut,
         duration: const Duration(milliseconds: 200),
       );
+
+  // get current page
+  int get currentPage => hasClients ? page!.round() : 0;
+}
+
+extension ScaffoldExtension on Scaffold {
+  scroll({
+    List<Widget> children = const [],
+    ScrollController? controller,
+    Widget? floatingActionButton,
+    PreferredSizeWidget? appBar,
+    Widget? bottomNavigationBar,
+    Key? key,
+  }) =>
+      Scaffold(
+        key: key,
+        floatingActionButton: floatingActionButton,
+        bottomNavigationBar: bottomNavigationBar,
+        appBar: appBar,
+        body: SingleChildScrollView(
+          controller: controller,
+          child: SafeArea(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: children,
+            ),
+          ),
+        ),
+      );
 }

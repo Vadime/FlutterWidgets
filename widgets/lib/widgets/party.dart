@@ -4,6 +4,7 @@ import 'dart:math';
 
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
+import 'package:widgets/widgets.dart';
 
 class PartyParticle {
   /// Draw a star shape.
@@ -34,10 +35,6 @@ class PartyParticle {
 
   /// Convert degrees to radians.
   static double _degToRad(double deg) => deg * (pi / 180.0);
-}
-
-class PartyController extends ConfettiController {
-  PartyController({super.duration = const Duration(seconds: 2)});
 }
 
 class PartyWidget extends StatelessWidget {

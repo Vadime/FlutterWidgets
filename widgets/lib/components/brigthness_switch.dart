@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:widgets/widgets.dart';
 
-class BrigthnessSwitch extends StatelessWidget {
-  const BrigthnessSwitch({super.key});
+class BrigthnessSwitchComponent extends StatelessWidget {
+  const BrigthnessSwitchComponent({super.key});
 
   @override
   Widget build(BuildContext context) {

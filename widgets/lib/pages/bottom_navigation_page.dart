@@ -1,25 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:widgets/widgets.dart';
 
-class BottomNavigationView {
-  final String title;
-  final Widget view;
-  final IconData icon;
-  final IconData? actionIcon;
-  final Function()? action;
-
-  const BottomNavigationView(
-      this.title, this.view, this.icon, this.actionIcon, this.action);
-
-  BottomNavigationBarItem bottomNavigationBarItem(BuildContext context) =>
-      BottomNavigationBarItem(
-        icon: Icon(icon),
-        label: title,
-        tooltip: title,
-        backgroundColor:
-            context.theme.cardColor.withOpacity(context.config.opacity),
-      );
-}
 
 class BottomNavigationPage extends StatefulWidget {
   final int initialIndex;
@@ -54,12 +35,6 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
   int get currentIndex =>
       controller.hasClients ? controller.page!.round() : widget.initialIndex;
 
-  void animateTo(int index) async => await controller.animateToPage(
-        index,
-        duration: const Duration(milliseconds: 200),
-        curve: Curves.easeInOut,
-      );
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,10 +54,8 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
       ),
       bottomNavigationBar: BottomNavigationBarWidget(
         currentIndex: currentIndex,
-        onChange: animateTo,
-        items: widget.views
-            .map((e) => e.bottomNavigationBarItem(context))
-            .toList(),
+        onChange: controller.go,
+        items: widget.views.map((e) => e.bottomNavigationBarItem).toList(),
       ),
     );
   }

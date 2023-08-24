@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:widgets/pages/onboarding_page.dart';
+import 'package:widgets/widgets.dart';
 
 void main(List<String> args) {
   runApp(const MaterialApp(
-      home: OnboardingPage(data: [
-    OnboardingPageData(
+      home: OnboardingPage(views: [
+    OnboardingView(
         title: 'Hello',
         description: 'I love coffee',
         image: 'res/example.png',
         backgroundColor: Colors.red,
         foregroundColor: Colors.white),
-    OnboardingPageData(
+    OnboardingView(
         title: 'Hello',
         description: 'I love coffee',
         image: 'res/example.png',
         backgroundColor: Colors.blue,
         foregroundColor: Colors.white),
-    OnboardingPageData(
+    OnboardingView(
         title: 'Hello',
         description: 'I love coffee',
         image: 'res/example.png',

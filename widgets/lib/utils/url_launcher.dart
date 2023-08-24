@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:url_launcher/url_launcher.dart' as url_launcher;
 
 class UrlLauncher {
@@ -55,7 +56,7 @@ class UrlLauncher {
       uri = Uri.https(
           'www.google.com', '/maps/search/', {'api': '1', 'query': adress});
     }
-    return _launchUrl(uri);
+    return _launchUrl(uri, url_launcher.LaunchMode.externalApplication);
   }
 
   /// Launches the maps application for this platform.
@@ -89,7 +90,20 @@ class UrlLauncher {
           {'api': '1', 'query': '$latitude,$longitude'});
     }
 
-    return _launchUrl(uri);
+    return _launchUrl(uri, url_launcher.LaunchMode.externalApplication);
+  }
+
+  static Future<bool> launchPdf(Uint8List data) async {
+    File file = await _createTemporaryPDFFile(data);
+    return _launchUrl(Uri.parse(file.path));
+  }
+
+  static Future<File> _createTemporaryPDFFile(Uint8List pdfBytes) async {
+    Directory tempDir = await getTemporaryDirectory();
+    String tempPath = tempDir.path;
+    File tempFile = File('$tempPath/sample.pdf');
+    await tempFile.writeAsBytes(pdfBytes, flush: true);
+    return tempFile;
   }
 
   /// @returns true if the url was launched
@@ -99,9 +113,11 @@ class UrlLauncher {
     return await _launchUrl(uri);
   }
 
-  static Future<bool> _launchUrl(Uri uri) async {
+  static Future<bool> _launchUrl(Uri uri,
+      [url_launcher.LaunchMode? mode]) async {
     if (await url_launcher.canLaunchUrl(uri)) {
-      return await url_launcher.launchUrl(uri);
+      return await url_launcher.launchUrl(uri,
+          mode: mode ?? url_launcher.LaunchMode.platformDefault);
     }
     return false;
   }
