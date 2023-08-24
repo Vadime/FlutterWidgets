@@ -22,7 +22,7 @@ class _SendPhoneCodeViewState extends State<SendPhoneCodeView> {
       mainAxisSize: MainAxisSize.min,
       children: [
         TextFieldWidget(
-          phone,
+         controller: phone,
           autofocus: true,
         ),
         SizedBox(height: context.config.padding),

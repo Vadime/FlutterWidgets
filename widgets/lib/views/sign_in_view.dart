@@ -41,7 +41,10 @@ class _SignInViewState extends State<SignInView> {
               context.config.paddingH,
               context.config.padding,
               context.config.paddingH),
-          children: [TextFieldWidget(email), TextFieldWidget(password)],
+          children: [
+            TextFieldWidget(controller: email),
+            TextFieldWidget(controller: password)
+          ],
         ),
         Align(
           alignment: Alignment.centerRight,

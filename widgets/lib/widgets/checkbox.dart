@@ -5,11 +5,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:widgets/controllers/checkbox_controller.dart';
 
 class CheckboxWidget extends StatelessWidget {
-  final CheckboxController? controller;
+  final CheckboxController controller;
   final EdgeInsets margin;
 
   const CheckboxWidget({
-    this.controller,
+    required this.controller,
     this.margin = EdgeInsets.zero,
     super.key,
   });
@@ -22,7 +22,7 @@ class CheckboxWidget extends StatelessWidget {
             builder: (context, state) {
               return Checkbox.adaptive(
                 value: state,
-                onChanged: (value) => controller?.set(value ?? false),
+                onChanged: (value) => controller.set(value ?? false),
               );
             }),
       );

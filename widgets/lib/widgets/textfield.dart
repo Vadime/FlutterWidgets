@@ -24,8 +24,8 @@ class TextFieldWidget extends StatefulWidget {
   final EdgeInsets margin;
   final EdgeInsets? padding;
 
-  const TextFieldWidget(
-    this.controller, {
+  const TextFieldWidget({
+    required this.controller,
     this.style,
     this.textAlign,
     this.textAlignVertical,

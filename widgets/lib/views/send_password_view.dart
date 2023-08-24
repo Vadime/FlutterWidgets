@@ -32,7 +32,7 @@ class _SendPasswordViewState extends State<SendPasswordView> {
           ),
         ),
         TextFieldWidget(
-          email,
+         controller: email,
           margin: EdgeInsets.fromLTRB(
               context.config.padding,
               context.config.paddingH,

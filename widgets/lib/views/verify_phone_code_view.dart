@@ -20,7 +20,7 @@ class _VerifyPhoneCodeViewState extends State<VerifyPhoneCodeView> {
       mainAxisSize: MainAxisSize.min,
       children: [
         TextFieldWidget(
-          code,
+          controller: code,
         ),
         SizedBox(height: context.config.padding),
         ElevatedButtonWidget('Login',

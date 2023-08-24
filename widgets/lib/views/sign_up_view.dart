@@ -45,8 +45,8 @@ class _SignUpViewState extends State<SignUpView> {
               context.config.padding,
               context.config.paddingH),
           children: [
-            TextFieldWidget(email),
-            TextFieldWidget(password),
+            TextFieldWidget(controller: email),
+            TextFieldWidget(controller: password),
           ],
         ),
         // checkbox and terms of service
