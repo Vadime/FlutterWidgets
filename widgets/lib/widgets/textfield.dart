@@ -108,22 +108,23 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
                 autofillHints: widget.autofillHints,
               ),
             ),
-            SizedBox(width: context.config.paddingH),
             if (widget.controller.obscureText)
-              IconButton(
-                padding: const EdgeInsets.all(8),
-                iconSize: 20,
-                style: const ButtonStyle(
+              SizedBox(
+                height: 32,
+                width: 32,
+                child: IconButtonWidget(
+                  widget.controller.visible
+                      ? Icons.visibility_off_rounded
+                      : Icons.visibility_rounded,
+                  iconSize: 20,
+                  padding: EdgeInsets.zero,
                   tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  minimumSize: MaterialStatePropertyAll(Size.zero),
+                  minimumSize: Size.zero,
+                  onPressed: () => setState(() {
+                    widget.controller.visible = !widget.controller.visible;
+                  }),
                 ),
-                onPressed: () => setState(() {
-                  widget.controller.visible = !widget.controller.visible;
-                }),
-                icon: Icon(widget.controller.visible
-                    ? Icons.visibility_off_rounded
-                    : Icons.visibility_rounded),
-              )
+              ),
           ],
         ),
       );

@@ -9,8 +9,6 @@ abstract class SelectionController<T, S> extends Cubit<T> {
   @override
   void onChange(Change<T> change) {
     super.onChange(change);
-    Logging.logDetails('MultiSelectionController', change);
+    Logging.logDetails(runtimeType.toString(), change);
   }
-
-  
 }

@@ -135,15 +135,18 @@ class ThemeConfig {
           labelSmall: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.normal,
+            letterSpacing: 0.9,
             color: textColor(brightness).withOpacity(opacity),
           ),
           labelMedium: TextStyle(
             fontSize: 12,
-            fontWeight: FontWeight.w600,
+            fontWeight: FontWeight.normal,
+            letterSpacing: 0.9,
             color: textColor(brightness),
           ),
           labelLarge: TextStyle(
             fontSize: 12,
+            letterSpacing: 0.9,
             fontWeight: FontWeight.w600,
             color: textColor(brightness),
           ),
@@ -154,7 +157,7 @@ class ThemeConfig {
           ),
           bodyMedium: TextStyle(
             fontSize: 14,
-            fontWeight: FontWeight.w600,
+            fontWeight: FontWeight.normal,
             color: textColor(brightness),
           ),
           bodyLarge: TextStyle(
@@ -169,7 +172,7 @@ class ThemeConfig {
           ),
           titleMedium: TextStyle(
             fontSize: 20,
-            fontWeight: FontWeight.w600,
+            fontWeight: FontWeight.normal,
             color: textColor(brightness),
           ),
           titleLarge: TextStyle(
@@ -184,7 +187,7 @@ class ThemeConfig {
           ),
           headlineMedium: TextStyle(
             fontSize: 26,
-            fontWeight: FontWeight.w600,
+            fontWeight: FontWeight.normal,
             color: textColor(brightness),
           ),
           headlineLarge: TextStyle(
@@ -227,6 +230,14 @@ class ThemeConfig {
           buttonColor: primaryColor,
           textTheme: ButtonTextTheme.primary,
         ),
+        iconButtonTheme: IconButtonThemeData(
+            style: IconButton.styleFrom(
+          padding: EdgeInsets.zero,
+          alignment: Alignment.center,
+          minimumSize: Size.zero,
+          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          visualDensity: VisualDensity.compact,
+        )),
         // elevatedButton
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(

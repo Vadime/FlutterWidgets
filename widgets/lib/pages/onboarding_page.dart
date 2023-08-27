@@ -5,7 +5,7 @@ class OnboardingPage extends StatefulWidget {
   final List<OnboardingView> views;
   final double? padding;
   final double? radius;
-  final Function()? onDone;
+  final void Function()? onDone;
 
   const OnboardingPage({
     this.padding,
@@ -49,11 +49,10 @@ class _OnboardingPageState extends State<OnboardingPage> {
             top: widget.padding ?? context.config.padding,
             right: widget.padding ?? context.config.padding,
             child: SafeArea(
-              child: TextButton(
+              child: TextButtonWidget(
+                'Skip',
                 onPressed: widget.onDone,
-                child: Text('Skip',
-                    style: context.textTheme.labelLarge!.copyWith(
-                        color: widget.views[currentPage].foregroundColor)),
+                foregroundColor: widget.views[currentPage].foregroundColor,
               ),
             ),
           ),
@@ -71,14 +70,10 @@ class _OnboardingPageState extends State<OnboardingPage> {
                   const Spacer(),
 
                   // nextbutton
-                  TextButton(
-                    onPressed: lastPage ? widget.onDone : nextPage,
-                    child: Text(
-                      lastPage ? 'Get Started' : 'Next',
-                      style: context.textTheme.labelLarge!.copyWith(
-                          color: widget.views[currentPage].foregroundColor),
-                    ),
-                  ),
+                  TextButtonWidget(lastPage ? 'Get Started' : 'Next',
+                      onPressed: lastPage ? widget.onDone : nextPage,
+                      foregroundColor:
+                          widget.views[currentPage].foregroundColor),
                 ],
               ),
             ),

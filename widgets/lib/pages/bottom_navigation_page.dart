@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:widgets/widgets.dart';
 
-
 class BottomNavigationPage extends StatefulWidget {
   final int initialIndex;
 
@@ -42,10 +41,12 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
       extendBodyBehindAppBar: true,
       appBar: AppBarWidget(
         widget.views[currentIndex].title,
-        action: IconButton(
-          icon: Icon(widget.views[currentIndex].actionIcon),
-          onPressed: widget.views[currentIndex].action,
-        ),
+        action: widget.views[currentIndex].actionIcon == null
+            ? null
+            : IconButtonWidget(
+                widget.views[currentIndex].actionIcon!,
+                onPressed: widget.views[currentIndex].action,
+              ),
       ),
       body: PageView(
         controller: controller,

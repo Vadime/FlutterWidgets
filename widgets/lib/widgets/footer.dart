@@ -1,12 +1,12 @@
 library widgets;
 
 import 'package:flutter/material.dart';
-import 'package:widgets/widgets/widgets.dart';
+import 'package:widgets/widgets.dart';
 
 class FooterSocialButtonWidget {
   final String text;
   final Function()? onPressed;
-  final Widget icon;
+  final IconData icon;
 
   const FooterSocialButtonWidget({
     required this.text,
@@ -49,12 +49,9 @@ class FooterWidget extends StatelessWidget {
                 .map(
                   (e) => Padding(
                     padding: const EdgeInsets.fromLTRB(2, 2, 2, 2),
-                    child: TextButton(
+                    child: TextButtonWidget(
+                      e.text,
                       onPressed: e.onPressed,
-                      child: Text(
-                        e.text,
-                        style: Theme.of(context).textTheme.labelMedium,
-                      ),
                     ),
                   ),
                 )
@@ -72,8 +69,8 @@ class FooterWidget extends StatelessWidget {
                 (e) => Padding(
                   padding: EdgeInsets.fromLTRB(
                       0, context.config.paddingH, 0, context.config.paddingH),
-                  child: IconButton(
-                    icon: e.icon,
+                  child: IconButtonWidget(
+                    e.icon,
                     onPressed: e.onPressed,
                   ),
                 ),

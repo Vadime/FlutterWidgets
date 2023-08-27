@@ -8,7 +8,9 @@ class IconButtonWidget extends StatelessWidget {
   final EdgeInsets? padding;
   final Color? backgroundColor;
   final Color? foregroundColor;
-
+  final MaterialTapTargetSize? tapTargetSize;
+  final Size? minimumSize;
+  final double? iconSize;
   const IconButtonWidget(
     this.icon, {
     required this.onPressed,
@@ -16,6 +18,9 @@ class IconButtonWidget extends StatelessWidget {
     this.backgroundColor,
     this.foregroundColor,
     this.padding,
+    this.tapTargetSize,
+    this.minimumSize,
+    this.iconSize,
     super.key,
   });
 
@@ -23,11 +28,14 @@ class IconButtonWidget extends StatelessWidget {
   Widget build(BuildContext context) => Padding(
         padding: margin,
         child: IconButton(
-          style: TextButton.styleFrom(
+          iconSize: iconSize,
+          style: IconButton.styleFrom(
             backgroundColor: backgroundColor,
             foregroundColor: foregroundColor,
-            padding: padding,
+            tapTargetSize: tapTargetSize,
+            minimumSize: minimumSize,
           ),
+          padding: padding,
           onPressed: () async {
             if (onPressed is Future Function()) {
               try {
@@ -41,7 +49,10 @@ class IconButtonWidget extends StatelessWidget {
               onPressed?.call();
             }
           },
-          icon: Icon(icon),
+          icon: Icon(
+            icon,
+            size: iconSize,
+          ),
         ),
       );
 }
