@@ -32,7 +32,7 @@ class TextFieldController extends TextEditingController {
   }) =>
       TextFieldController(
         labelText,
-        errorRegex: RegExp(r'^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$'),
+        errorRegex: RegExp(r'^[\w\.-]+@[a-zA-Zäßüö\d\.-]+\.[a-zA-Z]{2,}$'),
         errorText: errorText,
         keyboardType: TextInputType.emailAddress,
         text: text,
@@ -46,7 +46,7 @@ class TextFieldController extends TextEditingController {
   }) =>
       TextFieldController(
         labelText,
-        errorRegex: RegExp(r'[0-9a-zA-Z]{6}'),
+        errorRegex: RegExp(r'[0-9a-zA-Zäßüö]{6}'),
         errorText: errorText,
         keyboardType: TextInputType.visiblePassword,
         obscureText: true,
@@ -61,7 +61,7 @@ class TextFieldController extends TextEditingController {
   }) =>
       TextFieldController(
         labelText,
-        errorRegex: RegExp(r"^[a-zA-Z\s'-]+$", unicode: true),
+        errorRegex: RegExp(r"^[a-zA-Zäßüö\s'-]+$", unicode: true),
         errorText: errorText,
         keyboardType: TextInputType.name,
         text: text,
@@ -86,13 +86,13 @@ class TextFieldController extends TextEditingController {
 
   // one number congiuration
   factory TextFieldController.number({
-    String? labelText,
-    String? errorText,
+    String? labelText = 'Number',
+    String? errorText = 'Invalid number',
     String? text,
   }) =>
       TextFieldController(
         labelText,
-        errorRegex: RegExp(r'^[0-9]$'),
+        errorRegex: RegExp(r'^[0-9]+$'),
         errorText: errorText,
         keyboardType: TextInputType.number,
         text: text,
@@ -148,5 +148,4 @@ class TextFieldController extends TextEditingController {
     _emptyAllowed = value;
     notifyListeners();
   }
-
 }

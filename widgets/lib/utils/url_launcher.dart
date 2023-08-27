@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:url_launcher/url_launcher.dart' as url_launcher;
+import 'package:widgets/widgets.dart';
 
 class UrlLauncher {
   /// @returns true if the url was launched
@@ -115,9 +116,15 @@ class UrlLauncher {
 
   static Future<bool> _launchUrl(Uri uri,
       [url_launcher.LaunchMode? mode]) async {
-    if (await url_launcher.canLaunchUrl(uri)) {
-      return await url_launcher.launchUrl(uri,
-          mode: mode ?? url_launcher.LaunchMode.platformDefault);
+    try {
+      if (await url_launcher.canLaunchUrl(uri)) {
+        return await url_launcher.launchUrl(uri,
+            mode: mode ?? url_launcher.LaunchMode.platformDefault);
+      } else {
+        Logging.logDetails('Cannot Launch Url', uri);
+      }
+    } catch (e) {
+      Logging.logDetails('Error Launching', e);
     }
     return false;
   }

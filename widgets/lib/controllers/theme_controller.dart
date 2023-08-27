@@ -54,10 +54,11 @@ class ThemeController extends SegmentedButtonController<ThemeMode> {
   ThemeData get darkTheme => config.genTheme(Brightness.dark);
 
   ThemeData get lightTheme => config.genTheme(Brightness.light);
+
   @override
-  void toggle(ThemeMode mode) async {
-    await saver?.save(ThemeModeSaver.key, mode);
-    emit(mode);
+  void toggle(ThemeMode value) async {
+    await saver?.save(ThemeModeSaver.key, value);
+    emit(value);
   }
 
   FutureOr<void> load() async {
@@ -69,4 +70,5 @@ class ThemeController extends SegmentedButtonController<ThemeMode> {
 
   static ThemeController of(BuildContext context) =>
       BlocProvider.of<ThemeController>(context);
+  
 }

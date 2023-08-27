@@ -24,13 +24,7 @@ class ElevatedButtonWidget extends StatelessWidget {
           ),
           onPressed: () async {
             if (onPressed is Future Function()) {
-              try {
-                LoadingController.instance?.disableInput();
-                await onPressed?.call();
-              } catch (_) {
-              } finally {
-                LoadingController.instance?.enableInput();
-              }
+              LoadingController().loadingProcess(onPressed);
             } else {
               onPressed?.call();
             }

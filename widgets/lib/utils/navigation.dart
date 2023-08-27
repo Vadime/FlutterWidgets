@@ -4,9 +4,13 @@ import 'package:widgets/widgets.dart';
 class Navigation {
   static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
+  static MaterialPageRoute standardRoute(Widget widget) {
+    LoadingController().enableInput();
+    return MaterialPageRoute(builder: (context) => widget);
+  }
+
   static Future<void> push({required Widget widget}) async =>
-      await navigatorKey.currentState!
-          .push(MaterialPageRoute(builder: (context) => widget));
+      await navigatorKey.currentState!.push(standardRoute(widget));
 
   static void pushPopup({required Widget widget}) async {
     await showModalBottomSheet(
@@ -87,14 +91,11 @@ class Navigation {
   }
 
   static Future<void> replace({required Widget widget}) async =>
-      navigatorKey.currentState
-          ?.pushReplacement(MaterialPageRoute(builder: (context) => widget));
+      await navigatorKey.currentState?.pushReplacement(standardRoute(widget));
 
   static Future<void> flush({required Widget widget}) async =>
-      await navigatorKey.currentState?.pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => widget),
-        (route) => false,
-      );
+      await navigatorKey.currentState
+          ?.pushAndRemoveUntil(standardRoute(widget), (route) => false);
 
   static void pop() => navigatorKey.currentState?.pop();
 }

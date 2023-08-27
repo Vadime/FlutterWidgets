@@ -35,7 +35,7 @@ class TextWidget extends StatelessWidget {
           padding: margin,
           child: Text(
             data,
-            style: style?.copyWith(
+            style: (style ?? const TextStyle()).copyWith(
               color: color,
               fontSize: size,
               fontWeight: weight,

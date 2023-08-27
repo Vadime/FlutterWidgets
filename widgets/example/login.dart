@@ -90,21 +90,21 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return LoginPage(
       onEmailSignUp: (email, password) {
-        print(email);
-        print(password);
+        Logging.log(email.text);
+        Logging.log(password.text);
       },
       onEmailSignIn: (email, password) {
-        print(email);
-        print(password);
+        Logging.log(email.text);
+        Logging.log(password.text);
       },
       onEmailSendPassword: (email) {
-        print(email);
+        Logging.log(email.text);
       },
       onPhoneSendCode: (phone) {
-        print(phone);
+        Logging.log(phone.text);
       },
       onPhoneVerifyCode: (code) {
-        print(code);
+        Logging.log(code.text);
       },
       onAppleLogin: () {
         Navigation.pushMessage(message: 'Not implemented yet');

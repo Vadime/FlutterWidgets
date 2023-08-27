@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:widgets/widgets.dart';
 
 class ImageWidget extends StatelessWidget {
-  final ImageProvider image;
+  final ImageProvider? image;
   final double? width;
   final double? height;
   final BoxFit fit;
@@ -27,42 +27,42 @@ class ImageWidget extends StatelessWidget {
       child: GestureDetector(
         onTap: () async {
           if (onTap is Future Function()) {
-            try {
-              LoadingController.instance?.disableInput();
-              await onTap?.call();
-            } catch (_) {
-            } finally {
-              LoadingController.instance?.enableInput();
-            }
+            LoadingController().loadingProcess(onTap);
           } else {
             onTap?.call();
           }
         },
         child: ClipRRect(
           borderRadius: BorderRadius.circular(radius ?? context.config.radius),
-          child: Image(
-            image: image,
-            fit: fit,
-            width: width,
-            height: height,
-            errorBuilder: (context, error, stackTrace) => Container(
-              color: context.colorScheme.error.withOpacity(0.6),
-              width: width,
-              height: height,
-            ),
-            frameBuilder: (context, child, frame, wasSynchronouslyLoaded) =>
-                child,
-            loadingBuilder: (context, child, loadingProgress) =>
-                loadingProgress == null
-                    ? child
-                    : Container(
-                        color: context.config
-                            .neutralColor(context.brightness)
-                            .withOpacity(0.6),
-                        width: width,
-                        height: height,
-                      ),
-          ),
+          child: image == null
+              ? Container(
+                  color: context.colorScheme.error.withOpacity(0.6),
+                  width: width,
+                  height: height,
+                )
+              : Image(
+                  image: image!,
+                  fit: fit,
+                  width: width,
+                  height: height,
+                  errorBuilder: (context, error, stackTrace) => Container(
+                    color: context.colorScheme.error.withOpacity(0.6),
+                    width: width,
+                    height: height,
+                  ),
+                  frameBuilder:
+                      (context, child, frame, wasSynchronouslyLoaded) => child,
+                  loadingBuilder: (context, child, loadingProgress) =>
+                      loadingProgress == null
+                          ? child
+                          : Container(
+                              color: context.config
+                                  .neutralColor(context.brightness)
+                                  .withOpacity(0.6),
+                              width: width,
+                              height: height,
+                            ),
+                ),
         ),
       ),
     );

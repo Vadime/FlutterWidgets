@@ -2,14 +2,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:widgets/utils/logging.dart';
 
 class AuthenticationController extends Cubit<bool> {
-  AuthenticationController([super.initialState = false]);
+  
+  AuthenticationController._internal() : super(false);
+  static final AuthenticationController _instance =
+      AuthenticationController._internal();
+  factory AuthenticationController() => _instance;
 
   void login() => emit(true);
 
   void logout() => emit(false);
-
-  static AuthenticationController of(context) =>
-      BlocProvider.of<AuthenticationController>(context);
 
   @override
   void onChange(Change<bool> change) {

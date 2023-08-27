@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:widgets/widgets.dart';
 
 class TextFieldWidget extends StatefulWidget {
-  final TextFieldController controller;
+  final TextFieldController? controller;
   final TextAlign? textAlign;
   final TextAlignVertical? textAlignVertical;
   final bool? autofocus;
@@ -24,7 +24,7 @@ class TextFieldWidget extends StatefulWidget {
   final EdgeInsets? padding;
 
   const TextFieldWidget({
-    required this.controller,
+    this.controller,
     this.textAlign,
     this.textAlignVertical,
     this.autofocus,
@@ -52,7 +52,7 @@ class TextFieldWidget extends StatefulWidget {
 class _TextFieldWidgetState extends State<TextFieldWidget> {
   @override
   void initState() {
-    widget.controller.addListener(() => setState(() {}));
+    widget.controller?.addListener(() => setState(() {}));
     super.initState();
   }
 
@@ -77,8 +77,8 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
                 style: context.textTheme.bodyMedium,
                 decoration: InputDecoration(
                   border: InputBorder.none,
-                  labelText: widget.controller.labelText,
-                  errorText: widget.controller.calcErrorText,
+                  labelText: widget.controller?.labelText,
+                  errorText: widget.controller?.calcErrorText,
                   enabled: widget.enabled ?? true,
                   errorMaxLines: 1,
                   isDense: true,
@@ -87,11 +87,11 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
                   contentPadding: EdgeInsets.zero,
                 ),
                 cursorColor: context.theme.primaryColor,
-                keyboardType: widget.controller.keyboardType,
+                keyboardType: widget.controller?.keyboardType,
                 textAlignVertical: widget.textAlignVertical,
                 autofocus: widget.autofocus ?? false,
-                obscureText:
-                    widget.controller.obscureText && widget.controller.visible,
+                obscureText: (widget.controller?.obscureText ?? false) &&
+                    (widget.controller?.visible ?? true),
                 autocorrect: widget.autocorrect ?? false,
                 enableSuggestions: widget.enableSuggestions ?? false,
                 maxLines: widget.maxLines ?? 1,
@@ -100,7 +100,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
                 maxLength: widget.maxLength,
                 onEditingComplete: widget.onEditingComplete,
                 onSubmitted: widget.onSubmitted,
-                inputFormatters: widget.controller.inputFormatters,
+                inputFormatters: widget.controller?.inputFormatters,
                 enabled: widget.enabled,
                 enableInteractiveSelection:
                     widget.enableInteractiveSelection ?? true,
@@ -108,12 +108,12 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
                 autofillHints: widget.autofillHints,
               ),
             ),
-            if (widget.controller.obscureText)
+            if (widget.controller?.obscureText ?? false)
               SizedBox(
                 height: 32,
                 width: 32,
                 child: IconButtonWidget(
-                  widget.controller.visible
+                  widget.controller?.visible ?? false
                       ? Icons.visibility_off_rounded
                       : Icons.visibility_rounded,
                   iconSize: 20,
@@ -121,7 +121,8 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
                   tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   minimumSize: Size.zero,
                   onPressed: () => setState(() {
-                    widget.controller.visible = !widget.controller.visible;
+                    widget.controller?.visible =
+                        !(widget.controller?.visible ?? false);
                   }),
                 ),
               ),

@@ -39,10 +39,10 @@ class LinearProgressWidget extends StatelessWidget {
             curve: Curves.easeInOut,
             tween: Tween<double>(
               begin: 0,
-              end: progress,
+              end: progress ?? 1,
             ),
             builder: (context, value, _) => LinearProgressIndicator(
-              value: value,
+              value: progress == null ? null : value,
               minHeight: thickness,
               color: foregroundColor ?? Theme.of(context).primaryColor,
               backgroundColor: backgroundColor,

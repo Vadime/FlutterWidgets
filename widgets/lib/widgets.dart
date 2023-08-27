@@ -1,5 +1,6 @@
 library widgets;
 
+export 'components/animated_logo.dart';
 export 'components/brigthness_switch.dart';
 export 'components/gender_selection_component.dart';
 export 'components/login_header.dart';
@@ -12,7 +13,6 @@ export 'config/theme_config.dart';
 /// export all controllers
 export 'controllers/authentication_controller.dart';
 export 'controllers/checkbox_controller.dart';
-export 'data/gender.dart';
 export 'controllers/loading_controller.dart';
 export 'controllers/multi_selection_controller.dart';
 export 'controllers/party_controller.dart';
@@ -23,11 +23,14 @@ export 'controllers/theme_controller.dart';
 
 /// export all data
 export 'data/button_data.dart';
+export 'data/gender.dart';
 
 /// export all pages
 export 'pages/bottom_navigation_page.dart';
+export 'pages/loading_page.dart';
 export 'pages/login_page.dart';
 export 'pages/onboarding_page.dart';
+export 'pages/theme_app.dart';
 
 /// export all utils
 export 'utils/file_picking.dart';
