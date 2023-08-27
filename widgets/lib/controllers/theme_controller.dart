@@ -3,7 +3,36 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:widgets/config/theme_config.dart';
-import 'package:widgets/utils/logging.dart';
+import 'package:widgets/controllers/segmented_button_controller.dart';
+
+extension ThemeModeExtension on ThemeMode {
+  String get str {
+    switch (this) {
+      case ThemeMode.dark:
+        return 'Dark';
+      case ThemeMode.light:
+        return 'Light';
+      case ThemeMode.system:
+        return 'System';
+      default:
+        return 'Unknown';
+    }
+  }
+
+  // get currentStateIcon
+  IconData get icon {
+    switch (this) {
+      case ThemeMode.dark:
+        return Icons.dark_mode;
+      case ThemeMode.light:
+        return Icons.light_mode;
+      case ThemeMode.system:
+        return Icons.settings_system_daydream;
+      default:
+        return Icons.error;
+    }
+  }
+}
 
 abstract class ThemeModeSaver {
   static const String key = 'theme';
@@ -12,7 +41,7 @@ abstract class ThemeModeSaver {
   Future<void> save(String key, ThemeMode mode);
 }
 
-class ThemeController extends Cubit<ThemeMode> {
+class ThemeController extends SegmentedButtonController<ThemeMode> {
   final ThemeModeSaver? saver;
   final ThemeConfig config;
   ThemeController({
@@ -25,14 +54,8 @@ class ThemeController extends Cubit<ThemeMode> {
   ThemeData get darkTheme => config.genTheme(Brightness.dark);
 
   ThemeData get lightTheme => config.genTheme(Brightness.light);
-
   @override
-  void onChange(Change<ThemeMode> change) {
-    super.onChange(change);
-    Logging.logDetails('AuthenticationController', change);
-  }
-
-  FutureOr<void> change(ThemeMode mode) async {
+  void toggle(ThemeMode mode) async {
     await saver?.save(ThemeModeSaver.key, mode);
     emit(mode);
   }
@@ -46,31 +69,4 @@ class ThemeController extends Cubit<ThemeMode> {
 
   static ThemeController of(BuildContext context) =>
       BlocProvider.of<ThemeController>(context);
-
-  String get currentStateName {
-    switch (state) {
-      case ThemeMode.dark:
-        return 'Dark';
-      case ThemeMode.light:
-        return 'Light';
-      case ThemeMode.system:
-        return 'System';
-      default:
-        return 'Unknown';
-    }
-  }
-
-  // get currentStateIcon
-  IconData get currentStateIcon {
-    switch (state) {
-      case ThemeMode.dark:
-        return Icons.dark_mode;
-      case ThemeMode.light:
-        return Icons.light_mode;
-      case ThemeMode.system:
-        return Icons.settings_system_daydream;
-      default:
-        return Icons.error;
-    }
-  }
 }

@@ -15,7 +15,9 @@ class Navigation {
       showDragHandle: false,
       isScrollControlled: true,
       enableDrag: false,
-      barrierColor: Colors.black38,
+      barrierColor: navigatorKey.currentContext!.brightness == Brightness.light
+          ? Colors.black38
+          : Colors.white38,
       builder: (context) => Container(
         decoration: BoxDecoration(
           color: context.theme.scaffoldBackgroundColor,
@@ -84,28 +86,15 @@ class Navigation {
     );
   }
 
-  static void pushLoading(
-          {Widget waitWidget =
-              const Center(child: CircularProgressIndicator.adaptive())}) =>
-      showDialog(
-        context: navigatorKey.currentContext!,
-        barrierDismissible: false,
-        barrierColor:
-            navigatorKey.currentContext!.theme.brightness == Brightness.light
-                ? Colors.white38
-                : Colors.black38,
-        builder: (context) => waitWidget,
-      );
-
   static Future<void> replace({required Widget widget}) async =>
-      await navigatorKey.currentState!
-          .pushReplacement(MaterialPageRoute(builder: (context) => widget));
+      navigatorKey.currentState
+          ?.pushReplacement(MaterialPageRoute(builder: (context) => widget));
 
   static Future<void> flush({required Widget widget}) async =>
-      await navigatorKey.currentState!.pushAndRemoveUntil(
+      await navigatorKey.currentState?.pushAndRemoveUntil(
         MaterialPageRoute(builder: (context) => widget),
         (route) => false,
       );
 
-  static void pop() => navigatorKey.currentState!.pop();
+  static void pop() => navigatorKey.currentState?.pop();
 }

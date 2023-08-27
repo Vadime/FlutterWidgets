@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:widgets/widgets.dart';
 
 class LinearProgressWidget extends StatelessWidget {
-  final double progress;
+  final double? progress;
 
   /// The border radius of the progress indicator.
   final double? radius;

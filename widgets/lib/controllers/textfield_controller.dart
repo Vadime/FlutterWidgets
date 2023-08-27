@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:widgets/utils/iban_formatter.dart';
@@ -62,7 +61,7 @@ class TextFieldController extends TextEditingController {
   }) =>
       TextFieldController(
         labelText,
-        errorRegex: RegExp(r"^[a-zA-Z\s'-]+$"),
+        errorRegex: RegExp(r"^[a-zA-Z\s'-]+$", unicode: true),
         errorText: errorText,
         keyboardType: TextInputType.name,
         text: text,
@@ -149,4 +148,5 @@ class TextFieldController extends TextEditingController {
     _emptyAllowed = value;
     notifyListeners();
   }
+
 }

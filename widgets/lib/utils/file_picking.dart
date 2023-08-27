@@ -1,13 +1,11 @@
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
-import 'package:widgets/utils/navigation.dart';
 
 class FilePicking {
   static Future<File?> pickImage() async {
     FilePickerResult? result;
 
-    Navigation.pushLoading();
     try {
       result = await FilePicker.platform.pickFiles(
         type: FileType.image,
@@ -18,10 +16,7 @@ class FilePicking {
       }
     } catch (e) {
       return null;
-    } finally {
-      Navigation.pop();
     }
-
     return null;
   }
 }

@@ -24,7 +24,7 @@ class _VerifyPhoneCodeViewState extends State<VerifyPhoneCodeView> {
         ),
         SizedBox(height: context.config.padding),
         ElevatedButtonWidget('Login',
-            onPressed: () => widget.verifyPhoneCode(code)),
+            onPressed: () async => await widget.verifyPhoneCode(code)),
       ],
     );
   }

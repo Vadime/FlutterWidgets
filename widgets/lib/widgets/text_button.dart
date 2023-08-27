@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:widgets/widgets.dart';
 
 class TextButtonWidget extends StatelessWidget {
   final String text;
@@ -27,7 +28,19 @@ class TextButtonWidget extends StatelessWidget {
             foregroundColor: foregroundColor,
             padding: padding,
           ),
-          onPressed: onPressed,
+          onPressed: () async {
+            if (onPressed is Future Function()) {
+              try {
+                LoadingController.instance?.disableInput();
+                await onPressed?.call();
+              } catch (_) {
+              } finally {
+                LoadingController.instance?.enableInput();
+              }
+            } else {
+              onPressed?.call();
+            }
+          },
           child: Text(text),
         ),
       );

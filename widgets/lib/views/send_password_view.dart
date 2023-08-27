@@ -32,7 +32,7 @@ class _SendPasswordViewState extends State<SendPasswordView> {
           ),
         ),
         TextFieldWidget(
-         controller: email,
+          controller: email,
           margin: EdgeInsets.fromLTRB(
               context.config.padding,
               context.config.paddingH,
@@ -42,7 +42,7 @@ class _SendPasswordViewState extends State<SendPasswordView> {
         const Spacer(),
         ElevatedButtonWidget(
           'Send Password',
-          onPressed: () => widget.sendPassword(email),
+          onPressed: () async => await widget.sendPassword(email),
           margin: EdgeInsets.all(context.config.padding),
         ),
       ],

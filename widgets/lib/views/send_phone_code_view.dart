@@ -22,12 +22,12 @@ class _SendPhoneCodeViewState extends State<SendPhoneCodeView> {
       mainAxisSize: MainAxisSize.min,
       children: [
         TextFieldWidget(
-         controller: phone,
+          controller: phone,
           autofocus: true,
         ),
         SizedBox(height: context.config.padding),
         ElevatedButtonWidget('Send Code',
-            onPressed: () => widget.onSendPhoneCode(phone))
+            onPressed: () async => await widget.onSendPhoneCode(phone))
       ],
     );
   }

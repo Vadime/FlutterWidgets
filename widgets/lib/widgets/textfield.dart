@@ -5,7 +5,6 @@ import 'package:widgets/widgets.dart';
 
 class TextFieldWidget extends StatefulWidget {
   final TextFieldController controller;
-  final TextStyle? style;
   final TextAlign? textAlign;
   final TextAlignVertical? textAlignVertical;
   final bool? autofocus;
@@ -26,7 +25,6 @@ class TextFieldWidget extends StatefulWidget {
 
   const TextFieldWidget({
     required this.controller,
-    this.style,
     this.textAlign,
     this.textAlignVertical,
     this.autofocus,
@@ -76,6 +74,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
             Expanded(
               child: TextField(
                 controller: widget.controller,
+                style: context.textTheme.bodyMedium,
                 decoration: InputDecoration(
                   border: InputBorder.none,
                   labelText: widget.controller.labelText,
@@ -83,12 +82,12 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
                   enabled: widget.enabled ?? true,
                   errorMaxLines: 1,
                   isDense: true,
-                  labelStyle: context.textTheme.bodyLarge,
+                  labelStyle: context.textTheme.bodyMedium,
+                  hintStyle: context.textTheme.bodyMedium,
                   contentPadding: EdgeInsets.zero,
                 ),
                 cursorColor: context.theme.primaryColor,
                 keyboardType: widget.controller.keyboardType,
-                style: widget.style,
                 textAlignVertical: widget.textAlignVertical,
                 autofocus: widget.autofocus ?? false,
                 obscureText:

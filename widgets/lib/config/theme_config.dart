@@ -16,6 +16,7 @@ class ThemeConfig {
   final Color lightTextColor;
 
   final double padding;
+  final double borderWidth = 4;
 
   final double radius;
   final double opacity;
@@ -107,14 +108,16 @@ class ThemeConfig {
 
   // gen ThemeData
   ThemeData genTheme(Brightness brightness) => ThemeData(
-        useMaterial3: true,
+        canvasColor: Colors.transparent,
+        shadowColor: Colors.transparent,
+
+        //useMaterial3: true,
         // colors
         primaryColor: primaryColor,
         cardColor: cardColor(brightness),
         scaffoldBackgroundColor: backgroundColor(brightness),
-        shadowColor: Colors.transparent,
+
         hintColor: neutralColor(brightness),
-        canvasColor: backgroundColor(brightness),
         dividerColor: neutralColor(brightness),
         indicatorColor: primaryColor,
         applyElevationOverlayColor: false,
@@ -131,7 +134,7 @@ class ThemeConfig {
         textTheme: TextTheme(
           labelSmall: TextStyle(
             fontSize: 12,
-            fontWeight: FontWeight.w400,
+            fontWeight: FontWeight.normal,
             color: textColor(brightness).withOpacity(opacity),
           ),
           labelMedium: TextStyle(
@@ -146,7 +149,7 @@ class ThemeConfig {
           ),
           bodySmall: TextStyle(
             fontSize: 14,
-            fontWeight: FontWeight.w600,
+            fontWeight: FontWeight.normal,
             color: textColor(brightness).withOpacity(opacity),
           ),
           bodyMedium: TextStyle(
@@ -160,8 +163,8 @@ class ThemeConfig {
             color: textColor(brightness),
           ),
           titleSmall: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
             color: textColor(brightness).withOpacity(opacity),
           ),
           titleMedium: TextStyle(

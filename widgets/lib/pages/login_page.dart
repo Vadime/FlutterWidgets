@@ -3,14 +3,14 @@ import 'package:widgets/widgets.dart';
 
 class LoginPage extends StatefulWidget {
   final int initialPage;
-  final Function(TextFieldController email, TextFieldController password)
-      onEmailSignUp;
-  final Function(TextFieldController email, TextFieldController password)
-      onEmailSignIn;
-  final Function(TextFieldController email) onEmailSendPassword;
-  final Function(TextFieldController phone) onPhoneSendCode;
-  final Function(TextFieldController phone) onPhoneVerifyCode;
-  final Function() onAppleLogin;
+  final dynamic Function(
+      TextFieldController email, TextFieldController password) onEmailSignUp;
+  final dynamic Function(
+      TextFieldController email, TextFieldController password) onEmailSignIn;
+  final dynamic Function(TextFieldController email) onEmailSendPassword;
+  final dynamic Function(TextFieldController phone) onPhoneSendCode;
+  final dynamic Function(TextFieldController phone) onPhoneVerifyCode;
+  final dynamic Function() onAppleLogin;
 
   const LoginPage({
     this.initialPage = 1,
@@ -62,7 +62,7 @@ class _LoginPageState extends State<LoginPage> {
                 children: [
                   SignUpView(
                     toSignIn: () => pageController.go(1),
-                    signUp: (email, password, agree) {
+                    signUp: (email, password, agree) async {
                       if (!agree.state) {
                         Navigation.pushMessage(
                             message: 'Please agree to the Terms of Service.');
@@ -73,7 +73,7 @@ class _LoginPageState extends State<LoginPage> {
                         password.emptyAllowed = false;
                         return;
                       }
-                      widget.onEmailSignUp(email, password);
+                      await widget.onEmailSignUp(email, password);
                     },
                     agreementText: Text(
                       'I agree to the Terms of Service.',
@@ -83,23 +83,23 @@ class _LoginPageState extends State<LoginPage> {
                   SignInView(
                     toSignUp: () => pageController.go(0),
                     toSendPassword: () => pageController.go(2),
-                    signIn: (email, password) {
+                    signIn: (email, password) async {
                       if (!email.isValid() || !password.isValid()) {
                         email.emptyAllowed = false;
                         password.emptyAllowed = false;
                         return;
                       }
-                      widget.onEmailSignIn(email, password);
+                      await widget.onEmailSignIn(email, password);
                     },
                   ),
                   SendPasswordView(
                     toSignIn: () => pageController.go(1),
-                    sendPassword: (email) {
+                    sendPassword: (email) async {
                       if (!email.isValid()) {
                         email.emptyAllowed = false;
                         return;
                       }
-                      widget.onEmailSendPassword(email);
+                      await widget.onEmailSendPassword(email);
                     },
                   ),
                 ]),
@@ -114,7 +114,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: ThirdPartyLoginButton(
                     'Phone',
                     Icons.phone_rounded,
-                    onPressed: () =>
+                    onPressed: () async =>
                         Navigation.pushPopup(widget: SendPhoneCodeView(
                       onSendPhoneCode: (phone) async {
                         if (!phone.isValid()) {

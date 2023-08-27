@@ -22,7 +22,7 @@ class CheckboxWidget extends StatelessWidget {
             builder: (context, state) {
               return Checkbox.adaptive(
                 value: state,
-                onChanged: (value) => controller.set(value ?? false),
+                onChanged: (value) => controller.toggle(value),
               );
             }),
       );

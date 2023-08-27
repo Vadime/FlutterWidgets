@@ -12,7 +12,8 @@ export 'config/theme_config.dart';
 /// export all controllers
 export 'controllers/authentication_controller.dart';
 export 'controllers/checkbox_controller.dart';
-export 'controllers/gender_controller.dart';
+export 'data/gender.dart';
+export 'controllers/loading_controller.dart';
 export 'controllers/multi_selection_controller.dart';
 export 'controllers/party_controller.dart';
 export 'controllers/segmented_button_controller.dart';
@@ -66,7 +67,6 @@ export 'widgets/line_chart.dart';
 export 'widgets/linear_progress.dart';
 export 'widgets/list_tile.dart';
 export 'widgets/loading.dart';
-export 'widgets/logo.dart';
 export 'widgets/map_image.dart';
 export 'widgets/multi_selection_button.dart';
 export 'widgets/page_indicator.dart';

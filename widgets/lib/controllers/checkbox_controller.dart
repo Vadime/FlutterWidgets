@@ -1,9 +1,10 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:widgets/controllers/selection_controller.dart';
 
-class CheckboxController extends Cubit<bool> {
+class CheckboxController extends SelectionController<bool, bool?> {
   CheckboxController(super.initialState);
 
-  void set(bool value) => super.emit(value);
+  void invert() => toggle(!state);
 
-  void toggle() => super.emit(!super.state);
+  @override
+  void toggle(bool? value) => super.emit(value ?? false);
 }

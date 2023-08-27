@@ -1,19 +1,16 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:widgets/controllers/selection_controller.dart';
 
 /// gibt liste von ausgewählten elementen zurück
-class MultiSelectionController<T> extends Cubit<List<T>> {
+class MultiSelectionController<T> extends SelectionController<List<T>, T> {
   MultiSelectionController(super.initialState);
 
+  @override
   void toggle(T value) {
     var state = List<T>.from(this.state);
-    if (contains(value)) {
+    if (state.contains(value)) {
       super.emit(state..remove(value));
     } else {
       super.emit(state..add(value));
     }
-  }
-
-  bool contains(T value) {
-    return state.contains(value);
   }
 }

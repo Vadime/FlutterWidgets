@@ -4,8 +4,8 @@ import 'package:widgets/widgets.dart';
 class SignInView extends StatefulWidget {
   final Function() toSignUp;
   final Function() toSendPassword;
-  final Function(TextFieldController email, TextFieldController password)
-      signIn;
+  final dynamic Function(
+      TextFieldController email, TextFieldController password) signIn;
   const SignInView({
     required this.toSignUp,
     required this.toSendPassword,
@@ -61,7 +61,7 @@ class _SignInViewState extends State<SignInView> {
         const Spacer(),
         ElevatedButtonWidget(
           'Sign In',
-          onPressed: () => widget.signIn(email, password),
+          onPressed: () async => await widget.signIn(email, password),
           margin: EdgeInsets.all(context.config.padding),
         ),
       ],
