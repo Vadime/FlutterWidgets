@@ -10,8 +10,7 @@ class LoginPage extends StatefulWidget {
       TextFieldController email, TextFieldController password) onEmailSignIn;
   final dynamic Function(TextFieldController email) onEmailSendPassword;
   final dynamic Function(TextFieldController phone) onPhoneSendCode;
-  final dynamic Function(TextFieldController phone) onPhoneVerifyCode;
-  final dynamic Function() onAppleLogin;
+  final dynamic Function()? onAppleLogin;
 
   const LoginPage({
     this.initialPage = 1,
@@ -19,8 +18,7 @@ class LoginPage extends StatefulWidget {
     required this.onEmailSignIn,
     required this.onEmailSendPassword,
     required this.onPhoneSendCode,
-    required this.onPhoneVerifyCode,
-    required this.onAppleLogin,
+    this.onAppleLogin,
     super.key,
   });
 
@@ -68,7 +66,7 @@ class _LoginPageState extends State<LoginPage> {
                       FocusScope.of(context).unfocus();
 
                       if (!agree.state) {
-                        Navigation.pushMessage(
+                        Messaging.info(
                             message: 'Please agree to the Terms of Service.');
                         return;
                       }
@@ -77,7 +75,11 @@ class _LoginPageState extends State<LoginPage> {
                         password.emptyAllowed = false;
                         return;
                       }
-                      await widget.onEmailSignUp(email, password);
+                      try {
+                        await widget.onEmailSignUp(email, password);
+                      } catch (e) {
+                        Messaging.info(message: e.toString());
+                      }
                     },
                     agreementText: Text(
                       'I agree to the Terms of Service.',
@@ -96,7 +98,11 @@ class _LoginPageState extends State<LoginPage> {
                         password.emptyAllowed = false;
                         return;
                       }
-                      await widget.onEmailSignIn(email, password);
+                      try {
+                        await widget.onEmailSignIn(email, password);
+                      } catch (e) {
+                        Messaging.info(message: e.toString());
+                      }
                     },
                   ),
                   SendPasswordView(
@@ -109,7 +115,11 @@ class _LoginPageState extends State<LoginPage> {
                         email.emptyAllowed = false;
                         return;
                       }
-                      await widget.onEmailSendPassword(email);
+                      try {
+                        await widget.onEmailSendPassword(email);
+                      } catch (e) {
+                        Messaging.info(message: e.toString());
+                      }
                     },
                   ),
                 ]),
@@ -134,29 +144,28 @@ class _LoginPageState extends State<LoginPage> {
                           phone.emptyAllowed = false;
                           return;
                         }
-                        await widget.onPhoneSendCode(phone);
-                        Navigation.pop();
-                        Navigation.pushPopup(widget: VerifyPhoneCodeView(
-                          verifyPhoneCode: (code) async {
-                            if (!code.isValid()) {
-                              phone.emptyAllowed = false;
-                              return;
-                            }
-                            await widget.onPhoneVerifyCode(code);
-                          },
-                        ));
+                        try {
+                          await widget.onPhoneSendCode(phone);
+                        } catch (e) {
+                          Messaging.info(message: e.toString());
+                        }
                       },
                     )),
                   ),
                 ),
-                Expanded(
-                  child: ThirdPartyLoginButton('Apple', Icons.apple_rounded,
-                      onPressed: () async {
-                    TextInput.finishAutofillContext();
-                    FocusScope.of(context).unfocus();
-                    await widget.onAppleLogin();
-                  }),
-                ),
+                if (widget.onAppleLogin != null)
+                  Expanded(
+                    child: ThirdPartyLoginButton('Apple', Icons.apple_rounded,
+                        onPressed: () async {
+                      TextInput.finishAutofillContext();
+                      FocusScope.of(context).unfocus();
+                      try {
+                        await widget.onAppleLogin!();
+                      } catch (e) {
+                        Messaging.info(message: e.toString());
+                      }
+                    }),
+                  ),
               ],
             ),
           ),

@@ -372,9 +372,6 @@ class ThemeConfig {
         // snackBar
         snackBarTheme: SnackBarThemeData(
           elevation: 0,
-          backgroundColor: cardColor(brightness),
-          showCloseIcon: true,
-          closeIconColor: textColor(brightness),
           contentTextStyle: TextStyle(
             color: textColor(brightness),
             fontSize: 14,

@@ -2,7 +2,7 @@ import 'dart:developer' as developer;
 
 class Logging {
   static void log(dynamic message) {
-    developer.log('[Message]: ' + message, time: DateTime.now());
+    developer.log('[Message]: $message', time: DateTime.now());
   }
 
   static void logDetails(dynamic message,

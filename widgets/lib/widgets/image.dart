@@ -45,26 +45,22 @@ class ImageWidget extends StatelessWidget {
                   fit: fit,
                   width: width,
                   height: height,
-                  errorBuilder: (context, error, stackTrace) => Container(
-                    color: context.colorScheme.error.withOpacity(0.6),
-                    width: width,
-                    height: height,
-                  ),
+                  errorBuilder: (context, error, stackTrace) {
+                    Logging.log('Error Loading Image');
+                    return buildWidget(context);
+                  },
                   frameBuilder:
                       (context, child, frame, wasSynchronouslyLoaded) => child,
                   loadingBuilder: (context, child, loadingProgress) =>
-                      loadingProgress == null
-                          ? child
-                          : Container(
-                              color: context.config
-                                  .neutralColor(context.brightness)
-                                  .withOpacity(0.6),
-                              width: width,
-                              height: height,
-                            ),
+                      loadingProgress == null ? child : buildWidget(context),
                 ),
         ),
       ),
     );
   }
+
+  Widget buildWidget(BuildContext context) => Container(
+      color: context.config.neutralColor(context.brightness).withOpacity(0.6),
+      width: width,
+      height: height);
 }

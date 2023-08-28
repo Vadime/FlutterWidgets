@@ -27,6 +27,10 @@ extension WidgetBuildContextExtensions on BuildContext {
   /// get mediaQuery quickly
   MediaQueryData get mediaQuery => MediaQuery.of(this);
 
+  // get height - padding - bottomInset quickly
+  double get heightWithoutSafeArea =>
+      mediaQuery.size.height - safeArea.vertical;
+
   /// get theme config quickly
   ThemeConfig get config => read<ThemeController>().config;
 

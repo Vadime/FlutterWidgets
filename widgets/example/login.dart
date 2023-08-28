@@ -103,11 +103,8 @@ class App extends StatelessWidget {
       onPhoneSendCode: (phone) {
         Logging.log(phone.text);
       },
-      onPhoneVerifyCode: (code) {
-        Logging.log(code.text);
-      },
       onAppleLogin: () {
-        Navigation.pushMessage(message: 'Not implemented yet');
+        Messaging.info(message: 'Not implemented yet');
       },
     );
   }

@@ -67,35 +67,13 @@ class Navigation {
     );
   }
 
-  static void pushErrorMessage({String? message}) =>
-      _pushMessage(message: message, color: context.theme.colorScheme.error);
-
-  static void pushMessage({String? message}) =>
-      _pushMessage(message: message, color: context.theme.colorScheme.primary);
-
-  static void _pushMessage({String? message, Color? color}) {
-    if (message == null) return;
-    pushPopup(
-      widget: Row(
-        children: [
-          Expanded(
-              child: Text(message,
-                  style: context.textTheme.labelLarge!.copyWith(color: color))),
-          SizedBox(height: context.config.padding),
-          TextButtonWidget(
-            'OK',
-            onPressed: () => Navigation.pop(),
-          ),
-        ],
-      ),
-    );
-  }
-
   static Future<void> replace({required Widget widget}) async =>
       await navigator.pushReplacement(standardRoute(widget));
 
   static Future<void> flush({required Widget widget}) async => await navigator
       .pushAndRemoveUntil(standardRoute(widget), (route) => false);
 
-  static void pop() => navigator.pop();
+  static void pop() {
+    navigator.pop();
+  }
 }

@@ -39,6 +39,7 @@ class ThemeApp extends StatelessWidget {
                 Positioned.fill(
                   child: MaterialApp(
                     navigatorKey: Navigation.key,
+                    scaffoldMessengerKey: Messaging.key,
                     title: context.config.title,
                     themeMode: themeMode,
                     theme: context.config.genTheme(Brightness.light),
