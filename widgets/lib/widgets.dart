@@ -37,6 +37,7 @@ export 'utils/file_picking.dart';
 export 'utils/iban_formatter.dart';
 export 'utils/logging.dart';
 export 'utils/navigation.dart';
+export 'utils/snack_notification.dart';
 export 'utils/url_launcher.dart';
 
 /// export all views

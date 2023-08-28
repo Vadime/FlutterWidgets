@@ -40,9 +40,9 @@ class _AnimatedLogoState extends State<AnimatedLogo>
       animation: controller,
       builder: (context, child) => CustomRotationTransition(
         turns: rotateAanimation,
-        child: const ImageWidget(
+        child: ImageWidget(
           AssetImage(
-            'res/logo/foreground.png',
+            context.config.logoLocation,
           ),
           width: 100,
           height: 100,

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:widgets/components/animated_logo.dart';
 import 'package:widgets/widgets.dart';
 
 class LoadingPage extends StatelessWidget {

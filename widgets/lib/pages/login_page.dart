@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:widgets/widgets.dart';
 
 class LoginPage extends StatefulWidget {
@@ -63,6 +64,9 @@ class _LoginPageState extends State<LoginPage> {
                   SignUpView(
                     toSignIn: () => pageController.go(1),
                     signUp: (email, password, agree) async {
+                      TextInput.finishAutofillContext();
+                      FocusScope.of(context).unfocus();
+
                       if (!agree.state) {
                         Navigation.pushMessage(
                             message: 'Please agree to the Terms of Service.');
@@ -84,6 +88,9 @@ class _LoginPageState extends State<LoginPage> {
                     toSignUp: () => pageController.go(0),
                     toSendPassword: () => pageController.go(2),
                     signIn: (email, password) async {
+                      TextInput.finishAutofillContext();
+                      FocusScope.of(context).unfocus();
+
                       if (!email.isValid() || !password.isValid()) {
                         email.emptyAllowed = false;
                         password.emptyAllowed = false;
@@ -95,6 +102,9 @@ class _LoginPageState extends State<LoginPage> {
                   SendPasswordView(
                     toSignIn: () => pageController.go(1),
                     sendPassword: (email) async {
+                      TextInput.finishAutofillContext();
+                      FocusScope.of(context).unfocus();
+
                       if (!email.isValid()) {
                         email.emptyAllowed = false;
                         return;
@@ -117,6 +127,9 @@ class _LoginPageState extends State<LoginPage> {
                     onPressed: () async =>
                         Navigation.pushPopup(widget: SendPhoneCodeView(
                       onSendPhoneCode: (phone) async {
+                        TextInput.finishAutofillContext();
+                        FocusScope.of(context).unfocus();
+
                         if (!phone.isValid()) {
                           phone.emptyAllowed = false;
                           return;
@@ -138,7 +151,11 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 Expanded(
                   child: ThirdPartyLoginButton('Apple', Icons.apple_rounded,
-                      onPressed: widget.onAppleLogin),
+                      onPressed: () async {
+                    TextInput.finishAutofillContext();
+                    FocusScope.of(context).unfocus();
+                    await widget.onAppleLogin();
+                  }),
                 ),
               ],
             ),

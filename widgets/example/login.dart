@@ -16,7 +16,7 @@ class MatApp extends StatelessWidget {
       child: BlocBuilder<ThemeController, ThemeMode>(
         builder: (context, state) {
           return MaterialApp(
-              navigatorKey: Navigation.navigatorKey,
+              navigatorKey: Navigation.key,
               themeMode: state,
               theme: ThemeController.of(context).lightTheme,
               darkTheme: ThemeController.of(context).lightTheme,

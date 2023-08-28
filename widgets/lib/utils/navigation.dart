@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:widgets/widgets.dart';
 
 class Navigation {
-  static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+  static GlobalKey<NavigatorState> key = GlobalKey<NavigatorState>();
+
+  static BuildContext get context => key.currentContext!;
+
+  static NavigatorState get navigator => key.currentState!;
 
   static MaterialPageRoute standardRoute(Widget widget) {
     LoadingController().enableInput();
@@ -10,16 +14,16 @@ class Navigation {
   }
 
   static Future<void> push({required Widget widget}) async =>
-      await navigatorKey.currentState!.push(standardRoute(widget));
+      await navigator.push(standardRoute(widget));
 
   static void pushPopup({required Widget widget}) async {
     await showModalBottomSheet(
-      context: navigatorKey.currentContext!,
+      context: context,
       backgroundColor: Colors.transparent,
       showDragHandle: false,
       isScrollControlled: true,
       enableDrag: false,
-      barrierColor: navigatorKey.currentContext!.brightness == Brightness.light
+      barrierColor: context.brightness == Brightness.light
           ? Colors.black38
           : Colors.white38,
       builder: (context) => Container(
@@ -33,7 +37,7 @@ class Navigation {
           0,
           context.config.paddingH,
           context.bottomInset +
-              MediaQuery.of(navigatorKey.currentContext!).viewInsets.bottom +
+              MediaQuery.of(context).viewInsets.bottom +
               context.config.paddingH,
         ),
         child: widget,
@@ -63,13 +67,11 @@ class Navigation {
     );
   }
 
-  static void pushErrorMessage({String? message}) => _pushMessage(
-      message: message,
-      color: navigatorKey.currentContext!.theme.colorScheme.error);
+  static void pushErrorMessage({String? message}) =>
+      _pushMessage(message: message, color: context.theme.colorScheme.error);
 
-  static void pushMessage({String? message}) => _pushMessage(
-      message: message,
-      color: navigatorKey.currentContext!.theme.colorScheme.primary);
+  static void pushMessage({String? message}) =>
+      _pushMessage(message: message, color: context.theme.colorScheme.primary);
 
   static void _pushMessage({String? message, Color? color}) {
     if (message == null) return;
@@ -78,9 +80,8 @@ class Navigation {
         children: [
           Expanded(
               child: Text(message,
-                  style: navigatorKey.currentContext!.textTheme.labelLarge!
-                      .copyWith(color: color))),
-          SizedBox(height: navigatorKey.currentContext!.config.padding),
+                  style: context.textTheme.labelLarge!.copyWith(color: color))),
+          SizedBox(height: context.config.padding),
           TextButtonWidget(
             'OK',
             onPressed: () => Navigation.pop(),
@@ -91,11 +92,10 @@ class Navigation {
   }
 
   static Future<void> replace({required Widget widget}) async =>
-      await navigatorKey.currentState?.pushReplacement(standardRoute(widget));
+      await navigator.pushReplacement(standardRoute(widget));
 
-  static Future<void> flush({required Widget widget}) async =>
-      await navigatorKey.currentState
-          ?.pushAndRemoveUntil(standardRoute(widget), (route) => false);
+  static Future<void> flush({required Widget widget}) async => await navigator
+      .pushAndRemoveUntil(standardRoute(widget), (route) => false);
 
-  static void pop() => navigatorKey.currentState?.pop();
+  static void pop() => navigator.pop();
 }
