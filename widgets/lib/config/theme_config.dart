@@ -107,288 +107,289 @@ class ThemeConfig {
       );
 
   // gen ThemeData
-  ThemeData genTheme(Brightness brightness) => ThemeData(
-        canvasColor: Colors.transparent,
-        shadowColor: Colors.transparent,
+  ThemeData genTheme(Brightness brightness) {
+    return ThemeData(
+      canvasColor: Colors.transparent,
+      shadowColor: Colors.transparent,
+      useMaterial3: true,
+      // colors
+      primaryColor: primaryColor,
+      cardColor: cardColor(brightness),
+      scaffoldBackgroundColor: backgroundColor(brightness),
 
-        //useMaterial3: true,
-        // colors
-        primaryColor: primaryColor,
-        cardColor: cardColor(brightness),
-        scaffoldBackgroundColor: backgroundColor(brightness),
+      hintColor: neutralColor(brightness),
+      dividerColor: neutralColor(brightness),
+      indicatorColor: primaryColor,
+      applyElevationOverlayColor: false,
+      primaryColorDark: primaryColor,
+      primaryColorLight: primaryColor,
+      disabledColor: neutralColor(brightness),
+      secondaryHeaderColor: primaryColor,
+      dialogBackgroundColor: backgroundColor(brightness),
+      unselectedWidgetColor: neutralColor(brightness),
+      colorScheme:
+          ColorScheme.fromSeed(seedColor: primaryColor, brightness: brightness),
+      // text
+      fontFamily: 'Varela Round',
+      textTheme: TextTheme(
+        labelSmall: TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.normal,
+          letterSpacing: 0,
+          color: textColor(brightness).withOpacity(opacity),
+        ),
+        labelMedium: TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.normal,
+          letterSpacing: 0,
+          color: textColor(brightness),
+        ),
+        labelLarge: TextStyle(
+          fontSize: 12,
+          letterSpacing: 0,
+          fontWeight: FontWeight.w600,
+          color: textColor(brightness),
+        ),
+        bodySmall: TextStyle(
+          fontSize: 14,
+          letterSpacing: 0,
+          fontWeight: FontWeight.normal,
+          color: textColor(brightness).withOpacity(opacity),
+        ),
+        bodyMedium: TextStyle(
+          fontSize: 14,
+          letterSpacing: 0,
+          fontWeight: FontWeight.normal,
+          color: textColor(brightness),
+        ),
+        bodyLarge: TextStyle(
+          fontSize: 14,
+          letterSpacing: 0,
+          fontWeight: FontWeight.w600,
+          color: textColor(brightness),
+        ),
+        titleSmall: TextStyle(
+          fontSize: 16,
+          letterSpacing: 0,
+          fontWeight: FontWeight.bold,
+          color: textColor(brightness).withOpacity(opacity),
+        ),
+        titleMedium: TextStyle(
+          fontSize: 20,
+          letterSpacing: 0,
+          fontWeight: FontWeight.normal,
+          color: textColor(brightness),
+        ),
+        titleLarge: TextStyle(
+          fontSize: 22,
+          letterSpacing: 0,
+          fontWeight: FontWeight.w600,
+          color: textColor(brightness),
+        ),
+        headlineSmall: TextStyle(
+          fontSize: 24,
+          letterSpacing: 0,
+          fontWeight: FontWeight.w600,
+          color: textColor(brightness).withOpacity(opacity),
+        ),
+        headlineMedium: TextStyle(
+          fontSize: 26,
+          letterSpacing: 0,
+          fontWeight: FontWeight.normal,
+          color: textColor(brightness),
+        ),
+        headlineLarge: TextStyle(
+          fontSize: 28,
+          letterSpacing: 0,
+          fontWeight: FontWeight.w600,
+          color: textColor(brightness),
+        ),
+      ),
+      // input
+      inputDecorationTheme: const InputDecorationTheme(
+        border: InputBorder.none,
+      ),
+      // card
+      cardTheme: CardTheme(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(radius),
+        ),
+        elevation: 0,
+        color: cardColor(brightness),
+        margin: EdgeInsets.zero,
+      ),
 
-        hintColor: neutralColor(brightness),
-        dividerColor: neutralColor(brightness),
-        indicatorColor: primaryColor,
-        applyElevationOverlayColor: false,
-        primaryColorDark: primaryColor,
-        primaryColorLight: primaryColor,
-        disabledColor: neutralColor(brightness),
-        secondaryHeaderColor: primaryColor,
-        dialogBackgroundColor: backgroundColor(brightness),
-        unselectedWidgetColor: neutralColor(brightness),
-        colorScheme: ColorScheme.fromSeed(
-            seedColor: primaryColor, brightness: brightness),
-        // text
-        fontFamily: 'Varela Round',
-        textTheme: TextTheme(
-          labelSmall: TextStyle(
-            fontSize: 12,
-            fontWeight: FontWeight.normal,
-            letterSpacing: 0,
-            color: textColor(brightness).withOpacity(opacity),
-          ),
-          labelMedium: TextStyle(
-            fontSize: 12,
-            fontWeight: FontWeight.normal,
-            letterSpacing: 0,
-            color: textColor(brightness),
-          ),
-          labelLarge: TextStyle(
-            fontSize: 12,
-            letterSpacing: 0,
-            fontWeight: FontWeight.w600,
-            color: textColor(brightness),
-          ),
-          bodySmall: TextStyle(
-            fontSize: 14,
-            letterSpacing: 0,
-            fontWeight: FontWeight.normal,
-            color: textColor(brightness).withOpacity(opacity),
-          ),
-          bodyMedium: TextStyle(
-            fontSize: 14,
-            letterSpacing: 0,
-            fontWeight: FontWeight.normal,
-            color: textColor(brightness),
-          ),
-          bodyLarge: TextStyle(
-            fontSize: 14,
-            letterSpacing: 0,
-            fontWeight: FontWeight.w600,
-            color: textColor(brightness),
-          ),
-          titleSmall: TextStyle(
-            fontSize: 16,
-            letterSpacing: 0,
-            fontWeight: FontWeight.bold,
-            color: textColor(brightness).withOpacity(opacity),
-          ),
-          titleMedium: TextStyle(
-            fontSize: 20,
-            letterSpacing: 0,
-            fontWeight: FontWeight.normal,
-            color: textColor(brightness),
-          ),
-          titleLarge: TextStyle(
-            fontSize: 22,
-            letterSpacing: 0,
-            fontWeight: FontWeight.w600,
-            color: textColor(brightness),
-          ),
-          headlineSmall: TextStyle(
-            fontSize: 24,
-            letterSpacing: 0,
-            fontWeight: FontWeight.w600,
-            color: textColor(brightness).withOpacity(opacity),
-          ),
-          headlineMedium: TextStyle(
-            fontSize: 26,
-            letterSpacing: 0,
-            fontWeight: FontWeight.normal,
-            color: textColor(brightness),
-          ),
-          headlineLarge: TextStyle(
-            fontSize: 28,
-            letterSpacing: 0,
-            fontWeight: FontWeight.w600,
-            color: textColor(brightness),
-          ),
-        ),
-        // input
-        inputDecorationTheme: const InputDecorationTheme(
-          border: InputBorder.none,
-        ),
-        // card
-        cardTheme: CardTheme(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(radius),
-          ),
-          elevation: 0,
+      tooltipTheme: TooltipThemeData(
+        decoration: BoxDecoration(
           color: cardColor(brightness),
-          margin: EdgeInsets.zero,
+          borderRadius: BorderRadius.circular(radius),
         ),
-
-        tooltipTheme: TooltipThemeData(
-          decoration: BoxDecoration(
-            color: cardColor(brightness),
-            borderRadius: BorderRadius.circular(radius),
-          ),
-          textStyle: TextStyle(
-            color: textColor(brightness),
-            fontSize: 14,
-            fontWeight: FontWeight.w600,
-          ),
+        textStyle: TextStyle(
+          color: textColor(brightness),
+          fontSize: 14,
+          fontWeight: FontWeight.w600,
         ),
-        // button
-        buttonTheme: ButtonThemeData(
+      ),
+      // button
+      buttonTheme: ButtonThemeData(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(radius),
+        ),
+        padding: EdgeInsets.zero,
+        buttonColor: primaryColor,
+        textTheme: ButtonTextTheme.primary,
+      ),
+      iconButtonTheme: IconButtonThemeData(
+          style: IconButton.styleFrom(
+              //padding: EdgeInsets.zero,
+              //alignment: Alignment.center,
+              //minimumSize: Size.zero,
+              //tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              //visualDensity: VisualDensity.compact,
+              )),
+      // elevatedButton
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(radius),
           ),
           padding: EdgeInsets.zero,
-          buttonColor: primaryColor,
-          textTheme: ButtonTextTheme.primary,
+          elevation: 0,
+          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          backgroundColor: primaryColor,
+          foregroundColor: Colors.white,
         ),
-        iconButtonTheme: IconButtonThemeData(
-            style: IconButton.styleFrom(
-          padding: EdgeInsets.zero,
-          alignment: Alignment.center,
+      ),
+      // outlinedButton
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: OutlinedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(radius),
+          ),
+          foregroundColor: primaryColor,
+          padding: EdgeInsets.all(paddingH),
+          elevation: 0,
+          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        ),
+      ),
+      // textButton
+      textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(radius),
+          ),
+          padding: const EdgeInsets.fromLTRB(8, 4, 8, 4),
+          foregroundColor: primaryColor,
+          elevation: 0,
           minimumSize: Size.zero,
           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-          visualDensity: VisualDensity.compact,
-        )),
-        // elevatedButton
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(radius),
-            ),
-            padding: EdgeInsets.zero,
-            elevation: 0,
-            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            backgroundColor: primaryColor,
-            foregroundColor: Colors.white,
-          ),
         ),
-        // outlinedButton
-        outlinedButtonTheme: OutlinedButtonThemeData(
-          style: OutlinedButton.styleFrom(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(radius),
-            ),
-            foregroundColor: primaryColor,
-            padding: EdgeInsets.all(paddingH),
-            elevation: 0,
-            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-          ),
+      ),
+      // slider
+      sliderTheme: SliderThemeData(
+        activeTrackColor: primaryColor,
+        inactiveTrackColor: neutralColor(brightness),
+        thumbColor: primaryColor,
+        overlayColor: primaryColor.withOpacity(0.1),
+        trackHeight: 2,
+        thumbShape: RoundSliderThumbShape(
+          enabledThumbRadius: radius,
         ),
-        // textButton
-        textButtonTheme: TextButtonThemeData(
-          style: TextButton.styleFrom(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(radius),
-            ),
-            padding: const EdgeInsets.fromLTRB(8, 4, 8, 4),
-            foregroundColor: primaryColor,
-            elevation: 0,
-            minimumSize: Size.zero,
-            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-          ),
+        overlayShape: RoundSliderOverlayShape(
+          overlayRadius: radius,
         ),
-        // slider
-        sliderTheme: SliderThemeData(
-          activeTrackColor: primaryColor,
-          inactiveTrackColor: neutralColor(brightness),
-          thumbColor: primaryColor,
-          overlayColor: primaryColor.withOpacity(0.1),
-          trackHeight: 2,
-          thumbShape: RoundSliderThumbShape(
-            enabledThumbRadius: radius,
-          ),
-          overlayShape: RoundSliderOverlayShape(
-            overlayRadius: radius,
-          ),
+      ),
+      // progress
+      progressIndicatorTheme: ProgressIndicatorThemeData(
+        color: primaryColor,
+        circularTrackColor: neutralColor(brightness),
+        linearTrackColor: neutralColor(brightness),
+      ),
+      // divider
+      dividerTheme: DividerThemeData(
+        color: neutralColor(brightness),
+        thickness: 1,
+        space: 0,
+      ),
+      // dialog
+      dialogTheme: DialogTheme(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(radius),
         ),
-        // progress
-        progressIndicatorTheme: ProgressIndicatorThemeData(
-          color: primaryColor,
-          circularTrackColor: neutralColor(brightness),
-          linearTrackColor: neutralColor(brightness),
+      ),
+      // bottomSheet
+      bottomSheetTheme: BottomSheetThemeData(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(radius),
         ),
-        // divider
-        dividerTheme: DividerThemeData(
-          color: neutralColor(brightness),
-          thickness: 1,
-          space: 0,
+        backgroundColor: cardColor(brightness),
+        elevation: 0,
+        modalBackgroundColor: cardColor(brightness),
+        modalElevation: 0,
+      ),
+      // popupMenu
+      popupMenuTheme: PopupMenuThemeData(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(radius),
         ),
-        // dialog
-        dialogTheme: DialogTheme(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(radius),
-          ),
+        color: cardColor(brightness),
+        elevation: 0,
+      ),
+      // bottomNavigationBar
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        backgroundColor: cardColor(brightness).withOpacity(opacity),
+        elevation: 0,
+        selectedItemColor: primaryColor,
+        unselectedItemColor: neutralColor(brightness),
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        type: BottomNavigationBarType.fixed,
+      ),
+      // bottomAppBar
+      bottomAppBarTheme: const BottomAppBarTheme(
+        elevation: 0,
+      ),
+      // appBar
+      appBarTheme: AppBarTheme(
+        centerTitle: true,
+        elevation: 0,
+        backgroundColor: cardColor(brightness).withOpacity(opacity),
+        systemOverlayStyle: brightness == Brightness.light
+            ? SystemUiOverlayStyle.light
+            : SystemUiOverlayStyle.dark, // TODO: fix this
+        iconTheme: IconThemeData(
+          color: textColor(brightness),
         ),
-        // bottomSheet
-        bottomSheetTheme: BottomSheetThemeData(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(radius),
-          ),
-          backgroundColor: cardColor(brightness),
-          elevation: 0,
-          modalBackgroundColor: cardColor(brightness),
-          modalElevation: 0,
+        actionsIconTheme: IconThemeData(
+          color: textColor(brightness),
         ),
-        // popupMenu
-        popupMenuTheme: PopupMenuThemeData(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(radius),
-          ),
-          color: cardColor(brightness),
-          elevation: 0,
+        titleTextStyle: TextStyle(
+          color: textColor(brightness),
+          fontSize: 20,
+          fontWeight: FontWeight.w600,
         ),
-        // bottomNavigationBar
-        bottomNavigationBarTheme: BottomNavigationBarThemeData(
-          backgroundColor: cardColor(brightness).withOpacity(opacity),
-          elevation: 0,
-          selectedItemColor: primaryColor,
-          unselectedItemColor: neutralColor(brightness),
-          showSelectedLabels: false,
-          showUnselectedLabels: false,
-          type: BottomNavigationBarType.fixed,
+      ),
+      // snackBar
+      snackBarTheme: SnackBarThemeData(
+        elevation: 0,
+        contentTextStyle: TextStyle(
+          color: textColor(brightness),
+          fontSize: 14,
         ),
-        // bottomAppBar
-        bottomAppBarTheme: const BottomAppBarTheme(
-          elevation: 0,
+      ),
+      // listtile
+      listTileTheme: ListTileThemeData(
+        contentPadding: EdgeInsets.fromLTRB(padding, 0, padding, 0),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(radius),
         ),
-        // appBar
-        appBarTheme: AppBarTheme(
-          centerTitle: true,
-          elevation: 0,
-          backgroundColor: cardColor(brightness).withOpacity(opacity),
-          systemOverlayStyle: brightness != Brightness.light
-              ? SystemUiOverlayStyle.light
-              : SystemUiOverlayStyle.dark,
-          iconTheme: IconThemeData(
-            color: textColor(brightness),
-          ),
-          actionsIconTheme: IconThemeData(
-            color: textColor(brightness),
-          ),
-          titleTextStyle: TextStyle(
-            color: textColor(brightness),
-            fontSize: 20,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        // snackBar
-        snackBarTheme: SnackBarThemeData(
-          elevation: 0,
-          contentTextStyle: TextStyle(
-            color: textColor(brightness),
-            fontSize: 14,
-          ),
-        ),
-        // listtile
-        listTileTheme: ListTileThemeData(
-          contentPadding: EdgeInsets.fromLTRB(padding, 0, padding, 0),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(radius),
-          ),
-          minLeadingWidth: 0,
-          horizontalTitleGap: 0,
-          minVerticalPadding: 0,
-          tileColor: cardColor(brightness),
-          iconColor: textColor(brightness),
-          visualDensity: VisualDensity.compact,
-        ),
-      );
+        minLeadingWidth: 0,
+        horizontalTitleGap: 0,
+        minVerticalPadding: 0,
+        tileColor: cardColor(brightness),
+        iconColor: textColor(brightness),
+        visualDensity: VisualDensity.compact,
+      ),
+    );
+  }
 }

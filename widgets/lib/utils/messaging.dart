@@ -1,39 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:widgets/widgets.dart';
 
 class Messaging {
-  static GlobalKey<ScaffoldMessengerState> key =
-      GlobalKey<ScaffoldMessengerState>();
-
-  BuildContext get context => key.currentContext!;
-
-  Messaging._message(String? message, [Color? color]) {
+  Messaging._message(
+    String? message, {
+    required BuildContext context,
+    Color? color,
+  }) {
     if (message == null) return;
-    key.currentState!.removeCurrentSnackBar();
-    key.currentState!.showSnackBar(SnackBar(
-        elevation: 0,
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(context.config.radius)),
-        margin: EdgeInsets.fromLTRB(
-          context.config.paddingD,
-          0,
-          context.config.paddingD,
-          context.heightWithoutSafeArea - 100 - context.config.padding,
-        ),
-        duration: const Duration(seconds: 3),
-        backgroundColor: color ?? context.config.primaryColor,
-        dismissDirection: DismissDirection.up,
-        content: TextWidget(message.split(']').last.trim(),
-            align: TextAlign.center, maxLines: 3, color: Colors.white)));
+
+    showToast(message,
+        context: context,
+        animation: StyledToastAnimation.slideFromTopFade,
+        reverseAnimation: StyledToastAnimation.slideToTopFade,
+        position: StyledToastPosition.top,
+        animDuration: const Duration(milliseconds: 250),
+        duration: const Duration(seconds: 2),
+        curve: Curves.easeInOut,
+        reverseCurve: Curves.easeInOut,
+        backgroundColor: (color ?? context.theme.primaryColor).withOpacity(0.8),
+        borderRadius: BorderRadius.circular(context.config.radius),
+        textPadding: EdgeInsets.symmetric(
+            vertical: context.config.paddingH,
+            horizontal: context.config.padding),
+        fullWidth: true,
+        toastHorizontalMargin: context.config.paddingD,
+        textStyle: context.textTheme.bodySmall!
+            .copyWith(color: Colors.white, fontWeight: FontWeight.bold));
   }
 
-  Messaging.info({String? message})
-      : this._message(message, key.currentContext?.theme.primaryColor);
+  Messaging.info(String? message, {required BuildContext context, Color? color})
+      : this._message(message,
+            context: context, color: context.theme.primaryColor);
 
-  Messaging.error({String? message})
-      : this._message(message, key.currentContext?.theme.colorScheme.error);
+  Messaging.error(String? message,
+      {required BuildContext context, Color? color})
+      : this._message(message,
+            context: context, color: context.colorScheme.error);
 
-  Messaging.success({String? message})
-      : this._message(message, Colors.green.shade900);
+  Messaging.success(String? message,
+      {required BuildContext context, Color? color})
+      : this._message(message, context: context, color: Colors.green.shade900);
 }

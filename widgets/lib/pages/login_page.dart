@@ -67,7 +67,9 @@ class _LoginPageState extends State<LoginPage> {
 
                       if (!agree.state) {
                         Messaging.info(
-                            message: 'Please agree to the Terms of Service.');
+                          'Please agree to the Terms of Service.',
+                          context: context,
+                        );
                         return;
                       }
                       if (!email.isValid() || !password.isValid()) {
@@ -78,7 +80,10 @@ class _LoginPageState extends State<LoginPage> {
                       try {
                         await widget.onEmailSignUp(email, password);
                       } catch (e) {
-                        Messaging.info(message: e.toString());
+                        Messaging.info(
+                          e.toString(),
+                          context: context,
+                        );
                       }
                     },
                     agreementText: Text(
@@ -101,7 +106,10 @@ class _LoginPageState extends State<LoginPage> {
                       try {
                         await widget.onEmailSignIn(email, password);
                       } catch (e) {
-                        Messaging.info(message: e.toString());
+                        Messaging.info(
+                          e.toString(),
+                          context: context,
+                        );
                       }
                     },
                   ),
@@ -118,7 +126,10 @@ class _LoginPageState extends State<LoginPage> {
                       try {
                         await widget.onEmailSendPassword(email);
                       } catch (e) {
-                        Messaging.info(message: e.toString());
+                        Messaging.info(
+                          e.toString(),
+                          context: context,
+                        );
                       }
                     },
                   ),
@@ -147,7 +158,8 @@ class _LoginPageState extends State<LoginPage> {
                         try {
                           await widget.onPhoneSendCode(phone);
                         } catch (e) {
-                          Messaging.info(message: e.toString());
+                          Logging.log(e);
+                          Messaging.info(e.toString(), context: context);
                         }
                       },
                     )),
@@ -162,7 +174,10 @@ class _LoginPageState extends State<LoginPage> {
                       try {
                         await widget.onAppleLogin!();
                       } catch (e) {
-                        Messaging.info(message: e.toString());
+                        Messaging.info(
+                          e.toString(),
+                          context: context,
+                        );
                       }
                     }),
                   ),

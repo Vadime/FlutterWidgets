@@ -104,7 +104,10 @@ class App extends StatelessWidget {
         Logging.log(phone.text);
       },
       onAppleLogin: () {
-        Messaging.info(message: 'Not implemented yet');
+        Messaging.info(
+          'Not implemented yet',
+          context: context,
+        );
       },
     );
   }

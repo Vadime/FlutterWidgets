@@ -65,7 +65,12 @@ class _SignUpViewState extends State<SignUpView> {
         ElevatedButtonWidget(
           'Sign Up',
           onPressed: () async => await widget.signUp(email, password, agree),
-          margin: EdgeInsets.all(context.config.padding),
+          margin: EdgeInsets.fromLTRB(
+            context.config.padding,
+            0,
+            context.config.padding,
+            context.config.padding,
+          ),
         ),
       ],
     );

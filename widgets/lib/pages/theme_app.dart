@@ -33,27 +33,28 @@ class ThemeApp extends StatelessWidget {
             widget: state ? home : login,
           ),
           child: BlocBuilder<ThemeController, ThemeMode>(
-            builder: (context, themeMode) => Stack(
-              alignment: Alignment.center,
-              children: [
-                Positioned.fill(
-                  child: MaterialApp(
-                    navigatorKey: Navigation.key,
-                    scaffoldMessengerKey: Messaging.key,
-                    title: context.config.title,
-                    themeMode: themeMode,
-                    theme: context.config.genTheme(Brightness.light),
-                    darkTheme: context.config.genTheme(Brightness.dark),
-                    home: snapshot.connectionState == ConnectionState.done
-                        ? AuthenticationController().state
-                            ? home
-                            : login
-                        : const SizedBox(),
+            builder: (context, themeMode) {
+              return Stack(
+                alignment: Alignment.center,
+                children: [
+                  Positioned.fill(
+                    child: MaterialApp(
+                      navigatorKey: Navigation.key,
+                      title: context.config.title,
+                      themeMode: themeMode,
+                      theme: context.config.genTheme(Brightness.light),
+                      darkTheme: context.config.genTheme(Brightness.dark),
+                      home: snapshot.connectionState == ConnectionState.done
+                          ? AuthenticationController().state
+                              ? home
+                              : login
+                          : const SizedBox(),
+                    ),
                   ),
-                ),
-                Positioned.fill(child: LoadingPage(context.config)),
-              ],
-            ),
+                  Positioned.fill(child: LoadingPage(context.config)),
+                ],
+              );
+            },
           ),
         ),
       );
