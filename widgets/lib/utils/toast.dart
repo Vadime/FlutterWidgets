@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:widgets/widgets.dart';
 
-class Messaging {
-  Messaging._message(
+class Toast {
+  Toast._message(
     dynamic message, {
     required BuildContext context,
     Color? color,
@@ -31,16 +31,14 @@ class Messaging {
             fontWeight: FontWeight.bold));
   }
 
-  Messaging.info(dynamic message, {required BuildContext context, Color? color})
+  Toast.info(dynamic message, {required BuildContext context, Color? color})
       : this._message(message,
             context: context, color: context.theme.primaryColor);
 
-  Messaging.error(dynamic message,
-      {required BuildContext context, Color? color})
+  Toast.error(dynamic message, {required BuildContext context, Color? color})
       : this._message(message,
             context: context, color: context.colorScheme.error);
 
-  Messaging.success(dynamic message,
-      {required BuildContext context, Color? color})
+  Toast.success(dynamic message, {required BuildContext context, Color? color})
       : this._message(message, context: context, color: Colors.green.shade900);
 }

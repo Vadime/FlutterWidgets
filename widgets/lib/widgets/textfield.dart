@@ -16,6 +16,7 @@ class TextFieldWidget extends StatefulWidget {
   final int? maxLength;
   final VoidCallback? onEditingComplete;
   final ValueChanged<String>? onSubmitted;
+  final ValueChanged<String>? onChanged;
   final bool? enabled;
   final bool? enableInteractiveSelection;
   final GestureTapCallback? onTap;
@@ -36,6 +37,7 @@ class TextFieldWidget extends StatefulWidget {
     this.maxLength,
     this.onEditingComplete,
     this.onSubmitted,
+    this.onChanged,
     this.enabled,
     this.enableInteractiveSelection,
     this.onTap,
@@ -52,15 +54,9 @@ class TextFieldWidget extends StatefulWidget {
 class _TextFieldWidgetState extends State<TextFieldWidget> {
   @override
   void initState() {
-    widget.controller?.addListener(() => setState(() {}));
     super.initState();
+    widget.controller?.addListener(() => setState(() {}));
   }
-
-  // @override
-  // void dispose() {
-  //   widget.controller.dispose();
-  //   super.dispose();
-  // }
 
   @override
   Widget build(BuildContext context) => CardWidget.single(
@@ -100,6 +96,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
                 maxLength: widget.maxLength,
                 onEditingComplete: widget.onEditingComplete,
                 onSubmitted: widget.onSubmitted,
+                onChanged: widget.onChanged,
                 inputFormatters: widget.controller?.inputFormatters,
                 enabled: widget.enabled,
                 enableInteractiveSelection:

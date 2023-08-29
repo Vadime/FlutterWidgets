@@ -31,7 +31,7 @@ class _VerifyPhoneCodeViewState extends State<VerifyPhoneCodeView> {
           try {
             await widget.verifyPhoneCode(code);
           } catch (e) {
-            Messaging.info(e.toString(), context: context);
+            Toast.info(e.toString(), context: context);
             return;
           }
         }),

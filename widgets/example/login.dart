@@ -104,7 +104,7 @@ class App extends StatelessWidget {
         Logging.log(phone.text);
       },
       onAppleLogin: () {
-        Messaging.info(
+        Toast.info(
           'Not implemented yet',
           context: context,
         );

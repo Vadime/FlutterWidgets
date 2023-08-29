@@ -8,7 +8,7 @@ class ThemeApp extends StatelessWidget {
   final ThemeConfig config;
   final Widget home;
   final Widget login;
-  final Future<void> Function()? initialize;
+  final Future<void> Function(BuildContext context)? initialize;
   const ThemeApp({
     required this.config,
     required this.home,
@@ -20,7 +20,7 @@ class ThemeApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(future: Future(() async {
-      await initialize?.call();
+      await initialize?.call(context);
       FlutterNativeSplash.remove();
     }), builder: (context, snapshot) {
       return MultiBlocProvider(

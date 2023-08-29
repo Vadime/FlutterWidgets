@@ -66,7 +66,7 @@ class _LoginPageState extends State<LoginPage> {
                       FocusScope.of(context).unfocus();
 
                       if (!agree.state) {
-                        Messaging.info(
+                        Toast.info(
                           'Please agree to the Terms of Service.',
                           context: context,
                         );
@@ -80,7 +80,7 @@ class _LoginPageState extends State<LoginPage> {
                       try {
                         await widget.onEmailSignUp(email, password);
                       } catch (e) {
-                        Messaging.info(
+                        Toast.info(
                           e.toString(),
                           context: context,
                         );
@@ -106,7 +106,7 @@ class _LoginPageState extends State<LoginPage> {
                       try {
                         await widget.onEmailSignIn(email, password);
                       } catch (e) {
-                        Messaging.info(
+                        Toast.info(
                           e.toString(),
                           context: context,
                         );
@@ -126,7 +126,7 @@ class _LoginPageState extends State<LoginPage> {
                       try {
                         await widget.onEmailSendPassword(email);
                       } catch (e) {
-                        Messaging.info(
+                        Toast.info(
                           e.toString(),
                           context: context,
                         );
@@ -159,7 +159,7 @@ class _LoginPageState extends State<LoginPage> {
                           await widget.onPhoneSendCode(phone);
                         } catch (e) {
                           Logging.log(e);
-                          Messaging.info(e.toString(), context: context);
+                          Toast.info(e.toString(), context: context);
                         }
                       },
                     )),
@@ -174,7 +174,7 @@ class _LoginPageState extends State<LoginPage> {
                       try {
                         await widget.onAppleLogin!();
                       } catch (e) {
-                        Messaging.info(
+                        Toast.info(
                           e.toString(),
                           context: context,
                         );
