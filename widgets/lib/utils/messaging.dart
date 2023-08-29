@@ -4,13 +4,13 @@ import 'package:widgets/widgets.dart';
 
 class Messaging {
   Messaging._message(
-    String? message, {
+    dynamic message, {
     required BuildContext context,
     Color? color,
   }) {
     if (message == null) return;
 
-    showToast(message,
+    showToast(message.toString(),
         context: context,
         animation: StyledToastAnimation.slideFromTopFade,
         reverseAnimation: StyledToastAnimation.slideToTopFade,
@@ -19,27 +19,28 @@ class Messaging {
         duration: const Duration(seconds: 2),
         curve: Curves.easeInOut,
         reverseCurve: Curves.easeInOut,
-        backgroundColor: (color ?? context.theme.primaryColor).withOpacity(0.8),
+        backgroundColor: context.theme.cardColor.withOpacity(0.8),
         borderRadius: BorderRadius.circular(context.config.radius),
         textPadding: EdgeInsets.symmetric(
             vertical: context.config.paddingH,
             horizontal: context.config.padding),
         fullWidth: true,
         toastHorizontalMargin: context.config.paddingD,
-        textStyle: context.textTheme.bodySmall!
-            .copyWith(color: Colors.white, fontWeight: FontWeight.bold));
+        textStyle: context.textTheme.bodySmall!.copyWith(
+            color: (color ?? context.theme.primaryColor),
+            fontWeight: FontWeight.bold));
   }
 
-  Messaging.info(String? message, {required BuildContext context, Color? color})
+  Messaging.info(dynamic message, {required BuildContext context, Color? color})
       : this._message(message,
             context: context, color: context.theme.primaryColor);
 
-  Messaging.error(String? message,
+  Messaging.error(dynamic message,
       {required BuildContext context, Color? color})
       : this._message(message,
             context: context, color: context.colorScheme.error);
 
-  Messaging.success(String? message,
+  Messaging.success(dynamic message,
       {required BuildContext context, Color? color})
       : this._message(message, context: context, color: Colors.green.shade900);
 }
