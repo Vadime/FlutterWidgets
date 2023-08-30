@@ -65,7 +65,7 @@ class ThemeController extends SegmentedButtonController<ThemeMode> {
 
   FutureOr<void> load() async {
     var mode = await saver?.load(ThemeModeSaver.key);
-    if (mode != null) {
+    if (mode != null && mode != state) {
       emit(mode);
     }
   }

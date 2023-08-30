@@ -2,18 +2,75 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:widgets/widgets.dart';
 
+class ChartWidgetAxis {
+  final Widget? axisName;
+  final double axisNameSpace;
+  final List<String?>? axisTitles;
+
+  const ChartWidgetAxis({
+    this.axisName,
+    this.axisNameSpace = 16,
+    this.axisTitles,
+  });
+
+  AxisTitles genFL() => AxisTitles(
+        axisNameWidget: axisName,
+        axisNameSize: axisNameSpace,
+        sideTitles: SideTitles(
+          showTitles: axisTitles != null,
+          getTitlesWidget: (i, m) =>
+              Center(child: Text(axisTitles?[i.toInt()] ?? '')),
+          reservedSize: 40,
+          interval: null,
+        ),
+        drawBelowEverything: true,
+      );
+}
+
+class ChartWidgetBarRod {
+  final double value;
+  final Color? color;
+
+  const ChartWidgetBarRod(this.value, {this.color});
+
+  BarChartRodData genFL(BuildContext context) => BarChartRodData(
+        fromY: value + 0.05,
+        toY: value + 0.95,
+        color: color ?? context.config.neutralColor(context.brightness),
+        borderRadius: BorderRadius.circular(context.config.radius),
+      );
+}
+
+class ChartWidgetBarGroup {
+  final int x;
+  final String? title;
+  final List<ChartWidgetBarRod>? rods;
+
+  const ChartWidgetBarGroup({this.x = 0, this.title, this.rods});
+
+  BarChartGroupData genFL(BuildContext context) => BarChartGroupData(
+      x: x,
+      groupVertically: true,
+      barRods: rods?.map((e) => e.genFL(context)).toList());
+}
+
 class BarChartWidget extends StatelessWidget {
-  final String? interpretation;
-  final String? leftTitle;
-  final String? bottomTitle;
   final double maxY;
-  final Map<String, double> bars;
+
+  final ChartWidgetAxis? leftAxis;
+  final ChartWidgetAxis? topAxis;
+  final ChartWidgetAxis? rightAxis;
+  final ChartWidgetAxis? bottomAxis;
+
+  final List<ChartWidgetBarGroup> barGroups;
+
   const BarChartWidget({
-    this.interpretation,
-    required this.maxY,
-    required this.bars,
-    this.leftTitle,
-    this.bottomTitle,
+    this.maxY = 0,
+    required this.barGroups,
+    this.leftAxis,
+    this.topAxis,
+    this.rightAxis,
+    this.bottomAxis,
     super.key,
   });
 
@@ -21,73 +78,23 @@ class BarChartWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BarChart(
       BarChartData(
-        alignment: BarChartAlignment.spaceAround,
-        maxY: maxY,
-        barTouchData: BarTouchData(
-          enabled: true,
-          touchTooltipData: BarTouchTooltipData(
-            tooltipBgColor: context.theme.primaryColor,
-            tooltipMargin: context.config.paddingH,
-            fitInsideHorizontally: true,
-            fitInsideVertically: true,
-            tooltipRoundedRadius: context.config.radius,
-            tooltipPadding: EdgeInsets.fromLTRB(
-                context.config.paddingH, 6, context.config.paddingH, 0),
-            getTooltipItem: (group, groupIndex, rod, rodIndex) {
-              return BarTooltipItem(
-                '${rod.toY.round()}',
-                const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              );
-            },
+          alignment: BarChartAlignment.spaceAround,
+          maxY: maxY + 0.1,
+          minY: 0.1,
+          barTouchData: BarTouchData(enabled: false),
+          titlesData: FlTitlesData(
+            show: leftAxis != null ||
+                topAxis != null ||
+                rightAxis != null ||
+                bottomAxis != null,
+            bottomTitles: bottomAxis?.genFL() ?? const AxisTitles(),
+            topTitles: topAxis?.genFL() ?? const AxisTitles(),
+            leftTitles: leftAxis?.genFL() ?? const AxisTitles(),
+            rightTitles: rightAxis?.genFL() ?? const AxisTitles(),
           ),
-        ),
-        titlesData: FlTitlesData(
-          show: true,
-          bottomTitles: AxisTitles(
-            axisNameWidget: bottomTitle == null ? null : Text(bottomTitle!),
-            sideTitles: SideTitles(
-              showTitles: true,
-              getTitlesWidget: (index, meta) => Text(
-                bars.keys.elementAt(index.toInt()),
-              ),
-            ),
-          ),
-          topTitles: AxisTitles(
-            axisNameWidget:
-                interpretation == null ? null : Text(interpretation!),
-          ),
-          leftTitles: AxisTitles(
-            axisNameWidget: leftTitle == null ? null : Text(leftTitle!),
-            sideTitles: SideTitles(
-              showTitles: false,
-              interval: 1,
-              getTitlesWidget: (index, meta) {
-                return Text(index.toInt().toString());
-              },
-            ),
-          ),
-          rightTitles: const AxisTitles(axisNameWidget: Text('')),
-        ),
-        borderData: FlBorderData(show: false),
-        gridData: const FlGridData(show: false),
-        barGroups: [
-          for (int i = 0; i < bars.length; i++)
-            BarChartGroupData(
-              x: i,
-              barRods: [
-                BarChartRodData(
-                  fromY: 0.1,
-                  toY: bars.values.toList()[i].toDouble(),
-                  color: context.theme.primaryColor,
-                  borderRadius: BorderRadius.circular(context.config.radius),
-                ),
-              ],
-            ),
-        ],
-      ),
+          borderData: FlBorderData(show: false),
+          gridData: const FlGridData(show: false),
+          barGroups: barGroups.map((e) => e.genFL(context)).toList()),
     );
   }
 }

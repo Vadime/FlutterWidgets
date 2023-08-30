@@ -7,13 +7,13 @@ import 'package:widgets/widgets.dart';
 class ThemeApp extends StatelessWidget {
   final ThemeConfig config;
   final ThemeModeSaver? themeModeSaver;
-  final Widget home;
-  final Widget login;
+  final Widget Function(BuildContext context) homeBuilder;
+  final Widget Function(BuildContext context) loginBuilder;
   final Future<void> Function(BuildContext context)? initialize;
   const ThemeApp({
     required this.config,
-    required this.home,
-    required this.login,
+    required this.homeBuilder,
+    required this.loginBuilder,
     this.initialize,
     this.themeModeSaver,
     super.key,
@@ -37,9 +37,14 @@ class ThemeApp extends StatelessWidget {
         ],
         child: BlocListener<AuthenticationController, bool>(
           bloc: AuthenticationController(),
-          listener: (context, state) => Navigation.flush(
-            widget: state ? home : login,
-          ),
+          listener: (context, state) {
+            if (state) {
+              ThemeController.of(context).load();
+              Navigation.flush(widget: homeBuilder(context));
+            } else {
+              Navigation.flush(widget: loginBuilder(context));
+            }
+          },
           child: BlocBuilder<ThemeController, ThemeMode>(
             builder: (context, themeMode) {
               return Stack(
@@ -52,7 +57,9 @@ class ThemeApp extends StatelessWidget {
                       themeMode: themeMode,
                       theme: context.config.genTheme(Brightness.light),
                       darkTheme: context.config.genTheme(Brightness.dark),
-                      home: AuthenticationController().state ? home : login,
+                      home: AuthenticationController().state
+                          ? homeBuilder(context)
+                          : loginBuilder(context),
                     ),
                   ),
                   Positioned.fill(child: LoadingPage(context.config)),
