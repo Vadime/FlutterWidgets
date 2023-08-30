@@ -36,7 +36,7 @@ class ChartWidgetBarRod {
   BarChartRodData genFL(BuildContext context) => BarChartRodData(
         fromY: value + 0.05,
         toY: value + 0.95,
-        color: color ?? context.config.neutralColor(context.brightness),
+        color: color ?? context.config.neutralColor,
         borderRadius: BorderRadius.circular(context.config.radius),
       );
 }

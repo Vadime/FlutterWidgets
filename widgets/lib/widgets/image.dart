@@ -60,7 +60,7 @@ class ImageWidget extends StatelessWidget {
   }
 
   Widget buildWidget(BuildContext context) => Container(
-      color: context.config.neutralColor(context.brightness).withOpacity(0.6),
+      color: context.config.neutralColor.withOpacity(0.6),
       width: width,
       height: height);
 }
