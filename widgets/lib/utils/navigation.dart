@@ -26,21 +26,25 @@ class Navigation {
       barrierColor: context.brightness == Brightness.light
           ? Colors.black38
           : Colors.white38,
-      builder: (context) => Container(
-        decoration: BoxDecoration(
-          color: context.theme.scaffoldBackgroundColor,
-          borderRadius: BorderRadius.circular(context.config.radius),
+      builder: (context) => SafeArea(
+        child: Container(
+          decoration: BoxDecoration(
+            color: context.theme.scaffoldBackgroundColor,
+            borderRadius: BorderRadius.circular(context.config.radius),
+          ),
+          padding: EdgeInsets.all(context.config.padding),
+          margin: EdgeInsets.fromLTRB(
+            // left
+            context.config.paddingH,
+            // top
+            context.mediaQuery.padding.top + context.config.paddingH,
+            // right
+            context.config.paddingH,
+            // bottom
+            context.mediaQuery.viewInsets.bottom + context.config.paddingH,
+          ).add(context.safeArea),
+          child: widget,
         ),
-        padding: EdgeInsets.all(context.config.padding),
-        margin: EdgeInsets.fromLTRB(
-          context.config.paddingH,
-          0,
-          context.config.paddingH,
-          context.bottomInset +
-              MediaQuery.of(context).viewInsets.bottom +
-              context.config.paddingH,
-        ),
-        child: widget,
       ),
     );
   }

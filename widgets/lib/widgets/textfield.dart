@@ -16,6 +16,7 @@ class TextFieldWidget extends StatefulWidget {
   final int? maxLength;
   final VoidCallback? onEditingComplete;
   final ValueChanged<String>? onSubmitted;
+  final ValueChanged<String>? onChanged;
   final bool? enabled;
   final bool? enableInteractiveSelection;
   final GestureTapCallback? onTap;
@@ -36,6 +37,7 @@ class TextFieldWidget extends StatefulWidget {
     this.maxLength,
     this.onEditingComplete,
     this.onSubmitted,
+    this.onChanged,
     this.enabled,
     this.enableInteractiveSelection,
     this.onTap,
@@ -53,17 +55,8 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
   @override
   void initState() {
     super.initState();
-
-    widget.controller?.addListener(() {
-      setState(() {});
-    });
+    widget.controller?.addListener(() => setState(() {}));
   }
-
-  // @override
-  // void dispose() {
-  //    widget.controller?.dispose();
-  //   super.dispose();
-  // }
 
   @override
   Widget build(BuildContext context) => CardWidget.single(
@@ -103,6 +96,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
                 maxLength: widget.maxLength,
                 onEditingComplete: widget.onEditingComplete,
                 onSubmitted: widget.onSubmitted,
+                onChanged: widget.onChanged,
                 inputFormatters: widget.controller?.inputFormatters,
                 enabled: widget.enabled,
                 enableInteractiveSelection:
@@ -111,7 +105,16 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
                 autofillHints: widget.autofillHints,
               ),
             ),
-            if (widget.controller?.obscureText ?? false)
+            if (!(widget.enabled ?? true))
+              Tooltip(
+                message: 'You can\'t edit this field',
+                child: IconWidget(
+                  Icons.disabled_by_default_rounded,
+                  size: 20,
+                  color: context.config.neutralColor(context.brightness),
+                ),
+              )
+            else if (widget.controller?.obscureText ?? false)
               SizedBox(
                 height: 32,
                 width: 32,

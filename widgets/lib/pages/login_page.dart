@@ -11,10 +11,12 @@ class LoginPage extends StatefulWidget {
   final dynamic Function(TextFieldController email) onEmailSendPassword;
   final dynamic Function(TextFieldController phone) onPhoneSendCode;
   final dynamic Function()? onAppleLogin;
+  final Widget? termsScreen;
 
   const LoginPage({
     this.initialPage = 1,
     required this.onEmailSignUp,
+    this.termsScreen,
     required this.onEmailSignIn,
     required this.onEmailSendPassword,
     required this.onPhoneSendCode,
@@ -66,8 +68,10 @@ class _LoginPageState extends State<LoginPage> {
                       FocusScope.of(context).unfocus();
 
                       if (!agree.state) {
-                        Messaging.info(
-                            message: 'Please agree to the Terms of Service.');
+                        Toast.info(
+                          'Please agree to the Terms of Service.',
+                          context: context,
+                        );
                         return;
                       }
                       if (!email.isValid() || !password.isValid()) {
@@ -78,12 +82,31 @@ class _LoginPageState extends State<LoginPage> {
                       try {
                         await widget.onEmailSignUp(email, password);
                       } catch (e) {
-                        Messaging.info(message: e.toString());
+                        Toast.info(
+                          e.toString(),
+                          context: context,
+                        );
                       }
                     },
-                    agreementText: Text(
-                      'I agree to the Terms of Service.',
-                      style: context.textTheme.labelSmall,
+                    agreementText: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          'I have read and agree to the ',
+                          style: context.textTheme.labelSmall,
+                        ),
+                        TextWidget('Terms of Service',
+                            style: context.textTheme.labelSmall,
+                            color: context.config.primaryColor,
+                            onTap: () => widget.termsScreen == null
+                                ? null
+                                : Navigation.push(widget: widget.termsScreen!)),
+                        Text(
+                          '.',
+                          style: context.textTheme.labelSmall,
+                        ),
+                      ],
                     ),
                   ),
                   SignInView(
@@ -101,7 +124,10 @@ class _LoginPageState extends State<LoginPage> {
                       try {
                         await widget.onEmailSignIn(email, password);
                       } catch (e) {
-                        Messaging.info(message: e.toString());
+                        Toast.info(
+                          e.toString(),
+                          context: context,
+                        );
                       }
                     },
                   ),
@@ -118,7 +144,10 @@ class _LoginPageState extends State<LoginPage> {
                       try {
                         await widget.onEmailSendPassword(email);
                       } catch (e) {
-                        Messaging.info(message: e.toString());
+                        Toast.info(
+                          e.toString(),
+                          context: context,
+                        );
                       }
                     },
                   ),
@@ -147,7 +176,8 @@ class _LoginPageState extends State<LoginPage> {
                         try {
                           await widget.onPhoneSendCode(phone);
                         } catch (e) {
-                          Messaging.info(message: e.toString());
+                          Logging.log(e);
+                          Toast.info(e.toString(), context: context);
                         }
                       },
                     )),
@@ -162,7 +192,10 @@ class _LoginPageState extends State<LoginPage> {
                       try {
                         await widget.onAppleLogin!();
                       } catch (e) {
-                        Messaging.info(message: e.toString());
+                        Toast.info(
+                          e.toString(),
+                          context: context,
+                        );
                       }
                     }),
                   ),

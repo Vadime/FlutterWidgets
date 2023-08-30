@@ -30,3 +30,33 @@ void main(List<String> args) {
     ],
   )));
 }
+
+class App extends StatefulWidget {
+  const App({super.key});
+
+  @override
+  State<App> createState() => _AppState();
+}
+
+class _AppState extends State<App> {
+  TextFieldController controller = TextFieldController("Niggi");
+
+  Function() listener = () {};
+
+  @override
+  void initState() {
+    super.initState();
+    controller.addListener(listener);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    controller.removeListener(listener);
+  }
+}

@@ -1,11 +1,11 @@
-import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:file_picker/file_picker.dart';
-import 'package:image_compression_flutter/image_compression_flutter.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:widgets/widgets.dart';
 
 class FilePicking {
-  static Future<File?> pickImage() async {
+  static Future<Uint8List?> pickImage() async {
     FilePickerResult? result;
 
     try {
@@ -19,33 +19,18 @@ class FilePicking {
 
         if (file.path == null && file.bytes == null) return null;
 
-        ImageFile input =
-            ImageFile(filePath: file.path!, rawBytes: file.bytes!);
+        Uint8List? output = await FlutterImageCompress.compressWithFile(
+          file.path!,
+          quality: 10,
+          format: CompressFormat.jpeg,
+        );
 
-        final image = await compressImage(input);
-
-        return File(image.filePath);
+        return output;
       }
     } catch (e) {
+      Logging.logDetails(e.toString());
       return null;
     }
     return null;
-  }
-
-  static Future<ImageFile> compressImage(ImageFile input) async {
-    Logging.log('Input size : ${input.sizeInBytes}');
-    Configuration config = const Configuration(
-      outputType: ImageOutputType.webpThenJpg,
-      // can only be true for Android and iOS while using ImageOutputType.jpg or ImageOutputType.pngÏ
-      useJpgPngNativeCompressor: false,
-      // set quality between 0-100
-      quality: 40,
-    );
-
-    final param = ImageFileConfiguration(input: input, config: config);
-    final output = await compressor.compress(param);
-
-    Logging.log('Output size : ${output.sizeInBytes}');
-    return output;
   }
 }

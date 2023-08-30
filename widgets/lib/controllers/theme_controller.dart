@@ -47,7 +47,9 @@ class ThemeController extends SegmentedButtonController<ThemeMode> {
   ThemeController({
     required this.config,
     this.saver,
-  }) : super(ThemeMode.system);
+  }) : super(ThemeMode.system) {
+    load();
+  }
 
   ThemeConfig get currentThemeConfig => config;
 
@@ -56,8 +58,8 @@ class ThemeController extends SegmentedButtonController<ThemeMode> {
   ThemeData get lightTheme => config.genTheme(Brightness.light);
 
   @override
-  void toggle(ThemeMode value) async {
-    await saver?.save(ThemeModeSaver.key, value);
+  void toggle(ThemeMode value) {
+    saver?.save(ThemeModeSaver.key, value);
     emit(value);
   }
 
@@ -70,5 +72,4 @@ class ThemeController extends SegmentedButtonController<ThemeMode> {
 
   static ThemeController of(BuildContext context) =>
       BlocProvider.of<ThemeController>(context);
-  
 }

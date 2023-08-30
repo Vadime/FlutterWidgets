@@ -80,7 +80,7 @@ class TextFieldController extends TextEditingController {
         keyboardType: TextInputType.phone,
         text: text,
         inputFormatters: [
-          LengthLimitingTextInputFormatter(14),
+          LengthLimitingTextInputFormatter(16),
         ],
       );
 

@@ -51,18 +51,20 @@ class _SignInViewState extends State<SignInView> {
           child: TextButtonWidget(
             'Forgot password?',
             onPressed: widget.toSendPassword,
-            margin: EdgeInsets.fromLTRB(
-                context.config.padding,
-                context.config.paddingH,
-                context.config.padding,
-                context.config.paddingH),
+            margin: EdgeInsets.fromLTRB(context.config.padding,
+                context.config.paddingH, context.config.padding, 0),
           ),
         ),
         const Spacer(),
         ElevatedButtonWidget(
           'Sign In',
           onPressed: () async => await widget.signIn(email, password),
-          margin: EdgeInsets.all(context.config.padding),
+          margin: EdgeInsets.fromLTRB(
+            context.config.padding,
+            0,
+            context.config.padding,
+            context.config.padding,
+          ),
         ),
       ],
     );
