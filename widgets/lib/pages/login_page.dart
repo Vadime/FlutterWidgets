@@ -11,10 +11,12 @@ class LoginPage extends StatefulWidget {
   final dynamic Function(TextFieldController email) onEmailSendPassword;
   final dynamic Function(TextFieldController phone) onPhoneSendCode;
   final dynamic Function()? onAppleLogin;
+  final Widget? termsScreen;
 
   const LoginPage({
     this.initialPage = 1,
     required this.onEmailSignUp,
+    this.termsScreen,
     required this.onEmailSignIn,
     required this.onEmailSendPassword,
     required this.onPhoneSendCode,
@@ -86,9 +88,25 @@ class _LoginPageState extends State<LoginPage> {
                         );
                       }
                     },
-                    agreementText: Text(
-                      'I agree to the Terms of Service.',
-                      style: context.textTheme.labelSmall,
+                    agreementText: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          'I have read and agree to the ',
+                          style: context.textTheme.labelSmall,
+                        ),
+                        TextWidget('Terms of Service',
+                            style: context.textTheme.labelSmall,
+                            color: context.config.primaryColor,
+                            onTap: () => widget.termsScreen == null
+                                ? null
+                                : Navigation.push(widget: widget.termsScreen!)),
+                        Text(
+                          '.',
+                          style: context.textTheme.labelSmall,
+                        ),
+                      ],
                     ),
                   ),
                   SignInView(

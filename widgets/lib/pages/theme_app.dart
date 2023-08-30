@@ -6,6 +6,7 @@ import 'package:widgets/widgets.dart';
 
 class ThemeApp extends StatelessWidget {
   final ThemeConfig config;
+  final ThemeModeSaver? themeModeSaver;
   final Widget home;
   final Widget login;
   final Future<void> Function(BuildContext context)? initialize;
@@ -14,6 +15,7 @@ class ThemeApp extends StatelessWidget {
     required this.home,
     required this.login,
     this.initialize,
+    this.themeModeSaver,
     super.key,
   });
 
@@ -23,9 +25,15 @@ class ThemeApp extends StatelessWidget {
       await initialize?.call(context);
       FlutterNativeSplash.remove();
     }), builder: (context, snapshot) {
+      if (snapshot.connectionState != ConnectionState.done) {
+        return const SizedBox();
+      }
+
       return MultiBlocProvider(
         providers: [
-          BlocProvider(create: (context) => ThemeController(config: config)),
+          BlocProvider(
+              create: (context) =>
+                  ThemeController(config: config, saver: themeModeSaver)),
         ],
         child: BlocListener<AuthenticationController, bool>(
           bloc: AuthenticationController(),
@@ -44,11 +52,7 @@ class ThemeApp extends StatelessWidget {
                       themeMode: themeMode,
                       theme: context.config.genTheme(Brightness.light),
                       darkTheme: context.config.genTheme(Brightness.dark),
-                      home: snapshot.connectionState == ConnectionState.done
-                          ? AuthenticationController().state
-                              ? home
-                              : login
-                          : const SizedBox(),
+                      home: AuthenticationController().state ? home : login,
                     ),
                   ),
                   Positioned.fill(child: LoadingPage(context.config)),
@@ -64,6 +68,8 @@ class ThemeApp extends StatelessWidget {
 
 class ThemeAppRouter extends StatelessWidget {
   final ThemeConfig config;
+  final ThemeModeSaver? themeModeSaver;
+
   final PageRouteInfo home;
   final PageRouteInfo login;
   final RootStackRouter router;
@@ -74,6 +80,7 @@ class ThemeAppRouter extends StatelessWidget {
     required this.login,
     required this.router,
     this.initialize,
+    this.themeModeSaver,
     super.key,
   });
 
@@ -81,13 +88,17 @@ class ThemeAppRouter extends StatelessWidget {
   Widget build(BuildContext context) {
     return FutureBuilder(future: Future(() async {
       Navigation.key = router.navigatorKey;
-
       await initialize?.call();
       FlutterNativeSplash.remove();
     }), builder: (context, snapshot) {
+      if (snapshot.connectionState != ConnectionState.done) {
+        return const SizedBox();
+      }
       return MultiBlocProvider(
         providers: [
-          BlocProvider(create: (context) => ThemeController(config: config)),
+          BlocProvider(
+              create: (context) =>
+                  ThemeController(config: config, saver: themeModeSaver)),
         ],
         child: BlocListener<AuthenticationController, bool>(
           bloc: AuthenticationController(),
@@ -106,13 +117,8 @@ class ThemeAppRouter extends StatelessWidget {
                     theme: context.config.genTheme(Brightness.light),
                     darkTheme: context.config.genTheme(Brightness.dark),
                     routerConfig: router.config(
-                        deepLinkBuilder: (pdl) => DeepLink([
-                              snapshot.connectionState == ConnectionState.done
-                                  ? AuthenticationController().state
-                                      ? home
-                                      : login
-                                  : login
-                            ])),
+                        deepLinkBuilder: (pdl) => DeepLink(
+                            [AuthenticationController().state ? home : login])),
                   ),
                 ),
                 Positioned.fill(child: LoadingPage(context.config)),
