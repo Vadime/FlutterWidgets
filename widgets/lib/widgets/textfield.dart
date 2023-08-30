@@ -52,13 +52,16 @@ class TextFieldWidget extends StatefulWidget {
 class _TextFieldWidgetState extends State<TextFieldWidget> {
   @override
   void initState() {
-    widget.controller?.addListener(() => setState(() {}));
     super.initState();
+
+    widget.controller?.addListener(() {
+      setState(() {});
+    });
   }
 
   // @override
   // void dispose() {
-  //   widget.controller.dispose();
+  //    widget.controller?.dispose();
   //   super.dispose();
   // }
 
