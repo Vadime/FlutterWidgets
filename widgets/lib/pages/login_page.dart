@@ -72,15 +72,12 @@ class _LoginPageState extends State<LoginPage> {
                             .show('Please agree to the Terms of Service.');
                         return;
                       }
-                      if (!email.isValid() || !password.isValid()) {
-                        email.emptyAllowed = false;
-                        password.emptyAllowed = false;
-                        return;
-                      }
+                      if (!email.isValid() || !password.isValid()) return;
+
                       try {
                         await widget.onEmailSignUp(email, password);
                       } catch (e) {
-                        ToastController().show(e);
+                        password.setError(e.toString());
                         return;
                       }
                     },
@@ -112,15 +109,12 @@ class _LoginPageState extends State<LoginPage> {
                       TextInput.finishAutofillContext();
                       FocusScope.of(context).unfocus();
 
-                      if (!email.isValid() || !password.isValid()) {
-                        email.emptyAllowed = false;
-                        password.emptyAllowed = false;
-                        return;
-                      }
+                      if (!email.isValid() || !password.isValid()) return;
+
                       try {
                         await widget.onEmailSignIn(email, password);
                       } catch (e) {
-                        ToastController().show(e);
+                        password.setError(e.toString());
                         return;
                       }
                     },
@@ -131,14 +125,12 @@ class _LoginPageState extends State<LoginPage> {
                       TextInput.finishAutofillContext();
                       FocusScope.of(context).unfocus();
 
-                      if (!email.isValid()) {
-                        email.emptyAllowed = false;
-                        return;
-                      }
+                      if (!email.isValid()) return;
+
                       try {
                         await widget.onEmailSendPassword(email);
                       } catch (e) {
-                        ToastController().show(e);
+                        email.setError(e.toString());
                         return;
                       }
                     },
@@ -161,14 +153,12 @@ class _LoginPageState extends State<LoginPage> {
                         TextInput.finishAutofillContext();
                         FocusScope.of(context).unfocus();
 
-                        if (!phone.isValid()) {
-                          phone.emptyAllowed = false;
-                          return;
-                        }
+                        if (!phone.isValid()) return;
+
                         try {
                           await widget.onPhoneSendCode(phone);
                         } catch (e) {
-                          ToastController().show(e);
+                          phone.setError(e.toString());
                           return;
                         }
                       },

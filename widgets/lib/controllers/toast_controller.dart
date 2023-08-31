@@ -15,22 +15,25 @@ class ToastController extends Cubit<ToastData> {
             const ToastData(null, AnimatedBool(value: false, completed: true)));
   factory ToastController() => _singleton;
 
+  static Duration get showTime => const Duration(seconds: 2);
+  static Duration get animTime => const Duration(milliseconds: 200);
+
   Future<void> add(dynamic message) async {
     emit(ToastData(message, const AnimatedBool(value: true, completed: false)));
-    await Future.delayed(const Duration(seconds: 1));
+    await Future.delayed(animTime);
     emit(ToastData(message, const AnimatedBool(value: true, completed: true)));
   }
 
   Future<void> show(dynamic message) async {
     await add(message);
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(showTime);
     await remove(message);
   }
 
   Future<void> remove(dynamic message) async {
     emit(
         ToastData(message, const AnimatedBool(value: false, completed: false)));
-    await Future.delayed(const Duration(seconds: 1));
+    await Future.delayed(animTime);
     emit(ToastData(message, const AnimatedBool(value: false, completed: true)));
   }
 

@@ -10,7 +10,7 @@ class TextFieldController extends TextEditingController {
   String? errorText;
   late bool visible;
   final List<TextInputFormatter>? inputFormatters;
-  bool _emptyAllowed = true;
+  String? _extraError;
 
   TextFieldController(
     this.labelText, {
@@ -131,21 +131,30 @@ class TextFieldController extends TextEditingController {
         ],
       );
 
-  String? get calcErrorText =>
-      isValid(emptyAllowed: _emptyAllowed) ? null : errorText;
+  String? calcErrorText(bool allowEmpty) {
+    if (_extraError != null) {
+      if (!isValid(allowEmpty: allowEmpty)) {
+        return errorText;
+      }
+      return _extraError;
+    }
+    if (isValid(allowEmpty: allowEmpty)) {
+      return null;
+    } else {
+      return errorText;
+    }
+  }
 
-  bool isValid({bool emptyAllowed = false}) {
-    final condition = emptyAllowed ? text.isNotEmpty : text.isEmpty;
-    if (errorRegex != null && condition) {
+  bool isValid({bool allowEmpty = false}) {
+    var finalAllowEmpty = allowEmpty ? text.isNotEmpty : text.isEmpty;
+    if (errorRegex != null && finalAllowEmpty) {
       return errorRegex!.hasMatch(text);
     }
     return true;
   }
 
-  /// this makes the errorText to show
-  /// instead of pushing a popup like we used to do
-  set emptyAllowed(bool value) {
-    _emptyAllowed = value;
+  setError(String error) {
+    _extraError = error;
     notifyListeners();
   }
 }

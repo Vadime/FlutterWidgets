@@ -55,8 +55,13 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
   @override
   void initState() {
     super.initState();
-    widget.controller?.addListener(() => setState(() {}));
+    widget.controller?.addListener(() {
+      firstBuild = false;
+      setState(() {});
+    });
   }
+
+  bool firstBuild = true;
 
   @override
   Widget build(BuildContext context) => CardWidget.single(
@@ -74,7 +79,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
                 decoration: InputDecoration(
                   border: InputBorder.none,
                   labelText: widget.controller?.labelText,
-                  errorText: widget.controller?.calcErrorText,
+                  errorText: widget.controller?.calcErrorText(firstBuild),
                   enabled: widget.enabled ?? true,
                   errorMaxLines: 1,
                   isDense: true,

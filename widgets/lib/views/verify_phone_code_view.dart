@@ -26,14 +26,11 @@ class _VerifyPhoneCodeViewState extends State<VerifyPhoneCodeView> {
         ),
         SizedBox(height: context.config.padding),
         ElevatedButtonWidget('Login', onPressed: () async {
-          if (!code.isValid()) {
-            code.emptyAllowed = false;
-            return;
-          }
+          if (!code.isValid()) return;
           try {
             await widget.verifyPhoneCode(code);
           } catch (e) {
-            ToastController().show(e);
+            code.setError(e.toString());
             return;
           }
         }),
