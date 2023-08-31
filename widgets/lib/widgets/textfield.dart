@@ -105,16 +105,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
                 autofillHints: widget.autofillHints,
               ),
             ),
-            if (!(widget.enabled ?? true))
-              Tooltip(
-                message: 'You can\'t edit this field',
-                child: IconWidget(
-                  Icons.disabled_by_default_rounded,
-                  size: 20,
-                  color: context.config.neutralColor,
-                ),
-              )
-            else if (widget.controller?.obscureText ?? false)
+            if (widget.controller?.obscureText ?? false)
               SizedBox(
                 height: 32,
                 width: 32,

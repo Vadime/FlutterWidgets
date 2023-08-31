@@ -11,7 +11,7 @@ class LoadingPage extends StatelessWidget {
     return BlocBuilder<LoadingController, AnimatedBool>(
       bloc: LoadingController(),
       builder: (context, loading) {
-        if (!loading.value && loading.animationCompleted) {
+        if (!loading.value && loading.completed) {
           return const SizedBox();
         } else {
           return IgnorePointer(

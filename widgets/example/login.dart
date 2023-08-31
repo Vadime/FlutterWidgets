@@ -104,10 +104,7 @@ class App extends StatelessWidget {
         Logging.log(phone.text);
       },
       onAppleLogin: () {
-        Toast.info(
-          'Not implemented yet',
-          context: context,
-        );
+        ToastController().show('Not implemented');
       },
     );
   }

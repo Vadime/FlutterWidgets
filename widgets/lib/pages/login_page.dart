@@ -68,10 +68,8 @@ class _LoginPageState extends State<LoginPage> {
                       FocusScope.of(context).unfocus();
 
                       if (!agree.state) {
-                        Toast.info(
-                          'Please agree to the Terms of Service.',
-                          context: context,
-                        );
+                        ToastController()
+                            .show('Please agree to the Terms of Service.');
                         return;
                       }
                       if (!email.isValid() || !password.isValid()) {
@@ -82,7 +80,7 @@ class _LoginPageState extends State<LoginPage> {
                       try {
                         await widget.onEmailSignUp(email, password);
                       } catch (e) {
-                        Toast.info(e, context: context);
+                        ToastController().show(e);
                         return;
                       }
                     },
@@ -122,7 +120,7 @@ class _LoginPageState extends State<LoginPage> {
                       try {
                         await widget.onEmailSignIn(email, password);
                       } catch (e) {
-                        Toast.info(e, context: context);
+                        ToastController().show(e);
                         return;
                       }
                     },
@@ -140,7 +138,7 @@ class _LoginPageState extends State<LoginPage> {
                       try {
                         await widget.onEmailSendPassword(email);
                       } catch (e) {
-                        Toast.info(e, context: context);
+                        ToastController().show(e);
                         return;
                       }
                     },
@@ -170,7 +168,7 @@ class _LoginPageState extends State<LoginPage> {
                         try {
                           await widget.onPhoneSendCode(phone);
                         } catch (e) {
-                          Toast.info(e, context: context);
+                          ToastController().show(e);
                           return;
                         }
                       },
@@ -186,7 +184,7 @@ class _LoginPageState extends State<LoginPage> {
                       try {
                         await widget.onAppleLogin!();
                       } catch (e) {
-                        Toast.info(e, context: context);
+                        ToastController().show(e);
                         return;
                       }
                     }),

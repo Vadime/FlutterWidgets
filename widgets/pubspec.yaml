@@ -31,7 +31,6 @@ dependencies:
   flutter_native_splash: ^2.3.2
   shared_preferences: ^2.2.0
   flutter_image_compress: ^2.0.4
-  flutter_styled_toast: ^2.2.1
   permission_handler: ^10.4.3
   
   

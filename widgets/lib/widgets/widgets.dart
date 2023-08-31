@@ -74,3 +74,12 @@ extension DateTimeExtension on DateTime {
   String get str =>
       '${day.toString().padLeft(2, '0')}.${month.toString().padLeft(2, '0')}.${year.toString().padLeft(4, '0')}';
 }
+
+extension EdgeInsetsExtension on EdgeInsets {
+  EdgeInsets safe(BuildContext context) => EdgeInsets.only(
+        left: left + context.safeArea.left,
+        right: right + context.safeArea.right,
+        top: top + context.safeArea.top,
+        bottom: bottom + context.safeArea.bottom,
+      );
+}

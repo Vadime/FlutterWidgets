@@ -1,30 +1,21 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:widgets/widgets.dart';
 
-class AnimatedBool {
-  final bool value;
-  final bool animationCompleted;
-  const AnimatedBool({
-    required this.value,
-    required this.animationCompleted,
-  });
-}
-
 class LoadingController extends Cubit<AnimatedBool> {
   static final LoadingController _singleton = LoadingController._internal();
   LoadingController._internal()
-      : super(const AnimatedBool(value: false, animationCompleted: true));
+      : super(const AnimatedBool(value: false, completed: true));
   factory LoadingController() => _singleton;
 
   void enableInput() {
-    emit(const AnimatedBool(value: false, animationCompleted: false));
+    emit(const AnimatedBool(value: false, completed: false));
     Future.delayed(const Duration(seconds: 1), () {
-      emit(const AnimatedBool(value: false, animationCompleted: true));
+      emit(const AnimatedBool(value: false, completed: true));
     });
   }
 
   void disableInput() {
-    emit(const AnimatedBool(value: true, animationCompleted: true));
+    emit(const AnimatedBool(value: true, completed: true));
   }
 
   @override

@@ -63,6 +63,7 @@ class ThemeApp extends StatelessWidget {
                     ),
                   ),
                   Positioned.fill(child: LoadingPage(context.config)),
+                  Positioned.fill(child: ToastPage(context.config)),
                 ],
               );
             },
@@ -129,6 +130,7 @@ class ThemeAppRouter extends StatelessWidget {
                   ),
                 ),
                 Positioned.fill(child: LoadingPage(context.config)),
+                Positioned.fill(child: ToastPage(context.config)),
               ],
             ),
           ),

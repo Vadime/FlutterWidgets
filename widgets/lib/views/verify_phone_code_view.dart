@@ -19,6 +19,8 @@ class _VerifyPhoneCodeViewState extends State<VerifyPhoneCodeView> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisSize: MainAxisSize.min,
       children: [
+        const TextWidget('Code sent'),
+        SizedBox(height: context.config.padding),
         TextFieldWidget(
           controller: code,
         ),
@@ -31,7 +33,7 @@ class _VerifyPhoneCodeViewState extends State<VerifyPhoneCodeView> {
           try {
             await widget.verifyPhoneCode(code);
           } catch (e) {
-            Toast.info(e, context: context);
+            ToastController().show(e);
             return;
           }
         }),

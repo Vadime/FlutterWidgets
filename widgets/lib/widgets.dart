@@ -20,10 +20,12 @@ export 'controllers/segmented_button_controller.dart';
 export 'controllers/single_selection_controller.dart';
 export 'controllers/textfield_controller.dart';
 export 'controllers/theme_controller.dart';
+export 'controllers/toast_controller.dart';
 
 /// export all data
-export 'data/button_data.dart';
-export 'data/gender.dart';
+export 'models/animated_bool.dart';
+export 'models/button_data.dart';
+export 'models/gender.dart';
 
 /// export all pages
 export 'pages/bottom_navigation_page.dart';
@@ -31,13 +33,13 @@ export 'pages/loading_page.dart';
 export 'pages/login_page.dart';
 export 'pages/onboarding_page.dart';
 export 'pages/theme_app.dart';
+export 'pages/toast_page.dart';
 
 /// export all utils
 export 'utils/file_picking.dart';
 export 'utils/iban_formatter.dart';
 export 'utils/logging.dart';
 export 'utils/navigation.dart';
-export 'utils/toast.dart';
 export 'utils/url_launcher.dart';
 
 /// export all views
