@@ -2,7 +2,6 @@ import 'dart:typed_data';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
-import 'package:widgets/widgets.dart';
 
 class FilePicking {
   static Future<Uint8List?> pickImage() async {
@@ -27,10 +26,7 @@ class FilePicking {
 
         return output;
       }
-    } catch (e) {
-      Logging.logDetails(e.toString());
-      return null;
-    }
+    } catch (_) {}
     return null;
   }
 }
