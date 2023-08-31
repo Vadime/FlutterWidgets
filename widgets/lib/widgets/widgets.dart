@@ -60,3 +60,26 @@ extension PageControllerExtension on PageController {
   // get current page
   int get currentPage => hasClients ? (page?.round() ?? 0) : 0;
 }
+
+extension StringExtension on String {
+  DateTime get dateTime {
+    var arr = split('.');
+    return DateTime(int.parse(arr[2]), int.parse(arr[1]), int.parse(arr[0]));
+  }
+
+  String get intFormat => this == '' ? '0' : this;
+}
+
+extension DateTimeExtension on DateTime {
+  String get str =>
+      '${day.toString().padLeft(2, '0')}.${month.toString().padLeft(2, '0')}.${year.toString().padLeft(4, '0')}';
+}
+
+extension EdgeInsetsExtension on EdgeInsets {
+  EdgeInsets safe(BuildContext context) => EdgeInsets.only(
+        left: left + context.safeArea.left,
+        right: right + context.safeArea.right,
+        top: top + context.safeArea.top,
+        bottom: bottom + context.safeArea.bottom,
+      );
+}

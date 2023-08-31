@@ -55,8 +55,13 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
   @override
   void initState() {
     super.initState();
-    widget.controller?.addListener(() => setState(() {}));
+    widget.controller?.addListener(() {
+      firstBuild = false;
+      setState(() {});
+    });
   }
+
+  bool firstBuild = true;
 
   @override
   Widget build(BuildContext context) => CardWidget.single(
@@ -74,7 +79,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
                 decoration: InputDecoration(
                   border: InputBorder.none,
                   labelText: widget.controller?.labelText,
-                  errorText: widget.controller?.calcErrorText,
+                  errorText: widget.controller?.calcErrorText(firstBuild),
                   enabled: widget.enabled ?? true,
                   errorMaxLines: 1,
                   isDense: true,
@@ -105,16 +110,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
                 autofillHints: widget.autofillHints,
               ),
             ),
-            if (!(widget.enabled ?? true))
-              Tooltip(
-                message: 'You can\'t edit this field',
-                child: IconWidget(
-                  Icons.disabled_by_default_rounded,
-                  size: 20,
-                  color: context.config.neutralColor(context.brightness),
-                ),
-              )
-            else if (widget.controller?.obscureText ?? false)
+            if (widget.controller?.obscureText ?? false)
               SizedBox(
                 height: 32,
                 width: 32,

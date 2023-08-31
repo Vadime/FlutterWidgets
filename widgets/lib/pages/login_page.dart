@@ -68,24 +68,17 @@ class _LoginPageState extends State<LoginPage> {
                       FocusScope.of(context).unfocus();
 
                       if (!agree.state) {
-                        Toast.info(
-                          'Please agree to the Terms of Service.',
-                          context: context,
-                        );
+                        ToastController()
+                            .show('Please agree to the Terms of Service.');
                         return;
                       }
-                      if (!email.isValid() || !password.isValid()) {
-                        email.emptyAllowed = false;
-                        password.emptyAllowed = false;
-                        return;
-                      }
+                      if (!email.isValid() || !password.isValid()) return;
+
                       try {
                         await widget.onEmailSignUp(email, password);
                       } catch (e) {
-                        Toast.info(
-                          e.toString(),
-                          context: context,
-                        );
+                        password.setError(e.toString());
+                        return;
                       }
                     },
                     agreementText: Row(
@@ -116,18 +109,13 @@ class _LoginPageState extends State<LoginPage> {
                       TextInput.finishAutofillContext();
                       FocusScope.of(context).unfocus();
 
-                      if (!email.isValid() || !password.isValid()) {
-                        email.emptyAllowed = false;
-                        password.emptyAllowed = false;
-                        return;
-                      }
+                      if (!email.isValid() || !password.isValid()) return;
+
                       try {
                         await widget.onEmailSignIn(email, password);
                       } catch (e) {
-                        Toast.info(
-                          e.toString(),
-                          context: context,
-                        );
+                        password.setError(e.toString());
+                        return;
                       }
                     },
                   ),
@@ -137,17 +125,13 @@ class _LoginPageState extends State<LoginPage> {
                       TextInput.finishAutofillContext();
                       FocusScope.of(context).unfocus();
 
-                      if (!email.isValid()) {
-                        email.emptyAllowed = false;
-                        return;
-                      }
+                      if (!email.isValid()) return;
+
                       try {
                         await widget.onEmailSendPassword(email);
                       } catch (e) {
-                        Toast.info(
-                          e.toString(),
-                          context: context,
-                        );
+                        email.setError(e.toString());
+                        return;
                       }
                     },
                   ),
@@ -169,15 +153,13 @@ class _LoginPageState extends State<LoginPage> {
                         TextInput.finishAutofillContext();
                         FocusScope.of(context).unfocus();
 
-                        if (!phone.isValid()) {
-                          phone.emptyAllowed = false;
-                          return;
-                        }
+                        if (!phone.isValid()) return;
+
                         try {
                           await widget.onPhoneSendCode(phone);
                         } catch (e) {
-                          Logging.log(e);
-                          Toast.info(e.toString(), context: context);
+                          phone.setError(e.toString());
+                          return;
                         }
                       },
                     )),
@@ -192,10 +174,8 @@ class _LoginPageState extends State<LoginPage> {
                       try {
                         await widget.onAppleLogin!();
                       } catch (e) {
-                        Toast.info(
-                          e.toString(),
-                          context: context,
-                        );
+                        ToastController().show(e);
+                        return;
                       }
                     }),
                   ),

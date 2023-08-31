@@ -16,8 +16,8 @@ class Navigation {
   static Future<void> push({required Widget widget}) async =>
       await navigator.push(standardRoute(widget));
 
-  static void pushPopup({required Widget widget}) async {
-    await showModalBottomSheet(
+  static Future<void> pushPopup({required Widget widget}) async {
+    return await showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
       showDragHandle: false,
@@ -57,8 +57,8 @@ class Navigation {
 
     /// for dirthdays use DatePickerMode.year
     DatePickerMode initialCalendarMode = DatePickerMode.day,
-  }) {
-    return pushPopup(
+  }) async {
+    return await pushPopup(
       widget: CalendarDatePicker(
           initialDate: initialDate ?? DateTime.now(),
           firstDate: firstDate,

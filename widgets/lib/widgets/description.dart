@@ -24,7 +24,7 @@ class DescriptionWidget extends StatelessWidget {
               child: VerticalDivider(
                   thickness: 2,
                   width: context.config.paddingD,
-                  color: context.config.neutralColor(context.brightness))),
+                  color: context.config.neutralColor)),
           Flexible(
               child: Text(desc,
                   style: context.textTheme.bodyMedium!

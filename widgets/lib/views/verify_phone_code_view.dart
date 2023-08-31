@@ -19,19 +19,18 @@ class _VerifyPhoneCodeViewState extends State<VerifyPhoneCodeView> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisSize: MainAxisSize.min,
       children: [
+        const TextWidget('Code sent'),
+        SizedBox(height: context.config.padding),
         TextFieldWidget(
           controller: code,
         ),
         SizedBox(height: context.config.padding),
         ElevatedButtonWidget('Login', onPressed: () async {
-          if (!code.isValid()) {
-            code.emptyAllowed = false;
-            return;
-          }
+          if (!code.isValid()) return;
           try {
             await widget.verifyPhoneCode(code);
           } catch (e) {
-            Toast.info(e.toString(), context: context);
+            code.setError(e.toString());
             return;
           }
         }),

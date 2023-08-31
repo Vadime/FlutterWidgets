@@ -5,14 +5,14 @@ class ThemeConfig {
   final String title;
   final String logoLocation;
   final Color primaryColor;
+  final Color neutralColor;
+  final Color errorColor;
 
   final Color darkBackgroundColor;
   final Color darkCardColor;
-  final Color darkNeutralColor;
   final Color darkTextColor;
   final Color lightBackgroundColor;
   final Color lightCardColor;
-  final Color lightNeutralColor;
   final Color lightTextColor;
 
   final double padding;
@@ -25,13 +25,13 @@ class ThemeConfig {
     required this.title,
     required this.logoLocation,
     required this.primaryColor,
+    required this.neutralColor,
+    required this.errorColor,
     required this.darkBackgroundColor,
     required this.darkCardColor,
-    required this.darkNeutralColor,
     required this.darkTextColor,
     required this.lightBackgroundColor,
     required this.lightCardColor,
-    required this.lightNeutralColor,
     required this.lightTextColor,
     required this.opacity,
     required this.radius,
@@ -42,13 +42,13 @@ class ThemeConfig {
     this.title = 'Standard App',
     this.logoLocation = 'res/images/logo.png',
     this.primaryColor = Colors.blue,
+    this.neutralColor = Colors.grey,
+    this.errorColor = const Color(0xFFC62828),
     this.darkBackgroundColor = Colors.black,
     this.darkCardColor = Colors.black,
-    this.darkNeutralColor = Colors.grey,
     this.darkTextColor = Colors.white,
     this.lightBackgroundColor = Colors.white,
     this.lightCardColor = Colors.white,
-    this.lightNeutralColor = Colors.grey,
     this.lightTextColor = Colors.black,
     this.opacity = 0.8,
     this.radius = 10,
@@ -65,9 +65,6 @@ class ThemeConfig {
   Color cardColor(Brightness brightness) =>
       brightness == Brightness.light ? lightCardColor : darkCardColor;
 
-  Color neutralColor(Brightness brightness) =>
-      brightness == Brightness.light ? lightNeutralColor : darkNeutralColor;
-
   Color textColor(Brightness brightness) =>
       brightness == Brightness.light ? lightTextColor : darkTextColor;
 
@@ -77,13 +74,13 @@ class ThemeConfig {
     String? logoLocation,
     Brightness? brightness,
     Color? primaryColor,
+    Color? neutralColor,
+    Color? errorColor,
     Color? darkBackgroundColor,
     Color? darkCardColor,
-    Color? darkNeutralColor,
     Color? darkTextColor,
     Color? lightBackgroundColor,
     Color? lightCardColor,
-    Color? lightNeutralColor,
     Color? lightTextColor,
     double? padding,
     double? radius,
@@ -93,13 +90,13 @@ class ThemeConfig {
         title: title ?? this.title,
         logoLocation: logoLocation ?? this.logoLocation,
         primaryColor: primaryColor ?? this.primaryColor,
+        neutralColor: neutralColor ?? this.neutralColor,
+        errorColor: errorColor ?? this.errorColor,
         darkBackgroundColor: darkBackgroundColor ?? this.darkBackgroundColor,
         darkCardColor: darkCardColor ?? this.darkCardColor,
-        darkNeutralColor: darkNeutralColor ?? this.darkNeutralColor,
         darkTextColor: darkTextColor ?? this.darkTextColor,
         lightBackgroundColor: lightBackgroundColor ?? this.lightBackgroundColor,
         lightCardColor: lightCardColor ?? this.lightCardColor,
-        lightNeutralColor: lightNeutralColor ?? this.lightNeutralColor,
         lightTextColor: lightTextColor ?? this.lightTextColor,
         padding: padding ?? this.padding,
         radius: radius ?? this.radius,
@@ -117,16 +114,16 @@ class ThemeConfig {
       cardColor: cardColor(brightness),
       scaffoldBackgroundColor: backgroundColor(brightness),
 
-      hintColor: neutralColor(brightness),
-      dividerColor: neutralColor(brightness),
+      hintColor: neutralColor,
+      dividerColor: neutralColor,
       indicatorColor: primaryColor,
       applyElevationOverlayColor: false,
       primaryColorDark: primaryColor,
       primaryColorLight: primaryColor,
-      disabledColor: neutralColor(brightness),
+      disabledColor: neutralColor,
       secondaryHeaderColor: primaryColor,
       dialogBackgroundColor: backgroundColor(brightness),
-      unselectedWidgetColor: neutralColor(brightness),
+      unselectedWidgetColor: neutralColor,
       colorScheme:
           ColorScheme.fromSeed(seedColor: primaryColor, brightness: brightness),
       // text
@@ -288,7 +285,7 @@ class ThemeConfig {
       // slider
       sliderTheme: SliderThemeData(
         activeTrackColor: primaryColor,
-        inactiveTrackColor: neutralColor(brightness),
+        inactiveTrackColor: neutralColor,
         thumbColor: primaryColor,
         overlayColor: primaryColor.withOpacity(0.1),
         trackHeight: 2,
@@ -302,12 +299,12 @@ class ThemeConfig {
       // progress
       progressIndicatorTheme: ProgressIndicatorThemeData(
         color: primaryColor,
-        circularTrackColor: neutralColor(brightness),
-        linearTrackColor: neutralColor(brightness),
+        circularTrackColor: neutralColor,
+        linearTrackColor: neutralColor,
       ),
       // divider
       dividerTheme: DividerThemeData(
-        color: neutralColor(brightness),
+        color: neutralColor,
         thickness: 1,
         space: 0,
       ),
@@ -340,7 +337,7 @@ class ThemeConfig {
         backgroundColor: cardColor(brightness).withOpacity(opacity),
         elevation: 0,
         selectedItemColor: primaryColor,
-        unselectedItemColor: neutralColor(brightness),
+        unselectedItemColor: neutralColor,
         showSelectedLabels: false,
         showUnselectedLabels: false,
         type: BottomNavigationBarType.fixed,
