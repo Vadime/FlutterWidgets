@@ -51,8 +51,8 @@ class _SignInViewState extends State<SignInView> {
           child: TextButtonWidget(
             'Forgot password?',
             onPressed: widget.toSendPassword,
-            margin: EdgeInsets.fromLTRB(context.config.padding,
-                context.config.paddingH, context.config.padding, 0),
+            margin: EdgeInsets.fromLTRB(
+                context.config.padding, 0, context.config.padding, 0),
           ),
         ),
         const Spacer(),

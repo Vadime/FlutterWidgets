@@ -94,7 +94,7 @@ class TextFieldController extends TextEditingController {
         labelText,
         errorRegex: RegExp(r'^[0-9]+$'),
         errorText: errorText,
-        keyboardType: TextInputType.number,
+        keyboardType: const TextInputType.numberWithOptions(signed: true),
         text: text,
       );
   // code congiuration
@@ -107,7 +107,7 @@ class TextFieldController extends TextEditingController {
         labelText,
         errorRegex: RegExp(r'^[0-9]*$'),
         errorText: errorText,
-        keyboardType: TextInputType.number,
+        keyboardType: const TextInputType.numberWithOptions(signed: true),
         text: text,
       );
 
@@ -156,5 +156,10 @@ class TextFieldController extends TextEditingController {
   setError(String error) {
     _extraError = error;
     notifyListeners();
+  }
+
+  @override
+  String toString() {
+    return 'TextFieldController{labelText: $labelText, keyboardType: $keyboardType, obscureText: $obscureText, errorRegex: $errorRegex, errorText: $errorText, visible: $visible, inputFormatters: $inputFormatters, _extraError: $_extraError}';
   }
 }

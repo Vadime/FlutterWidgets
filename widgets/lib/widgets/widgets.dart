@@ -61,13 +61,14 @@ extension PageControllerExtension on PageController {
   int get currentPage => hasClients ? (page?.round() ?? 0) : 0;
 }
 
-extension StringExtension on String {
+extension StringExtension on String? {
   DateTime get dateTime {
-    var arr = split('.');
+    if (this == null || this == '') return DateTime.now();
+    var arr = this!.split('.');
     return DateTime(int.parse(arr[2]), int.parse(arr[1]), int.parse(arr[0]));
   }
 
-  String get intFormat => this == '' ? '0' : this;
+  String get intFormat => (this == null || this == '') ? '0' : this!;
 }
 
 extension DateTimeExtension on DateTime {
