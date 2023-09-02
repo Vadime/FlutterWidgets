@@ -36,7 +36,7 @@ class ImageWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(radius ?? context.config.radius),
           child: image == null
               ? Container(
-                  color: context.colorScheme.error.withOpacity(0.6),
+                  color: context.config.errorColor.withOpacity(0.6),
                   width: width,
                   height: height,
                 )

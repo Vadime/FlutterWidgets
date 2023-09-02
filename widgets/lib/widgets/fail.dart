@@ -9,7 +9,7 @@ class FailWidget extends StatelessWidget {
   Widget build(BuildContext context) => Center(
         child: Text(
           error.toString(),
-          style: TextStyle(color: context.colorScheme.error),
+          style: TextStyle(color: context.config.errorColor),
         ),
       );
 }
