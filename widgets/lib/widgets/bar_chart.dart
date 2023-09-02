@@ -30,12 +30,26 @@ class ChartWidgetAxis {
 class ChartWidgetBarRod {
   final double value;
   final Color? color;
-
-  const ChartWidgetBarRod(this.value, {this.color});
+  final double? width;
+  const ChartWidgetBarRod(this.value, {this.color, this.width});
 
   BarChartRodData genFL(BuildContext context) => BarChartRodData(
         fromY: value + 0.05,
         toY: value + 0.95,
+        width: width,
+        color: color ?? context.config.neutralColor,
+        borderRadius: BorderRadius.circular(context.config.radius),
+      );
+}
+
+class ChartWidgetBarRodStd extends ChartWidgetBarRod {
+  ChartWidgetBarRodStd(super.value, {super.color, super.width});
+
+  @override
+  BarChartRodData genFL(BuildContext context) => BarChartRodData(
+        fromY: 0,
+        toY: value,
+        width: width,
         color: color ?? context.config.neutralColor,
         borderRadius: BorderRadius.circular(context.config.radius),
       );
@@ -78,9 +92,9 @@ class BarChartWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BarChart(
       BarChartData(
-          alignment: BarChartAlignment.spaceAround,
-          maxY: maxY + 0.1,
-          minY: 0.1,
+          alignment: BarChartAlignment.spaceEvenly,
+          maxY: maxY + maxY * 0.1,
+          minY: maxY * 0.1,
           barTouchData: BarTouchData(enabled: false),
           titlesData: FlTitlesData(
             show: leftAxis != null ||
