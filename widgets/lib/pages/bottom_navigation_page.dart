@@ -18,10 +18,14 @@ class BottomNavigationPage extends StatefulWidget {
 class _BottomNavigationPageState extends State<BottomNavigationPage> {
   late PageController controller;
 
+  late int initialIndex;
+
   @override
   void initState() {
     super.initState();
-    controller = PageController(initialPage: widget.initialIndex);
+    initialIndex = widget.initialIndex;
+    if (initialIndex > widget.views.length) initialIndex = widget.views.length;
+    controller = PageController(initialPage: initialIndex);
     controller.addListener(() => setState(() {}));
   }
 
@@ -32,7 +36,7 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
   }
 
   int get currentIndex =>
-      controller.hasClients ? controller.page!.round() : widget.initialIndex;
+      controller.hasClients ? controller.page!.round() : initialIndex;
 
   @override
   Widget build(BuildContext context) {
