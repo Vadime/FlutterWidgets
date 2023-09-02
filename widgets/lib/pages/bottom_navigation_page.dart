@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:widgets/widgets.dart';
 
 class BottomNavigationPage extends StatefulWidget {
@@ -31,7 +32,7 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
 
   @override
   void dispose() {
-    controller.dispose();
+    //controller.dispose();
     super.dispose();
   }
 
@@ -40,27 +41,31 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      extendBody: true,
-      extendBodyBehindAppBar: true,
-      appBar: AppBarWidget(
-        widget.views[currentIndex].title,
-        action: widget.views[currentIndex].actionIcon == null
-            ? null
-            : IconButtonWidget(
-                widget.views[currentIndex].actionIcon!,
-                onPressed: widget.views[currentIndex].action,
-              ),
-      ),
-      body: PageView(
-        controller: controller,
-        physics: const NeverScrollableScrollPhysics(),
-        children: widget.views.map((e) => e.view).toList(),
-      ),
-      bottomNavigationBar: BottomNavigationBarWidget(
-        currentIndex: currentIndex,
-        onChange: controller.go,
-        items: widget.views.map((e) => e.bottomNavigationBarItem).toList(),
+    return ChangeNotifierProvider(
+      create: (c) => controller,
+      lazy: true,
+      child: Scaffold(
+        extendBody: true,
+        extendBodyBehindAppBar: true,
+        appBar: AppBarWidget(
+          widget.views[currentIndex].title,
+          action: widget.views[currentIndex].actionIcon == null
+              ? null
+              : IconButtonWidget(
+                  widget.views[currentIndex].actionIcon!,
+                  onPressed: widget.views[currentIndex].action,
+                ),
+        ),
+        body: PageView(
+          controller: controller,
+          physics: const NeverScrollableScrollPhysics(),
+          children: widget.views.map((e) => e.view).toList(),
+        ),
+        bottomNavigationBar: BottomNavigationBarWidget(
+          currentIndex: currentIndex,
+          onChange: controller.go,
+          items: widget.views.map((e) => e.bottomNavigationBarItem).toList(),
+        ),
       ),
     );
   }
