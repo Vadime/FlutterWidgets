@@ -35,20 +35,14 @@ class ImageWidget extends StatelessWidget {
         child: ClipRRect(
           borderRadius: BorderRadius.circular(radius ?? context.config.radius),
           child: image == null
-              ? Container(
-                  color: context.config.errorColor.withOpacity(0.6),
-                  width: width,
-                  height: height,
-                )
+              ? buildWidget(context)
               : Image(
                   image: image!,
                   fit: fit,
                   width: width,
                   height: height,
-                  errorBuilder: (context, error, stackTrace) {
-                    Logging.log('Error Loading Image');
-                    return buildWidget(context);
-                  },
+                  errorBuilder: (context, error, stackTrace) =>
+                      buildWidget(context),
                   frameBuilder:
                       (context, child, frame, wasSynchronouslyLoaded) => child,
                   loadingBuilder: (context, child, loadingProgress) =>
