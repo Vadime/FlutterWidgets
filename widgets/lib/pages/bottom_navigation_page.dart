@@ -1,6 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:widgets/widgets.dart';
+
+class BottomNavigationPageController extends Cubit<int> {
+  late PageController controller;
+  BottomNavigationPageController(super.initialState) {
+    controller = PageController(initialPage: state);
+    controller.addListener(
+        () => emit(controller.hasClients ? controller.page!.round() : state));
+  }
+  set index(int index) => controller.go(index);
+
+  
+}
 
 class BottomNavigationPage extends StatefulWidget {
   final int initialIndex;
@@ -17,7 +29,7 @@ class BottomNavigationPage extends StatefulWidget {
 }
 
 class _BottomNavigationPageState extends State<BottomNavigationPage> {
-  late PageController controller;
+  late BottomNavigationPageController controller;
 
   late int initialIndex;
 
@@ -25,46 +37,36 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
   void initState() {
     super.initState();
     initialIndex = widget.initialIndex;
-    if (initialIndex > widget.views.length) initialIndex = widget.views.length;
-    controller = PageController(initialPage: initialIndex);
-    controller.addListener(() => setState(() {}));
+    controller = BottomNavigationPageController(initialIndex);
   }
-
-  @override
-  void dispose() {
-    //controller.dispose();
-    super.dispose();
-  }
-
-  int get currentIndex =>
-      controller.hasClients ? controller.page!.round() : initialIndex;
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
+    return BlocProvider(
       create: (c) => controller,
-      lazy: true,
-      child: Scaffold(
-        extendBody: true,
-        extendBodyBehindAppBar: true,
-        appBar: AppBarWidget(
-          widget.views[currentIndex].title,
-          action: widget.views[currentIndex].actionIcon == null
-              ? null
-              : IconButtonWidget(
-                  widget.views[currentIndex].actionIcon!,
-                  onPressed: widget.views[currentIndex].action,
-                ),
-        ),
-        body: PageView(
-          controller: controller,
-          physics: const NeverScrollableScrollPhysics(),
-          children: widget.views.map((e) => e.view).toList(),
-        ),
-        bottomNavigationBar: BottomNavigationBarWidget(
-          currentIndex: currentIndex,
-          onChange: controller.go,
-          items: widget.views.map((e) => e.bottomNavigationBarItem).toList(),
+      child: BlocBuilder<BottomNavigationPageController, int>(
+        builder: (context, state) => Scaffold(
+          extendBody: true,
+          extendBodyBehindAppBar: true,
+          appBar: AppBarWidget(
+            widget.views[state].title,
+            action: widget.views[state].actionIcon == null
+                ? null
+                : IconButtonWidget(
+                    widget.views[state].actionIcon!,
+                    onPressed: widget.views[state].action,
+                  ),
+          ),
+          body: PageView(
+            controller: controller.controller,
+            physics: const NeverScrollableScrollPhysics(),
+            children: widget.views.map((e) => e.view).toList(),
+          ),
+          bottomNavigationBar: BottomNavigationBarWidget(
+            currentIndex: state,
+            onChange: controller.controller.go,
+            items: widget.views.map((e) => e.bottomNavigationBarItem).toList(),
+          ),
         ),
       ),
     );

@@ -55,7 +55,6 @@ export 'views/verify_phone_code_view.dart';
 export 'widgets/app_bar.dart';
 
 /// export all components
-export 'widgets/bar_chart.dart';
 export 'widgets/bottom_navigation_bar.dart';
 export 'widgets/card.dart';
 export 'widgets/checkbox.dart';

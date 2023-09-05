@@ -22,7 +22,7 @@ class FooterWidget extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Wrap(
-          alignment: WrapAlignment.spaceAround,
+          alignment: WrapAlignment.spaceBetween,
           spacing: 4,
           children: buttons,
         ),
