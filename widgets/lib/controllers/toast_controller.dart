@@ -25,6 +25,7 @@ class ToastController extends Cubit<ToastData> {
   }
 
   Future<void> show(dynamic message) async {
+    Logging.log(message);
     await add(message);
     await Future.delayed(showTime);
     await remove(message);

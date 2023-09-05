@@ -2,7 +2,6 @@ library widgets;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
 import 'package:widgets/widgets.dart';
 
 extension WidgetBuildContextExtensions on BuildContext {
@@ -32,7 +31,7 @@ extension WidgetBuildContextExtensions on BuildContext {
       mediaQuery.size.height - safeArea.vertical;
 
   /// get theme config quickly
-  ThemeConfig get config => read<ThemeController>().config;
+  ThemeConfig get config => BlocProvider.of<ThemeController>(this).config;
 
   /// get brightness quickly
   Brightness get brightness => theme.brightness;

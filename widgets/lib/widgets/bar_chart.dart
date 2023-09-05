@@ -34,8 +34,8 @@ class ChartWidgetBarRod {
   const ChartWidgetBarRod(this.value, {this.color, this.width});
 
   BarChartRodData genFL(BuildContext context) => BarChartRodData(
-        fromY: value + 0.05,
-        toY: value + 0.95,
+        fromY: (value + 0.05),
+        toY: (value + 0.95),
         width: width,
         color: color ?? context.config.neutralColor,
         borderRadius: BorderRadius.circular(context.config.radius),
@@ -94,7 +94,7 @@ class BarChartWidget extends StatelessWidget {
       BarChartData(
           alignment: BarChartAlignment.spaceEvenly,
           maxY: maxY + maxY * 0.1,
-          minY: maxY * 0.1,
+          minY: maxY * 0.05,
           barTouchData: BarTouchData(enabled: false),
           titlesData: FlTitlesData(
             show: leftAxis != null ||

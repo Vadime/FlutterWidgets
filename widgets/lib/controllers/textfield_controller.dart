@@ -11,6 +11,7 @@ class TextFieldController extends TextEditingController {
   late bool visible;
   final List<TextInputFormatter>? inputFormatters;
   String? _extraError;
+  bool Function(String text)? extraValidator;
 
   TextFieldController(
     this.labelText, {
@@ -19,6 +20,7 @@ class TextFieldController extends TextEditingController {
     this.keyboardType,
     this.obscureText = false,
     this.inputFormatters,
+    this.extraValidator,
     super.text,
   }) {
     visible = obscureText;
@@ -123,9 +125,9 @@ class TextFieldController extends TextEditingController {
         errorText: errorText,
         keyboardType: TextInputType.text,
         text: text,
+        extraValidator: isValidGermanIBAN,
         inputFormatters: [
-          FilteringTextInputFormatter.allow(RegExp(
-              r'[A-Za-z0-9\s]')), // Allow only alphanumeric characters and spaces
+          FilteringTextInputFormatter.allow(RegExp(r'[A-Za-z0-9\s]')),
           LengthLimitingTextInputFormatter(27),
           IbanFormatter(),
         ],
@@ -150,10 +152,11 @@ class TextFieldController extends TextEditingController {
     if (errorRegex != null && finalAllowEmpty) {
       return errorRegex!.hasMatch(text);
     }
-    return true;
+    var again = !allowEmpty ? (extraValidator?.call(text) ?? true) : true;
+    return again;
   }
 
-  setError(String error) {
+  setError(String? error) {
     _extraError = error;
     notifyListeners();
   }
@@ -162,4 +165,46 @@ class TextFieldController extends TextEditingController {
   String toString() {
     return 'TextFieldController{labelText: $labelText, keyboardType: $keyboardType, obscureText: $obscureText, errorRegex: $errorRegex, errorText: $errorText, visible: $visible, inputFormatters: $inputFormatters, _extraError: $_extraError}';
   }
+}
+
+bool isValidGermanIBAN(String iban) {
+  // Remove spaces and convert to uppercase
+  iban = iban.replaceAll(' ', '').toUpperCase();
+  // Check if the length is 22 characters
+  if (iban.length != 22) {
+    return false;
+  }
+
+  // Verify the country code
+  if (iban.substring(0, 2) != 'DE') {
+    return false;
+  }
+
+  // Verify that the remaining characters are digits
+  if (!iban.substring(2).contains(RegExp(r'^[0-9]*$'))) {
+    return false;
+  }
+
+  // Perform IBAN checksum validation
+
+  // Step 1: Rearrange the IBAN
+  String rearrangedIBAN = iban.substring(4) + iban.substring(0, 4);
+
+  // Step 2: Replace letters with numeric values
+  String numericIBAN = '';
+  for (int i = 0; i < rearrangedIBAN.length; i++) {
+    final char = rearrangedIBAN[i];
+    if (char.compareTo('0') >= 0 && char.compareTo('9') <= 0) {
+      numericIBAN += char;
+    } else {
+      numericIBAN += (char.codeUnitAt(0) - 'A'.codeUnitAt(0) + 10).toString();
+    }
+  }
+
+  // Step 3: Calculate the remainder
+  final countryCodeDigits = numericIBAN;
+  final remainder = BigInt.parse(countryCodeDigits) % BigInt.from(97);
+
+  // Step 4: Check if the remainder is 1
+  return remainder == BigInt.one;
 }
