@@ -2,7 +2,6 @@ library widgets;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
 import 'package:widgets/widgets.dart';
 
 extension WidgetBuildContextExtensions on BuildContext {
@@ -32,7 +31,7 @@ extension WidgetBuildContextExtensions on BuildContext {
       mediaQuery.size.height - safeArea.vertical;
 
   /// get theme config quickly
-  ThemeConfig get config => read<ThemeController>().config;
+  ThemeConfig get config => BlocProvider.of<ThemeController>(this).config;
 
   /// get brightness quickly
   Brightness get brightness => theme.brightness;
@@ -61,18 +60,21 @@ extension PageControllerExtension on PageController {
   int get currentPage => hasClients ? (page?.round() ?? 0) : 0;
 }
 
-extension StringExtension on String {
+extension StringExtension on String? {
   DateTime get dateTime {
-    var arr = split('.');
+    if (this == null || this == '') return DateTime.now();
+    var arr = this!.split('.');
     return DateTime(int.parse(arr[2]), int.parse(arr[1]), int.parse(arr[0]));
   }
 
-  String get intFormat => this == '' ? '0' : this;
+  String get intFormat => (this == null || this == '') ? '0' : this!;
 }
 
 extension DateTimeExtension on DateTime {
   String get str =>
       '${day.toString().padLeft(2, '0')}.${month.toString().padLeft(2, '0')}.${year.toString().padLeft(4, '0')}';
+  String get strNotYear =>
+      '${day.toString().padLeft(2, '0')}.${month.toString().padLeft(2, '0')}';
 }
 
 extension EdgeInsetsExtension on EdgeInsets {

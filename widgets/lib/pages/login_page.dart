@@ -137,6 +137,11 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ]),
           ),
+        ],
+      ),
+      bottomNavigationBar: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
           const DividerWidget('Or Login with'),
           Padding(
             padding: EdgeInsets.all(context.config.paddingH),

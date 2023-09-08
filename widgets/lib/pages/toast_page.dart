@@ -37,7 +37,7 @@ class ToastPage extends StatelessWidget {
                       config.padding,
                     ),
                     child: TextWidget(
-                      state.message!,
+                      state.message.toString(),
                       color: Colors.white,
                       weight: FontWeight.bold,
                     ),

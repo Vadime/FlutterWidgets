@@ -16,14 +16,16 @@ class Navigation {
   static Future<void> push({required Widget widget}) async =>
       await navigator.push(standardRoute(widget));
 
-  static Future<void> pushPopup({required Widget widget}) async {
+  static Future<void> pushPopup(
+      {required Widget widget, BuildContext? c}) async {
     return await showModalBottomSheet(
-      context: context,
+      context: c ?? context,
+      useRootNavigator: true,
       backgroundColor: Colors.transparent,
       showDragHandle: false,
       isScrollControlled: true,
       enableDrag: false,
-      barrierColor: context.brightness == Brightness.light
+      barrierColor: (c ?? context).brightness == Brightness.light
           ? Colors.black38
           : Colors.white38,
       builder: (context) => SafeArea(
