@@ -35,13 +35,13 @@ class OnboardingView extends StatelessWidget {
               height: context.mediaQuery.size.shortestSide / 2,
               radius: radius),
           const Spacer(),
-          Text(
+          TextWidget(
             title,
             style:
                 context.textTheme.titleLarge!.copyWith(color: foregroundColor),
           ),
           SizedBox(height: padding),
-          Text(
+          TextWidget(
             description,
             style:
                 context.textTheme.labelSmall!.copyWith(color: foregroundColor),

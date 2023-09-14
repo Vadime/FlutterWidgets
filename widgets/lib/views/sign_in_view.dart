@@ -14,17 +14,20 @@ class SignInView extends StatefulWidget {
   });
 
   @override
-  State<SignInView> createState() => _SignInViewState();
+  State<SignInView> createState() => SignInViewState();
 }
 
-class _SignInViewState extends State<SignInView> {
+class SignInViewState extends State<SignInView> {
   TextFieldController email = TextFieldController.email();
   TextFieldController password = TextFieldController.password();
 
+  signIn() async => await widget.signIn(email, password);
+
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return ColumnWidget(
       crossAxisAlignment: CrossAxisAlignment.stretch,
+      maxWidth: 600,
       children: [
         const Spacer(),
         LoginHeader(
@@ -36,6 +39,7 @@ class _SignInViewState extends State<SignInView> {
           ),
         ),
         CardWidget(
+          maxWidth: 600,
           margin: EdgeInsets.fromLTRB(
               context.config.padding,
               context.config.paddingH,
@@ -55,17 +59,7 @@ class _SignInViewState extends State<SignInView> {
                 context.config.padding, 0, context.config.padding, 0),
           ),
         ),
-        const Spacer(),
-        ElevatedButtonWidget(
-          'Sign In',
-          onPressed: () async => await widget.signIn(email, password),
-          margin: EdgeInsets.fromLTRB(
-            context.config.padding,
-            0,
-            context.config.padding,
-            context.config.padding,
-          ),
-        ),
+        const Spacer()
       ],
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:widgets/widgets.dart';
 
 class RefreshWidget extends StatelessWidget {
   final Widget child;
@@ -17,7 +18,7 @@ class RefreshWidget extends StatelessWidget {
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         color: Theme.of(context).primaryColor,
         strokeWidth: 2,
-        edgeOffset: MediaQuery.of(context).padding.top,
+        edgeOffset: context.mediaQuery.padding.top,
         onRefresh: onRefresh,
         child: child);
   }

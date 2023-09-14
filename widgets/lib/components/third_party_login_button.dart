@@ -19,7 +19,7 @@ class ThirdPartyLoginButton extends StatelessWidget {
             children: [
               Icon(icon),
               SizedBox(width: context.config.paddingH),
-              Text(text, style: context.textTheme.bodyMedium!),
+              TextWidget(text, style: context.textTheme.bodyMedium!),
               const SizedBox(width: 8),
             ],
           )),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:widgets/widgets/widgets.dart';
+import 'package:widgets/widgets.dart';
 
 class DividerWidget extends StatelessWidget {
   final String data;
@@ -28,7 +28,7 @@ class DividerWidget extends StatelessWidget {
               )),
               SizedBox(
                   width: innerHorizontalPadding ?? context.config.paddingH),
-              Text(
+              TextWidget(
                 data,
                 style: context.textTheme.labelMedium,
               ),

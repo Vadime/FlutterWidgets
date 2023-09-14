@@ -1,5 +1,8 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:widgets/widgets.dart';
 
 class ThemeConfig {
   final String title;
@@ -15,13 +18,13 @@ class ThemeConfig {
   final Color lightCardColor;
   final Color lightTextColor;
 
-  final double padding;
+  late final double padding;
   final double borderWidth = 4;
 
   final double radius;
   final double opacity;
 
-  const ThemeConfig({
+  ThemeConfig({
     required this.title,
     required this.logoLocation,
     required this.primaryColor,
@@ -37,6 +40,17 @@ class ThemeConfig {
     required this.radius,
     required this.padding,
   });
+
+  static ScreenSize get screenSize {
+    const double small = 1200;
+    const double medium = 1800;
+    FlutterView view = WidgetsBinding.instance.platformDispatcher.views.last;
+
+    final shortestSide = view.physicalSize.width;
+    if (shortestSide < small) return ScreenSize.small;
+    if (shortestSide < medium) return ScreenSize.medium;
+    return ScreenSize.large;
+  }
 
   ThemeConfig.standard({
     this.title = 'Standard App',
@@ -201,6 +215,9 @@ class ThemeConfig {
           color: textColor(brightness),
         ),
       ),
+      drawerTheme: const DrawerThemeData(
+        surfaceTintColor: Colors.transparent,
+      ),
       // input
       inputDecorationTheme: const InputDecorationTheme(
         border: InputBorder.none,
@@ -235,6 +252,10 @@ class ThemeConfig {
         buttonColor: primaryColor,
         textTheme: ButtonTextTheme.primary,
       ),
+      floatingActionButtonTheme: const FloatingActionButtonThemeData(
+        extendedPadding: EdgeInsets.zero,
+      ),
+
       iconButtonTheme: IconButtonThemeData(
           style: IconButton.styleFrom(
               //padding: EdgeInsets.zero,
@@ -352,7 +373,7 @@ class ThemeConfig {
         backgroundColor: cardColor(brightness).withOpacity(opacity),
         systemOverlayStyle: brightness == Brightness.light
             ? SystemUiOverlayStyle.light
-            : SystemUiOverlayStyle.dark, // TODO: fix this
+            : SystemUiOverlayStyle.dark,
         iconTheme: IconThemeData(
           color: textColor(brightness),
         ),
@@ -373,6 +394,7 @@ class ThemeConfig {
           fontSize: 14,
         ),
       ),
+
       // listtile
       listTileTheme: ListTileThemeData(
         contentPadding: EdgeInsets.fromLTRB(padding, 0, padding, 0),

@@ -21,7 +21,7 @@ class OnboardingPage extends StatefulWidget {
 
 class _OnboardingPageState extends State<OnboardingPage> {
   PageController pageController = PageController(initialPage: 0);
-
+  final Key _key = GlobalKey();
   int currentPage = 0;
 
   void onPageChanged(int page) => setState(() => currentPage = page);
@@ -35,11 +35,12 @@ class _OnboardingPageState extends State<OnboardingPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return ScaffoldWidget(
       backgroundColor: widget.views[currentPage].backgroundColor,
       body: Stack(
         children: [
           PageView.builder(
+            key: _key,
             itemCount: widget.views.length,
             itemBuilder: (context, index) => widget.views[index],
             controller: pageController,

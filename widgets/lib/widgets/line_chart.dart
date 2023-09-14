@@ -1,5 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:widgets/widgets.dart';
 
 class LineChartPoint extends FlSpot {
   LineChartPoint(int x, int y) : super(x.toDouble(), y.toDouble());
@@ -43,10 +44,11 @@ class LineChartWidget extends StatelessWidget {
         titlesData: FlTitlesData(
           bottomTitles: AxisTitles(
               drawBelowEverything: false,
-              axisNameWidget: bottomTitle == null ? null : Text(bottomTitle!),
+              axisNameWidget:
+                  bottomTitle == null ? null : TextWidget(bottomTitle!),
               sideTitles: SideTitles(
                   showTitles: true,
-                  getTitlesWidget: (d, w) => Text(
+                  getTitlesWidget: (d, w) => TextWidget(
                         (d.round() != d) ? '' : d.toInt().toString(),
                       ))),
           rightTitles:
@@ -54,11 +56,11 @@ class LineChartWidget extends StatelessWidget {
           topTitles:
               const AxisTitles(sideTitles: SideTitles(showTitles: false)),
           leftTitles: AxisTitles(
-              axisNameWidget: leftTitle == null ? null : Text(leftTitle!),
+              axisNameWidget: leftTitle == null ? null : TextWidget(leftTitle!),
               sideTitles: SideTitles(
                   showTitles: true,
-                  getTitlesWidget: (d, w) =>
-                      Text((d.round() != d) ? '' : d.toInt().toString()))),
+                  getTitlesWidget: (d, w) => TextWidget(
+                      (d.round() != d) ? '' : d.toInt().toString()))),
         ),
         borderData: FlBorderData(show: false)));
   }

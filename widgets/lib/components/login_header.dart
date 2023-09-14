@@ -14,7 +14,10 @@ class LoginHeader extends StatelessWidget {
           context.config.padding, 0, context.config.padding, 0),
       child: Row(
         mainAxisSize: MainAxisSize.min,
-        children: [Text(subtitle, style: context.textTheme.labelSmall), button],
+        children: [
+          TextWidget(subtitle, style: context.textTheme.labelSmall),
+          button
+        ],
       ),
     );
   }

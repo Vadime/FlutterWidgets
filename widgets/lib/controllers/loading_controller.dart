@@ -28,8 +28,8 @@ class LoadingController extends Cubit<AnimatedBool> {
     try {
       LoadingController().disableInput();
       await onWait?.call();
-    } catch (_) {
-      Logging.log('Error in loading process');
+    } catch (e, s) {
+      Logging.logDetails('Error in loading process', e, s);
     } finally {
       LoadingController().enableInput();
     }

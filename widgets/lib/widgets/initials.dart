@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:widgets/widgets/widgets.dart';
+import 'package:widgets/widgets.dart';
 
 class InitialsWidget extends StatelessWidget {
   final double size;
@@ -22,7 +22,7 @@ class InitialsWidget extends StatelessWidget {
                 context.theme.primaryColor.withOpacity(context.config.opacity),
             borderRadius: BorderRadius.circular(size / 2)),
         alignment: Alignment.center,
-        child: Text(initials,
+        child: TextWidget(initials,
             style: TextStyle(
                 fontSize: size / 2,
                 color: Colors.white,
