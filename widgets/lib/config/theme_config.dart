@@ -106,14 +106,13 @@ class ThemeConfig {
   // gen ThemeData
   ThemeData genTheme(Brightness brightness) {
     return ThemeData(
-      canvasColor: Colors.transparent,
+      canvasColor: backgroundColor(brightness),
       shadowColor: Colors.transparent,
       useMaterial3: true,
       // colors
       primaryColor: primaryColor,
       cardColor: cardColor(brightness),
       scaffoldBackgroundColor: backgroundColor(brightness),
-
       hintColor: neutralColor,
       dividerColor: neutralColor,
       indicatorColor: primaryColor,

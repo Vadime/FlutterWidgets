@@ -79,7 +79,11 @@ class Navigation {
   static Future<void> flush({required Widget widget}) async => await navigator
       .pushAndRemoveUntil(standardRoute(widget), (route) => false);
 
-  static void pop() {
-    navigator.pop();
+  static bool pop() {
+    if (navigator.canPop()) {
+      navigator.pop();
+      return true;
+    }
+    return false;
   }
 }

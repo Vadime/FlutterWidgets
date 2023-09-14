@@ -96,6 +96,7 @@ class UrlLauncher {
 
   static Future<bool> launchPdf(Uint8List data) async {
     File file = await _createTemporaryPDFFile(data);
+    Logging.log(file.path);
     return _launchUrl(Uri.parse(file.path));
   }
 
