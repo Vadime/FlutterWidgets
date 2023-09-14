@@ -13,9 +13,12 @@ class ListTileWidget extends StatelessWidget {
   final Color? backgroundColor;
   final Color? selectedColor;
   final TextOverflow? subtitleOverflow;
+  final double? maxWidth;
+  final List<Widget>? slideMenuItems;
+  final Color? foregroundColor;
   const ListTileWidget({
     this.margin = EdgeInsets.zero,
-    this.padding,
+    this.padding = EdgeInsets.zero,
     this.contentPadding = EdgeInsets.zero,
     this.title,
     this.subtitle,
@@ -25,11 +28,28 @@ class ListTileWidget extends StatelessWidget {
     this.backgroundColor,
     this.selectedColor,
     this.subtitleOverflow,
+    this.maxWidth,
+    this.slideMenuItems,
+    this.foregroundColor,
     super.key,
   });
 
   @override
-  Widget build(BuildContext context) => CardWidget.single(
+  Widget build(BuildContext context) {
+    if (maxWidth == null) {
+      return _build(context);
+    } else {
+      return Center(
+        child: ConstrainedBox(
+          constraints: BoxConstraints(maxWidth: maxWidth!),
+          child: _build(context),
+        ),
+      );
+    }
+  }
+
+  _build(BuildContext context) => CardWidget.single(
+        slideMenuItems: slideMenuItems,
         margin: margin,
         onTap: onTap,
         padding: padding ?? EdgeInsets.zero,
@@ -44,7 +64,11 @@ class ListTileWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     if (title != null)
-                      TextWidget(title!, style: context.textTheme.titleSmall),
+                      TextWidget(
+                        title!,
+                        style: context.textTheme.titleSmall,
+                        color: foregroundColor,
+                      ),
                     if (subtitle != null)
                       TextWidget(
                         subtitle!,

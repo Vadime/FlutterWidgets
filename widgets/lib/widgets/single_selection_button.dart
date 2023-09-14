@@ -43,7 +43,7 @@ class SingleSelectionButton<T> extends StatelessWidget {
                               context.config.paddingH,
                               context.config.paddingH / 2,
                             ),
-                            child: Text(
+                            child: TextWidget(
                               e.text,
                               style: state == e.value
                                   ? context.textTheme.bodyMedium!.copyWith(

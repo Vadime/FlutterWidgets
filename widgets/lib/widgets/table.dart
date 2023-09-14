@@ -1,8 +1,7 @@
 library widgets;
 
 import 'package:flutter/material.dart';
-import 'package:widgets/widgets/card.dart';
-import 'package:widgets/widgets/widgets.dart';
+import 'package:widgets/widgets.dart';
 
 class TableRowWidget {
   final List<String> cells;
@@ -23,7 +22,7 @@ class TableRowWidget {
           .map(
             (e) => Padding(
               padding: cellPadding ?? EdgeInsets.all(context.config.paddingH),
-              child: Text(e),
+              child: TextWidget(e),
             ),
           )
           .toList(),

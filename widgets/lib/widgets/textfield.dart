@@ -23,6 +23,7 @@ class TextFieldWidget extends StatefulWidget {
   final Iterable<String>? autofillHints;
   final EdgeInsets margin;
   final EdgeInsets? padding;
+  final double? maxWidth;
 
   const TextFieldWidget({
     this.controller,
@@ -44,6 +45,7 @@ class TextFieldWidget extends StatefulWidget {
     this.autofillHints,
     this.margin = EdgeInsets.zero,
     this.padding,
+    this.maxWidth,
     super.key,
   });
 
@@ -64,7 +66,20 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
   bool firstBuild = true;
 
   @override
-  Widget build(BuildContext context) => CardWidget.single(
+  Widget build(BuildContext context) {
+    if (widget.maxWidth == null) {
+      return _build(context);
+    } else {
+      return Center(
+        child: ConstrainedBox(
+          constraints: BoxConstraints(maxWidth: widget.maxWidth!),
+          child: _build(context),
+        ),
+      );
+    }
+  }
+
+  _build(BuildContext context) => CardWidget.single(
         margin: widget.margin,
         padding: widget.padding ??
             EdgeInsets.fromLTRB(context.config.padding, context.config.paddingH,
@@ -75,7 +90,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
             Expanded(
               child: TextField(
                 controller: widget.controller,
-                style: context.textTheme.bodyMedium,
+                style: context.textTheme.bodyMedium!,
                 decoration: InputDecoration(
                   border: InputBorder.none,
                   labelText: widget.controller?.labelText,

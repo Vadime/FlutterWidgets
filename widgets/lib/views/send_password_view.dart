@@ -11,15 +11,18 @@ class SendPasswordView extends StatefulWidget {
   });
 
   @override
-  State<SendPasswordView> createState() => _SendPasswordViewState();
+  State<SendPasswordView> createState() => SendPasswordViewState();
 }
 
-class _SendPasswordViewState extends State<SendPasswordView> {
+class SendPasswordViewState extends State<SendPasswordView> {
   TextFieldController email = TextFieldController.email();
+
+  sendPassword() async => await widget.sendPassword(email);
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return ColumnWidget(
+      maxWidth: 600,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         const Spacer(),
@@ -32,6 +35,7 @@ class _SendPasswordViewState extends State<SendPasswordView> {
           ),
         ),
         TextFieldWidget(
+          maxWidth: 600,
           controller: email,
           margin: EdgeInsets.fromLTRB(
               context.config.padding,
@@ -39,12 +43,7 @@ class _SendPasswordViewState extends State<SendPasswordView> {
               context.config.padding,
               context.config.paddingH),
         ),
-        const Spacer(),
-        ElevatedButtonWidget(
-          'Send Password',
-          onPressed: () async => await widget.sendPassword(email),
-          margin: EdgeInsets.all(context.config.padding),
-        ),
+        const Spacer()
       ],
     );
   }

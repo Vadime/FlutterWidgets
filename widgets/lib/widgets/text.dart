@@ -13,6 +13,7 @@ class TextWidget extends StatelessWidget {
   final Color? color;
   final double? size;
   final FontWeight? weight;
+  final double? maxWidth;
 
   const TextWidget(
     this.data, {
@@ -25,11 +26,25 @@ class TextWidget extends StatelessWidget {
     this.onTap,
     this.color,
     this.weight,
+    this.maxWidth,
     super.key,
   });
 
   @override
-  Widget build(BuildContext context) => GestureDetector(
+  Widget build(BuildContext context) {
+    if (maxWidth == null) {
+      return _build(context);
+    } else {
+      return Center(
+        child: ConstrainedBox(
+          constraints: BoxConstraints(maxWidth: maxWidth!),
+          child: _build(context),
+        ),
+      );
+    }
+  }
+
+  _build(BuildContext context) => GestureDetector(
         onTap: onTap,
         child: Padding(
           padding: margin,

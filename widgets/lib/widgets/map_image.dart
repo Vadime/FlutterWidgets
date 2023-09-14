@@ -43,7 +43,7 @@ class MapImageWidget extends StatelessWidget {
                   if (!snapshot.hasData) {
                     // return const AppShimmer(
                     //     child: CardWidget.single(backgroundColor: Colors.white70));
-                    return const Text('Loading...');
+                    return const TextWidget('Loading...');
                   }
 
                   geocoding.Location loc = snapshot.data!.first;

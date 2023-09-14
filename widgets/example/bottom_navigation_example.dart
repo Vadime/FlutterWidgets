@@ -6,27 +6,27 @@ void main(List<String> args) {
       home: BottomNavigationPage(
     initialIndex: 0,
     views: [
-      BottomNavigationView(
-          title: 'Work',
-          label: 'Work',
-          view: Center(child: Text('Work')),
-          icon: Icons.work,
-          actionIcon: Icons.add,
-          action: null),
-      BottomNavigationView(
-          title: 'Work',
-          label: 'Work',
-          view: Center(child: Text('Work')),
-          icon: Icons.work,
-          actionIcon: Icons.add,
-          action: null),
-      BottomNavigationView(
-          title: 'Work',
-          label: 'Work',
-          view: Center(child: Text('Work')),
-          icon: Icons.work,
-          actionIcon: Icons.add,
-          action: null),
+      // BottomNavigationView(
+      //     title: 'Work',
+      //     label: 'Work',
+      //     view: Center(child: Text('Work')),
+      //     icon: Icons.work,
+      //     actionIcon: Icons.add,
+      //     action: null),
+      // BottomNavigationView(
+      //     title: 'Work',
+      //     label: 'Work',
+      //     view: Center(child: Text('Work')),
+      //     icon: Icons.work,
+      //     actionIcon: Icons.add,
+      //     action: null),
+      // BottomNavigationView(
+      //     title: 'Work',
+      //     label: 'Work',
+      //     view: Center(child: Text('Work')),
+      //     icon: Icons.work,
+      //     actionIcon: Icons.add,
+      //     action: null),
     ],
   )));
 }
@@ -39,7 +39,7 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
-  TextFieldController controller = TextFieldController("Niggi");
+  TextFieldController controller = TextFieldController('Niggi');
 
   Function() listener = () {};
 

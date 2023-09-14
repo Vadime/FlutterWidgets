@@ -16,12 +16,16 @@ extension WidgetBuildContextExtensions on BuildContext {
 
   /// get safeArea quickly
   EdgeInsets get safeArea => MediaQuery.of(this).padding;
+  EdgeInsets get safeAreaLeftRight => MediaQuery.of(this).padding.copyWith(
+        top: 0,
+        bottom: 0,
+      );
 
   /// get bottom inset quickly
   double get bottomInset => MediaQuery.of(this).padding.bottom;
-
-  /// get top inset quickly
   double get topInset => MediaQuery.of(this).padding.top;
+  double get leftInset => MediaQuery.of(this).padding.left;
+  double get rightInset => MediaQuery.of(this).padding.right;
 
   /// get mediaQuery quickly
   MediaQueryData get mediaQuery => MediaQuery.of(this);
@@ -53,7 +57,7 @@ extension PageControllerExtension on PageController {
   void go(int page) => animateToPage(
         page,
         curve: Curves.easeInOut,
-        duration: const Duration(milliseconds: 200),
+        duration: const Duration(milliseconds: 400),
       );
 
   // get current page

@@ -14,21 +14,23 @@ class SignUpView extends StatefulWidget {
   });
 
   @override
-  State<SignUpView> createState() => _SignUpViewState();
+  State<SignUpView> createState() => SignUpViewState();
 }
 
-class _SignUpViewState extends State<SignUpView> {
+class SignUpViewState extends State<SignUpView> {
   TextFieldController email = TextFieldController.email();
   TextFieldController password = TextFieldController.password();
   CheckboxController agree = CheckboxController(false);
 
+  signUp() async => await widget.signUp(email, password, agree);
+
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return ColumnWidget(
+      maxWidth: 600,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         const Spacer(),
-
         LoginHeader(
           'Sign Up',
           'Already have an account? ',
@@ -61,17 +63,7 @@ class _SignUpViewState extends State<SignUpView> {
             ],
           ),
         ),
-        const Spacer(),
-        ElevatedButtonWidget(
-          'Sign Up',
-          onPressed: () async => await widget.signUp(email, password, agree),
-          margin: EdgeInsets.fromLTRB(
-            context.config.padding,
-            0,
-            context.config.padding,
-            context.config.padding,
-          ),
-        ),
+        const Spacer()
       ],
     );
   }

@@ -35,7 +35,7 @@ class TextButtonWidget extends StatelessWidget {
               onPressed?.call();
             }
           },
-          child: Text(text),
+          child: TextWidget(text),
         ),
       );
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:widgets/widgets/widgets.dart';
+import 'package:widgets/widgets.dart';
 
 class FailWidget extends StatelessWidget {
   final Object error;
@@ -7,7 +7,7 @@ class FailWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Center(
-        child: Text(
+        child: TextWidget(
           error.toString(),
           style: TextStyle(color: context.config.errorColor),
         ),

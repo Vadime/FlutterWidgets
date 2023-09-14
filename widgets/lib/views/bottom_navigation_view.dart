@@ -3,25 +3,17 @@ import 'package:widgets/widgets.dart';
 
 class BottomNavigationView {
   final String title;
-  final String label;
   final Widget view;
   final IconData icon;
-  final IconData? actionIcon;
-  final Function()? action;
+  final List<IconButtonWidget>? actions;
 
   const BottomNavigationView({
     required this.title,
-    required this.label,
     required this.view,
     required this.icon,
-    this.actionIcon,
-    this.action,
+    this.actions,
   });
 
-  BottomNavigationBarItem get bottomNavigationBarItem =>
-      BottomNavigationBarItem(icon: Icon(icon), label: title, tooltip: title);
-
-  Widget get actionButton => actionIcon != null
-      ? IconButtonWidget(actionIcon!, onPressed: action)
-      : const SizedBox.shrink();
+  NavigationBarItem get navigationBarItem =>
+      NavigationBarItem(icon: icon, label: title);
 }

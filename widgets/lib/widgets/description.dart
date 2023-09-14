@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:widgets/widgets/widgets.dart';
+import 'package:widgets/widgets.dart';
 
 class DescriptionWidget extends StatelessWidget {
   final IconData iconData;
@@ -26,7 +26,7 @@ class DescriptionWidget extends StatelessWidget {
                   width: context.config.paddingD,
                   color: context.config.neutralColor)),
           Flexible(
-              child: Text(desc,
+              child: TextWidget(desc,
                   style: context.textTheme.bodyMedium!
                       .copyWith(color: Colors.grey))),
         ]),
